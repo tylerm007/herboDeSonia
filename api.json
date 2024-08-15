@@ -1,7 +1,0 @@
-{
-    "name": "herboDeSonia",
-    "urlFragment": "hdsonia",
-    "comments": "falla el OR en búsqueda experta, Fecha>'04-01-2023'\n AND ImporteIVA>100",
-    "isEnabled": true,
-    "authProviderName": "Built-in authentication"
-}

@@ -1,8 +1,0 @@
-{
-    "name": "Count_Ventas_CAB",
-    "description": null,
-    "siblingRank": 100,
-    "resourceType": "FreeSQL",
-    "prefix": "main",
-    "isCollection": true
-}

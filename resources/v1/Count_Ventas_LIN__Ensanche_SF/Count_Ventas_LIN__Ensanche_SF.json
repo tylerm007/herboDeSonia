@@ -1,8 +1,0 @@
-{
-    "name": "Count_Ventas_LIN__Ensanche_SF",
-    "description": null,
-    "siblingRank": 100,
-    "resourceType": "FreeSQL",
-    "prefix": "main",
-    "isCollection": true
-}
