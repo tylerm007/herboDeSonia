@@ -1,0 +1,83 @@
+<o-breadcrumb [form]="VentasLINForm" label-columns="" separator=" "></o-breadcrumb>
+<o-form #VentasLINForm attr="VentasLIN_form_insert" service="VentasLIN" entity="VentasLIN" 
+keys="id" fxLayout="column" show-header="yes" header-actions="I"
+horizontal-scroll="yes"
+after-insert-mode="new" class="standalone-form-container" (onInsertMode)="onInsertMode()">
+
+<o-row attr="row1" layout-align="start stretch">
+  <div fxLayout="row wrap" fxLayoutAlign="start start" fxFlex fxLayoutGap="14px">
+    
+        <o-integer-input #id attr="id" label=" id*" type="integer" editable="no" required="no" ></o-integer-input>
+      
+        <o-text-input #Usuario attr="Usuario" label="Usuario" enabled="yes" required="no" fxFlex="20%" class="form-field"></o-text-input>
+      
+        <o-text-input #Tienda attr="Tienda" label="Tienda" enabled="yes" required="no" fxFlex="20%" class="form-field"></o-text-input>
+      
+        <o-text-input #Serie attr="Serie" label="Serie" enabled="yes" required="no" fxFlex="20%" class="form-field"></o-text-input>
+      
+        <o-integer-input #Nmero attr="Nmero" label="Nmero" type="integer" editable="no" required="no" ></o-integer-input>
+      
+        <o-text-input #VentaMostrador attr="VentaMostrador" label="VentaMostrador" enabled="yes" required="no" fxFlex="20%" class="form-field"></o-text-input>
+      
+        <o-date-input #FechaVenta attr="FechaVenta" type="date" label="FechaVenta" enabled="yes" required="no" format="LL" fxFlex="20%" class="form-field"></o-date-input>
+      
+        <o-text-input #Producto attr="Producto" label="Producto" enabled="yes" required="no" fxFlex="20%" class="form-field"></o-text-input>
+      
+        <o-text-input #CdigoBarras attr="CdigoBarras" label="CdigoBarras" enabled="yes" required="no" fxFlex="20%" class="form-field"></o-text-input>
+      
+        <o-integer-input #RefProducto attr="RefProducto" label="RefProducto" type="integer" editable="no" required="no" ></o-integer-input>
+      
+        <o-text-input #OLDRefProducto attr="OLDRefProducto" label="OLDRefProducto" enabled="yes" required="no" fxFlex="20%" class="form-field"></o-text-input>
+      
+        <o-text-input #FamiliaComercial attr="FamiliaComercial" label="FamiliaComercial" enabled="yes" required="no" fxFlex="20%" class="form-field"></o-text-input>
+      
+        <o-text-input #SubFamiliaComercial attr="SubFamiliaComercial" label="SubFamiliaComercial" enabled="yes" required="no" fxFlex="20%" class="form-field"></o-text-input>
+      
+        <o-text-input #Marca attr="Marca" label="Marca" enabled="yes" required="no" fxFlex="20%" class="form-field"></o-text-input>
+      
+        <o-text-input #CantidadVendida attr="CantidadVendida" label="CantidadVendida" enabled="yes" required="no" fxFlex="20%" class="form-field"></o-text-input>
+      
+        <o-text-input #LoteVendido attr="LoteVendido" label="LoteVendido" enabled="yes" required="no" fxFlex="20%" class="form-field"></o-text-input>
+      
+        <o-currency-input #ImporteTotal attr="ImporteTotal" title="ImporteTotal" type="currency" editable="no" required="no" currency-symbol="$" currency-symbol-position="left" thousand-separator="," decimal-separator="."></o-currency-input>
+      
+        <o-text-input #PrecioLnea attr="PrecioLnea" label="PrecioLnea" enabled="yes" required="no" fxFlex="20%" class="form-field"></o-text-input>
+      
+        <o-text-input #tpcIVA attr="tpcIVA" label="tpcIVA" enabled="yes" required="no" fxFlex="20%" class="form-field"></o-text-input>
+      
+        <o-text-input #NombreOferta attr="NombreOferta" label="NombreOferta" enabled="yes" required="no" fxFlex="20%" class="form-field"></o-text-input>
+      
+        <o-text-input #tpcDtoLnea attr="tpcDtoLnea" label="tpcDtoLnea" enabled="yes" required="no" fxFlex="20%" class="form-field"></o-text-input>
+      
+        <o-text-input #tpcDtoGlobal attr="tpcDtoGlobal" label="tpcDtoGlobal" enabled="yes" required="no" fxFlex="20%" class="form-field"></o-text-input>
+      
+        <o-text-input #tpcDtoPP attr="tpcDtoPP" label="tpcDtoPP" enabled="yes" required="no" fxFlex="20%" class="form-field"></o-text-input>
+      
+        <o-text-input #ImporteBruto attr="ImporteBruto" label="ImporteBruto" enabled="yes" required="no" fxFlex="20%" class="form-field"></o-text-input>
+      
+        <o-text-input #FacturaSN attr="FacturaSN" label="FacturaSN" enabled="yes" required="no" fxFlex="20%" class="form-field"></o-text-input>
+      
+        <o-text-input #FechaFactura attr="FechaFactura" label="FechaFactura" enabled="yes" required="no" fxFlex="20%" class="form-field"></o-text-input>
+      
+        <o-text-input #NombreRaznSocialCliente attr="NombreRaznSocialCliente" label="NombreRaznSocialCliente" enabled="yes" required="no" fxFlex="20%" class="form-field"></o-text-input>
+      
+        <o-text-input #NombreComercialCliente attr="NombreComercialCliente" label="NombreComercialCliente" enabled="yes" required="no" fxFlex="20%" class="form-field"></o-text-input>
+      
+        <o-integer-input #NCuentaCliente attr="NCuentaCliente" label="NCuentaCliente" type="integer" editable="no" required="no" ></o-integer-input>
+      
+        <o-text-input #TipoCliente attr="TipoCliente" label="TipoCliente" enabled="yes" required="no" fxFlex="20%" class="form-field"></o-text-input>
+      
+        <o-text-input #NIFCliente attr="NIFCliente" label="NIFCliente" enabled="yes" required="no" fxFlex="20%" class="form-field"></o-text-input>
+      
+        <o-text-input #Telfono attr="Telfono" label="Telfono" enabled="yes" required="no" fxFlex="20%" class="form-field"></o-text-input>
+      
+        <o-text-input #StockCantidad attr="StockCantidad" label="StockCantidad" enabled="yes" required="no" fxFlex="20%" class="form-field"></o-text-input>
+      
+        <o-text-input #FechaCaducidad attr="FechaCaducidad" label="FechaCaducidad" enabled="yes" required="no" fxFlex="20%" class="form-field"></o-text-input>
+      
+</div>
+</o-row>
+
+<div layout-padding></div>
+
+</o-form>

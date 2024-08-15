@@ -1,0 +1,849 @@
+about:
+  date: August 14, 2024 16:44:28
+  recent_changes: works with modified safrs-react-admin
+  version: 0.0.0
+api_root: '{http_type}://{swagger_host}:{port}/{api}'
+authentication: '{system-default}'
+entities:
+  Cliente:
+    columns:
+    - label: ' Tipo*'
+      name: Tipo
+      search: true
+      sort: true
+      template: text
+      type: TEXT COLLATE "utf8mb4_general_ci"
+    - name: FechaAlta
+      type: DATE
+    - name: TipoCliente
+      template: text
+      type: TEXT COLLATE "utf8mb4_general_ci"
+    - name: DNI_CIF
+      template: text
+      type: TEXT COLLATE "utf8mb4_general_ci"
+    - name: BIC
+      template: text
+      type: TEXT COLLATE "utf8mb4_general_ci"
+    - name: IBAN
+      template: text
+      type: TEXT COLLATE "utf8mb4_general_ci"
+    - name: NCuenta
+      template: integer
+      type: INTEGER
+    - name: NombreCorto
+      template: text
+      type: TEXT COLLATE "utf8mb4_general_ci"
+    - name: NombreCompleto
+      template: text
+      type: TEXT COLLATE "utf8mb4_general_ci"
+    - name: Calle
+      template: text
+      type: TEXT COLLATE "utf8mb4_general_ci"
+    - name: ExtCalle
+      template: text
+      type: TEXT COLLATE "utf8mb4_general_ci"
+    - name: Provincia
+      template: text
+      type: TEXT COLLATE "utf8mb4_general_ci"
+    - name: CodPostal
+      template: text
+      type: TEXT COLLATE "utf8mb4_general_ci"
+    - name: Tlf
+      template: text
+      type: TEXT COLLATE "utf8mb4_general_ci"
+    - name: Email
+      template: text
+      type: TEXT COLLATE "utf8mb4_general_ci"
+    - name: Web
+      template: text
+      type: TEXT COLLATE "utf8mb4_general_ci"
+    - name: FPago
+      template: text
+      type: TEXT COLLATE "utf8mb4_general_ci"
+    - name: CC
+      template: text
+      type: TEXT COLLATE "utf8mb4_general_ci"
+    - name: DtoGl
+      template: text
+      type: TEXT COLLATE "utf8mb4_general_ci"
+    - name: NCopFact
+      template: text
+      type: TEXT COLLATE "utf8mb4_general_ci"
+    - name: Contacto
+      template: text
+      type: TEXT COLLATE "utf8mb4_general_ci"
+    - name: Recomendado
+      template: text
+      type: TEXT COLLATE "utf8mb4_general_ci"
+    - name: Comentarios
+      template: text
+      type: TEXT COLLATE "utf8mb4_general_ci"
+    - name: Notific
+      template: text
+      type: TEXT COLLATE "utf8mb4_general_ci"
+    - name: DeBaja
+      template: text
+      type: TEXT COLLATE "utf8mb4_general_ci"
+    - name: FechaBaja
+      type: DATE
+    - name: CreadorPor
+      template: text
+      type: TEXT COLLATE "utf8mb4_general_ci"
+    - name: SumaVentas
+      template: currency
+      type: DECIMAL(11, 2)
+    - name: PuntosGenerados
+      template: integer
+      type: INTEGER
+    - name: PuntosUsados
+      template: integer
+      type: INTEGER
+    - name: SaldoParaPuntos
+      template: currency
+      type: DECIMAL(11, 2)
+    - name: Localidad
+      template: text
+      type: TEXT COLLATE "utf8mb4_general_ci"
+    detail_template: detail_template.html
+    exclude: 'false'
+    favorite: Tipo
+    home_template: home_template.html
+    mode: tab
+    new_template: new_template.html
+    primary_key:
+    - NCuenta
+    type: Cliente
+  ComprasCAB:
+    columns:
+    - label: ' Serie Nmero*'
+      name: SerieNmero
+      search: true
+      sort: true
+      template: text
+      type: VARCHAR(11) COLLATE "utf8mb4_general_ci"
+    - name: Fecha
+      template: date
+      type: DATETIME
+    - name: RaznSocial
+      template: text
+      type: TEXT COLLATE "utf8mb4_general_ci"
+    - name: BaseImponible
+      template: currency
+      type: DECIMAL(11, 2)
+    - name: ImporteIVA
+      template: currency
+      type: DECIMAL(11, 2)
+    - name: ImporteRecargoEq
+      template: currency
+      type: DECIMAL(11, 2)
+    - name: TotalAlbCompra
+      template: currency
+      type: DECIMAL(11, 2)
+    - name: idCabCompras
+      template: integer
+      type: INTEGER
+    - name: ImporteIVAReducido
+      template: currency
+      type: DECIMAL(11, 2)
+    - name: ImporteIVASuperReducido
+      template: currency
+      type: DECIMAL(11, 2)
+    - name: ImporteIVAAceitesPastas
+      template: currency
+      type: DECIMAL(11, 2)
+    - name: BaseIVAReducido
+      template: currency
+      type: DECIMAL(11, 2)
+    - name: BaseIVASuperReducido
+      template: currency
+      type: DECIMAL(11, 2)
+    - name: BaseIVAAceitesPastas
+      template: currency
+      type: DECIMAL(11, 2)
+    - name: BaseIVACero
+      template: currency
+      type: DECIMAL(11, 2)
+    - name: ImporteIVAGeneral
+      template: currency
+      type: DECIMAL(11, 2)
+    - name: BaseIVAGeneral
+      template: currency
+      type: DECIMAL(11, 2)
+    - name: TotalAlbCalculado
+      template: currency
+      type: DECIMAL(11, 2)
+    - name: tpcDtoProntoPago
+      template: currency
+      type: DECIMAL(5, 2)
+    - name: tpcDtoGlobal
+      template: currency
+      type: DECIMAL(5, 2)
+    - name: Tienda
+      template: text
+      type: TEXT COLLATE "utf8mb4_general_ci"
+    - name: NCuentaProveedor
+      template: integer
+      type: INTEGER
+    - name: idTienda
+      template: integer
+      type: SMALLINT
+    detail_template: detail_template.html
+    exclude: 'false'
+    favorite: SerieNmero
+    home_template: home_template.html
+    mode: tab
+    new_template: new_template.html
+    primary_key:
+    - idCabCompras
+    type: ComprasCAB
+  ComprasLIN:
+    columns:
+    - label: ' Tienda*'
+      name: Tienda
+      search: true
+      sort: true
+      template: text
+      type: TEXT COLLATE "utf8mb4_general_ci"
+    - name: NmeroAlbarn
+      template: integer
+      type: INTEGER
+    - name: AlbarnCompra
+      template: text
+      type: VARCHAR(11) COLLATE "utf8mb4_general_ci"
+    - name: NombreProveedor
+      template: text
+      type: TEXT COLLATE "utf8mb4_general_ci"
+    - name: FechaAlbarn
+      template: date
+      type: DATETIME
+    - name: ImporteAlbarn
+      template: currency
+      type: DECIMAL(11, 2)
+    - name: ReferenciaProducto
+      template: integer
+      type: INTEGER
+    - name: OLDReferenciaProducto
+      template: text
+      type: TEXT COLLATE "utf8mb4_general_ci"
+    - name: DescripciondelProducto
+      template: text
+      type: TEXT COLLATE "utf8mb4_general_ci"
+    - name: CdigodeBarras
+      template: integer
+      type: BIGINT
+    - name: PVPProducto
+      template: currency
+      type: DECIMAL(11, 2)
+    - name: PrecioLnea
+      template: currency
+      type: DECIMAL(11, 2)
+    - name: tpcIVA
+      template: currency
+      type: DECIMAL(11, 2)
+    - name: tpcDescuento1
+      template: currency
+      type: DECIMAL(5, 2)
+    - name: tpcDescuento2
+      template: currency
+      type: DECIMAL(5, 2)
+    - name: tpcDescuento3
+      template: currency
+      type: DECIMAL(5, 2)
+    - name: tpcDescuento4
+      template: currency
+      type: DECIMAL(5, 2)
+    - name: tpcDtoGlobal
+      template: currency
+      type: DECIMAL(5, 2)
+    - name: tpcDtoProntoPago
+      template: currency
+      type: DECIMAL(5, 2)
+    - name: Importe
+      template: currency
+      type: DECIMAL(11, 2)
+    - name: NCuentaProveedor
+      template: integer
+      type: INTEGER
+    - name: CantidadConCoste
+      template: integer
+      type: INTEGER
+    - name: CantidadGratis
+      template: integer
+      type: INTEGER
+    - name: PrecioCoste
+      template: currency
+      type: DECIMAL(11, 2)
+    - name: Lote
+      template: text
+      type: VARCHAR(20) COLLATE "utf8mb4_general_ci"
+    - name: idTienda
+      template: integer
+      type: SMALLINT
+    - name: FechaInventario
+      template: date
+      type: DATETIME
+    - name: Cantidad
+      template: integer
+      type: INTEGER
+    - name: id
+      template: integer
+      type: INTEGER
+    detail_template: detail_template.html
+    exclude: 'false'
+    favorite: Tienda
+    home_template: home_template.html
+    mode: tab
+    new_template: new_template.html
+    primary_key:
+    - id
+    type: ComprasLIN
+  Producto:
+    columns:
+    - label: ' Referencia*'
+      name: Referencia
+      search: true
+      sort: true
+      template: integer
+      type: INTEGER
+    - name: Descripcion
+      template: text
+      type: TEXT COLLATE "utf8mb4_general_ci"
+    - name: DescripcionBreve
+      template: text
+      type: TEXT COLLATE "utf8mb4_general_ci"
+    - name: CodBarras
+      template: text
+      type: TEXT COLLATE "utf8mb4_general_ci"
+    - name: CodGenerico
+      template: text
+      type: TEXT COLLATE "utf8mb4_general_ci"
+    - name: FechaCreacion
+      template: text
+      type: TEXT COLLATE "utf8mb4_general_ci"
+    - name: PVP
+      template: real
+      type: FLOAT
+    - name: PrecioCoste
+      template: real
+      type: FLOAT
+    - name: Familia
+      template: text
+      type: TEXT COLLATE "utf8mb4_general_ci"
+    - name: SubFam
+      template: text
+      type: TEXT COLLATE "utf8mb4_general_ci"
+    - name: Stock
+      template: real
+      type: FLOAT
+    - name: Ubicacion
+      template: text
+      type: TEXT COLLATE "utf8mb4_general_ci"
+    - name: IVA
+      template: text
+      type: TEXT COLLATE "utf8mb4_general_ci"
+    - name: Marca
+      template: text
+      type: TEXT COLLATE "utf8mb4_general_ci"
+    - name: Proveedor
+      template: text
+      type: TEXT COLLATE "utf8mb4_general_ci"
+    - name: Descatalogado
+      template: text
+      type: TEXT COLLATE "utf8mb4_general_ci"
+    - name: PublicarWeb
+      template: text
+      type: TEXT COLLATE "utf8mb4_general_ci"
+    - name: OfertaWeb
+      template: text
+      type: TEXT COLLATE "utf8mb4_general_ci"
+    - name: NovedadWeb
+      template: text
+      type: TEXT COLLATE "utf8mb4_general_ci"
+    - name: tipoIVA
+      template: integer
+      type: SMALLINT
+    - name: FechaUltPVP
+      template: date
+      type: DATETIME
+    detail_template: detail_template.html
+    exclude: 'false'
+    favorite: Referencia
+    home_template: home_template.html
+    mode: tab
+    new_template: new_template.html
+    primary_key:
+    - Referencia
+    type: Producto
+  Proveedor:
+    columns:
+    - label: ' D N I C I F*'
+      name: DNICIF
+      search: true
+      sort: true
+      template: text
+      type: TEXT COLLATE "utf8mb4_general_ci"
+    - name: RSocial
+      template: text
+      type: TEXT COLLATE "utf8mb4_general_ci"
+    - name: TipoProv
+      template: text
+      type: TEXT COLLATE "utf8mb4_general_ci"
+    - name: FPago
+      template: text
+      type: TEXT COLLATE "utf8mb4_general_ci"
+    - name: Facturacin
+      template: text
+      type: TEXT COLLATE "utf8mb4_general_ci"
+    - name: Provincia
+      template: text
+      type: TEXT COLLATE "utf8mb4_general_ci"
+    - name: NCuenta
+      template: integer
+      type: INTEGER
+    - name: Calle
+      template: text
+      type: TEXT COLLATE "utf8mb4_general_ci"
+    - name: ExtCalle
+      template: text
+      type: TEXT COLLATE "utf8mb4_general_ci"
+    - name: CPost
+      template: integer
+      type: INTEGER
+    - name: E_mail
+      template: text
+      type: TEXT COLLATE "utf8mb4_general_ci"
+    - name: Web
+      template: text
+      type: TEXT COLLATE "utf8mb4_general_ci"
+    - name: BIC
+      template: text
+      type: TEXT COLLATE "utf8mb4_general_ci"
+    - name: IBAN
+      template: text
+      type: TEXT COLLATE "utf8mb4_general_ci"
+    - name: CC
+      template: text
+      type: TEXT COLLATE "utf8mb4_general_ci"
+    - name: Tlf1
+      template: text
+      type: TEXT COLLATE "utf8mb4_general_ci"
+    - name: Tlf2
+      template: text
+      type: TEXT COLLATE "utf8mb4_general_ci"
+    - name: Mvil
+      template: integer
+      type: INTEGER
+    - name: Fax
+      template: text
+      type: TEXT COLLATE "utf8mb4_general_ci"
+    - name: Contacto
+      template: text
+      type: TEXT COLLATE "utf8mb4_general_ci"
+    - name: Comentarios
+      template: text
+      type: TEXT COLLATE "utf8mb4_general_ci"
+    - name: Notific
+      template: text
+      type: TEXT COLLATE "utf8mb4_general_ci"
+    - name: Debaja
+      template: text
+      type: TEXT COLLATE "utf8mb4_general_ci"
+    - name: Localidad
+      template: text
+      type: TEXT COLLATE "utf8mb4_general_ci"
+    detail_template: detail_template.html
+    exclude: 'false'
+    favorite: DNICIF
+    home_template: home_template.html
+    mode: tab
+    new_template: new_template.html
+    primary_key:
+    - NCuenta
+    type: Proveedor
+  StockTienda:
+    columns:
+    - label: ' I D*'
+      name: ID
+      required: true
+      search: true
+      sort: true
+      template: integer
+      type: INTEGER
+    - name: Tienda
+      required: true
+      template: text
+      type: VARCHAR(20) COLLATE "utf8mb4_general_ci"
+    - name: Referencia
+      template: integer
+      type: INTEGER
+    - name: Marca
+      template: text
+      type: TEXT COLLATE "utf8mb4_general_ci"
+    - name: Producto
+      template: text
+      type: TEXT COLLATE "utf8mb4_general_ci"
+    - name: ltimaVenta
+      type: DATE
+    - name: ltimaCompra
+      type: DATE
+    - name: Unidades
+      template: real
+      type: FLOAT
+    - name: PrecioCoste
+      template: real
+      type: FLOAT
+    - name: PrecioCosteConIVA
+      template: real
+      type: FLOAT
+    - name: PrecioCosteConIVA_Recargo
+      template: real
+      type: FLOAT
+    - name: PCM
+      template: real
+      type: FLOAT
+    - name: PCMconIVA
+      template: real
+      type: FLOAT
+    - name: PCMconIVA_Recargo
+      template: real
+      type: FLOAT
+    - name: PVP
+      template: real
+      type: FLOAT
+    - name: PVPsinIVA
+      template: real
+      type: FLOAT
+    - name: idTienda
+      template: integer
+      type: SMALLINT
+    - name: StockInicial
+      template: integer
+      type: INTEGER
+    - name: Entradas
+      template: integer
+      type: INTEGER
+    - name: Salidas
+      template: integer
+      type: INTEGER
+    - name: Stock
+      template: integer
+      type: INTEGER
+    - name: FechaInventario
+      template: date
+      type: DATETIME
+    detail_template: detail_template.html
+    exclude: 'false'
+    favorite: ID
+    home_template: home_template.html
+    mode: tab
+    new_template: new_template.html
+    primary_key:
+    - Referencia
+    - idTienda
+    type: StockTienda
+  Tienda:
+    columns:
+    - label: ' S T O R E D V A L U E*'
+      name: STOREDVALUE
+      search: true
+      sort: true
+      template: integer
+      type: INTEGER
+    - name: DISPLAYVALUE
+      template: text
+      type: VARCHAR(20) COLLATE "utf8mb4_general_ci"
+    detail_template: detail_template.html
+    exclude: 'false'
+    favorite: STOREDVALUE
+    home_template: home_template.html
+    mode: tab
+    new_template: new_template.html
+    primary_key:
+    - STOREDVALUE
+    type: Tienda
+  TraspasosLIN:
+    columns:
+    - label: ' Origen*'
+      name: Origen
+      search: true
+      sort: true
+      template: text
+      type: TEXT COLLATE "utf8mb4_general_ci"
+    - name: Destino
+      template: text
+      type: TEXT COLLATE "utf8mb4_general_ci"
+    - name: Nmero
+      template: integer
+      type: INTEGER
+    - name: Producto
+      template: text
+      type: TEXT COLLATE "utf8mb4_general_ci"
+    - name: FechaTraspaso
+      template: date
+      type: DATETIME
+    - name: PedidoProveedor
+      template: text
+      type: TEXT COLLATE "utf8mb4_general_ci"
+    - name: Referencia
+      template: integer
+      type: INTEGER
+    - name: Cantidad
+      template: integer
+      type: INTEGER
+    detail_template: detail_template.html
+    exclude: 'false'
+    favorite: Origen
+    home_template: home_template.html
+    mode: tab
+    new_template: new_template.html
+    primary_key:
+    - Nmero
+    type: TraspasosLIN
+  VentasCAB:
+    columns:
+    - label: ' Usuario*'
+      name: Usuario
+      search: true
+      sort: true
+      template: text
+      type: TEXT COLLATE "utf8mb4_general_ci"
+    - name: Tienda
+      template: text
+      type: TEXT COLLATE "utf8mb4_general_ci"
+    - name: Serie
+      template: text
+      type: TEXT COLLATE "utf8mb4_general_ci"
+    - name: Nmero
+      template: integer
+      type: INTEGER
+    - name: VentaMostrador
+      template: text
+      type: TEXT COLLATE "utf8mb4_general_ci"
+    - name: FechaVenta
+      template: date
+      type: DATETIME
+    - name: ImporteTotal
+      template: real
+      type: FLOAT
+    - name: PrecioLnea
+      template: real
+      type: FLOAT
+    - name: NombreOferta
+      template: text
+      type: TEXT COLLATE "utf8mb4_general_ci"
+    - name: tpcDtoGlobal
+      template: real
+      type: FLOAT
+    - name: tpcDtoPP
+      template: real
+      type: FLOAT
+    - name: ImporteBruto
+      template: real
+      type: FLOAT
+    - name: FacturaSN
+      template: text
+      type: TEXT COLLATE "utf8mb4_general_ci"
+    - name: FechaFactura
+      template: text
+      type: TEXT COLLATE "utf8mb4_general_ci"
+    - name: NombreRaznSocialCliente
+      template: text
+      type: TEXT COLLATE "utf8mb4_general_ci"
+    - name: NombreComercialCliente
+      template: text
+      type: TEXT COLLATE "utf8mb4_general_ci"
+    - name: NCuentaCliente
+      template: integer
+      type: INTEGER
+    - name: TipoCliente
+      template: text
+      type: TEXT COLLATE "utf8mb4_general_ci"
+    - name: NIFCliente
+      template: text
+      type: TEXT COLLATE "utf8mb4_general_ci"
+    - name: Telfono
+      template: text
+      type: TEXT COLLATE "utf8mb4_general_ci"
+    - name: ImporteIVASuperReducido
+      template: real
+      type: FLOAT
+    - name: ImporteIVAReducido
+      template: real
+      type: FLOAT
+    - name: ImporteIVAAceitesPastas
+      template: real
+      type: FLOAT
+    - name: ImporteIVAGeneral
+      template: real
+      type: FLOAT
+    - name: BaseIVACero
+      template: real
+      type: FLOAT
+    - name: BaseIVASuperReducido
+      template: real
+      type: FLOAT
+    - name: BaseIVAReducido
+      template: real
+      type: FLOAT
+    - name: BaseIVAAceitesPastas
+      template: real
+      type: FLOAT
+    - name: BaseIVAGeneral
+      template: real
+      type: FLOAT
+    - name: NumeroLineas
+      template: integer
+      type: INTEGER
+    - name: TieneValesDto
+      template: text
+      type: BIT
+    - name: Puntos
+      template: integer
+      type: INTEGER
+    detail_template: detail_template.html
+    exclude: 'false'
+    favorite: Usuario
+    home_template: home_template.html
+    mode: tab
+    new_template: new_template.html
+    primary_key:
+    - Nmero
+    type: VentasCAB
+  VentasLIN:
+    columns:
+    - label: ' id*'
+      name: id
+      search: true
+      sort: true
+      template: integer
+      type: INTEGER
+    - name: Usuario
+      template: text
+      type: TEXT COLLATE "utf8mb4_general_ci"
+    - name: Tienda
+      template: text
+      type: TEXT COLLATE "utf8mb4_general_ci"
+    - name: Serie
+      template: text
+      type: TEXT COLLATE "utf8mb4_general_ci"
+    - name: Nmero
+      template: integer
+      type: INTEGER
+    - name: VentaMostrador
+      template: text
+      type: TEXT COLLATE "utf8mb4_general_ci"
+    - name: FechaVenta
+      template: date
+      type: DATETIME
+    - name: Producto
+      template: text
+      type: TEXT COLLATE "utf8mb4_general_ci"
+    - name: CdigoBarras
+      template: text
+      type: TEXT COLLATE "utf8mb4_general_ci"
+    - name: RefProducto
+      template: integer
+      type: INTEGER
+    - name: OLDRefProducto
+      template: text
+      type: TEXT COLLATE "utf8mb4_general_ci"
+    - name: FamiliaComercial
+      template: text
+      type: TEXT COLLATE "utf8mb4_general_ci"
+    - name: SubFamiliaComercial
+      template: text
+      type: TEXT COLLATE "utf8mb4_general_ci"
+    - name: Marca
+      template: text
+      type: TEXT COLLATE "utf8mb4_general_ci"
+    - name: CantidadVendida
+      template: real
+      type: FLOAT
+    - name: LoteVendido
+      template: text
+      type: TEXT COLLATE "utf8mb4_general_ci"
+    - name: ImporteTotal
+      template: real
+      type: FLOAT
+    - name: PrecioLnea
+      template: real
+      type: FLOAT
+    - name: tpcIVA
+      template: real
+      type: FLOAT
+    - name: NombreOferta
+      template: text
+      type: TEXT COLLATE "utf8mb4_general_ci"
+    - name: tpcDtoLnea
+      template: real
+      type: FLOAT
+    - name: tpcDtoGlobal
+      template: real
+      type: FLOAT
+    - name: tpcDtoPP
+      template: real
+      type: FLOAT
+    - name: ImporteBruto
+      template: real
+      type: FLOAT
+    - name: FacturaSN
+      template: text
+      type: TEXT COLLATE "utf8mb4_general_ci"
+    - name: FechaFactura
+      template: text
+      type: TEXT COLLATE "utf8mb4_general_ci"
+    - name: NombreRaznSocialCliente
+      template: text
+      type: TEXT COLLATE "utf8mb4_general_ci"
+    - name: NombreComercialCliente
+      template: text
+      type: TEXT COLLATE "utf8mb4_general_ci"
+    - name: NCuentaCliente
+      template: integer
+      type: INTEGER
+    - name: TipoCliente
+      template: text
+      type: TEXT COLLATE "utf8mb4_general_ci"
+    - name: NIFCliente
+      template: text
+      type: TEXT COLLATE "utf8mb4_general_ci"
+    - name: Telfono
+      template: text
+      type: TEXT COLLATE "utf8mb4_general_ci"
+    - name: StockCantidad
+      template: real
+      type: FLOAT
+    - name: FechaCaducidad
+      template: text
+      type: TEXT COLLATE "utf8mb4_general_ci"
+    detail_template: detail_template.html
+    exclude: 'false'
+    favorite: id
+    home_template: home_template.html
+    mode: tab
+    new_template: new_template.html
+    primary_key:
+    - id
+    type: VentasLIN
+settings:
+  HomeJS: http://localhost:5656/admin-app/home.js
+  max_list_columns: 8
+  style_guide:
+    currency_symbol: $
+    currency_symbol_position: left
+    date_format: LL
+    decimal_max: '1000000000'
+    decimal_min: '0'
+    decimal_separator: .
+    edit_on_mode: dblclick
+    include_translation: false
+    keycloak_client_id: alsclient
+    keycloak_realm: kcals
+    keycloak_url: http://localhost:8080
+    max_decimal_digits: '4'
+    min_decimal_digits: '2'
+    mode: tab
+    pick_style: list
+    style: light
+    thousand_separator: ','
+    use_keycloak: false

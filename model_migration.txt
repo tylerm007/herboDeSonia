@@ -1,0 +1,150 @@
+# LAC Version: 5.x
+# Model Migration for LAC project herboDeSonia 
+
+
+
+=========================
+       FILTERS 
+=========================
+# migration not supported
+
+=========================
+       REQUEST_EVENTS 
+=========================
+
+=========================
+       SECURITY 
+=========================
+# see security/system/declare_security.py.gen
+# User: demo Role: ['Full access']
+# User: guest Role: ['Read only']
+# User: admin Role: ['Full access']
+
+=========================
+       TIMERS 
+=========================
+# migration not supported
+
+=========================
+       RESOURCES 
+=========================
+# see api/customize_api.py.gen
+
+=========================
+       LIBRARIES 
+=========================
+
+=========================
+       README.MD 
+=========================
+
+=========================
+       CONNECTIONS 
+=========================
+
+=========================
+       RELATIONSHIPS.JSON 
+=========================
+# This is informational only
+Cliente = relationship('main:Cliente, remote_side=[NCuentaCliente] ,cascade_backrefs=True, backref='main:Ventas_LIN')
+Ventas_LIN_List = relationship('main:Ventas_LIN, remote_side=[NCuenta] ,cascade_backrefs=True, backref='main:Cliente')
+Compras_CAB = relationship('main:Compras_CAB, remote_side=[AlbaránCompra] ,cascade_backrefs=True, backref='main:Compras_LIN')
+Compras_LIN_List = relationship('main:Compras_LIN, remote_side=[SerieNúmero] ,cascade_backrefs=True, backref='main:Compras_CAB')
+Producto = relationship('main:Producto, remote_side=[ReferenciaProducto] ,cascade_backrefs=True, backref='main:Compras_LIN')
+Compras_LIN_List = relationship('main:Compras_LIN, remote_side=[Referencia] ,cascade_backrefs=True, backref='main:Producto')
+Producto_1 = relationship('main:Producto, remote_side=[Referencia] ,cascade_backrefs=True, backref='main:StockTienda')
+StockTienda_List = relationship('main:StockTienda, remote_side=[Referencia] ,cascade_backrefs=True, backref='main:Producto')
+Producto_1 = relationship('main:Producto, remote_side=[Referencia] ,cascade_backrefs=True, backref='main:Traspasos_LIN')
+Traspasos_LIN_List = relationship('main:Traspasos_LIN, remote_side=[Referencia] ,cascade_backrefs=True, backref='main:Producto')
+Producto_1 = relationship('main:Producto, remote_side=[RefProducto] ,cascade_backrefs=True, backref='main:Ventas_LIN')
+Ventas_LIN_List = relationship('main:Ventas_LIN, remote_side=[Referencia] ,cascade_backrefs=True, backref='main:Producto')
+Proveedor = relationship('main:Proveedor, remote_side=[NºCuentaProveedor] ,cascade_backrefs=True, backref='main:Compras_CAB')
+Compras_CAB_List = relationship('main:Compras_CAB, remote_side=[NºCuenta] ,cascade_backrefs=True, backref='main:Proveedor')
+Proveedor = relationship('main:Proveedor, remote_side=[NºCuentaProveedor] ,cascade_backrefs=True, backref='main:Compras_LIN')
+Compras_LIN_List = relationship('main:Compras_LIN, remote_side=[NºCuenta] ,cascade_backrefs=True, backref='main:Proveedor')
+StockTienda = relationship('main:StockTienda, remote_side=[idTienda] ,cascade_backrefs=True, backref='main:Compras_LIN')
+Compras_LIN_List = relationship('main:Compras_LIN, remote_side=[idTienda] ,cascade_backrefs=True, backref='main:StockTienda')
+StockTienda = relationship('main:StockTienda, remote_side=[Referencia] ,cascade_backrefs=True, backref='main:Traspasos_LIN')
+Traspasos_LIN_List_DESTINO = relationship('main:Traspasos_LIN, remote_side=[Referencia] ,cascade_backrefs=True, backref='main:StockTienda')
+StockTienda_1 = relationship('main:StockTienda, remote_side=[Referencia] ,cascade_backrefs=True, backref='main:Traspasos_LIN')
+Traspasos_LIN_List_ORIGEN = relationship('main:Traspasos_LIN, remote_side=[Referencia] ,cascade_backrefs=True, backref='main:StockTienda')
+StockTienda = relationship('main:StockTienda, remote_side=[RefProducto] ,cascade_backrefs=True, backref='main:Ventas_LIN')
+Ventas_LIN_List = relationship('main:Ventas_LIN, remote_side=[Referencia] ,cascade_backrefs=True, backref='main:StockTienda')
+Ventas_CAB = relationship('main:Ventas_CAB, remote_side=[Número] ,cascade_backrefs=True, backref='main:Ventas_LIN')
+Ventas_LIN_List = relationship('main:Ventas_LIN, remote_side=[Número] ,cascade_backrefs=True, backref='main:Ventas_CAB')
+
+=========================
+       APPLICATIONS 
+=========================
+# migration not supported
+
+=========================
+       RULES 
+=========================
+# see logic/declare_logic.py.gen
+
+=========================
+       FUNCTIONS 
+=========================
+
+=========================
+       DATA_SOURCES 
+=========================
+# see api/customize_api_tables.py.gen for table based resource API
+#=========================
+#        SQL Tables 
+#=========================
+# This is informational only of the database schema, tables, columns
+------------------------------------------------------------
+Database: MARIADB 
+  URL:jdbc:mariadb://localhost:3306/herboDeSonia 
+  User: herbosonia Schema: None
+------------------------------------------------------------
+
+=========================
+       CUSTOM_ENDPOINTS 
+=========================
+# add a custom endpoint to /api/customize_api_tables.py
+#Pipeline: timemoto type: unknown appliesTo: {'get': True, 'put': False, 'post': True, 'delete': False} restrictedTo: 
+def fn_pipeline_{name}(result: dict) -> dict:
+'''
+IOUtils = Java.type("org.apache.commons.io.IOUtils")
+StandardCharsets = Java.type("java.nio.charset.StandardCharsets")
+inputStream = request.getInputStream()
+
+# get the payload
+
+result = IOUtils.toString(inputStream, StandardCharsets.UTF_8)
+json = json.loads(result)
+
+# Accede a cada campo individualmente
+
+id = json.id
+userFullName = json.data.userFullName
+sequence = json.sequence
+
+# add additional code to process payload
+#result = IOUtils.toString(inputStream, StandardCharsets.UTF_8)
+logic_row.log(' inputStream '+ result + ">>>>")
+#logic_row.log(' result ' + result)
+
+res = {result else  'Hello', id  else id, userFullName else userFullName
+return jsonify(res)
+
+'''
+
+
+=========================
+       LISTENERS 
+=========================
+# migration not supported
+
+=========================
+       SORTS 
+=========================
+# migration not supported
+
+=========================
+       TOPICS 
+=========================
+# migration not supported

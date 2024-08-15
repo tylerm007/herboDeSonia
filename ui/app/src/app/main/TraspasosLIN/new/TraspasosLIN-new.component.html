@@ -1,0 +1,31 @@
+<o-breadcrumb [form]="TraspasosLINForm" label-columns="" separator=" "></o-breadcrumb>
+<o-form #TraspasosLINForm attr="TraspasosLIN_form_insert" service="TraspasosLIN" entity="TraspasosLIN" 
+keys="Nmero" fxLayout="column" show-header="yes" header-actions="I"
+horizontal-scroll="yes"
+after-insert-mode="new" class="standalone-form-container" (onInsertMode)="onInsertMode()">
+
+<o-row attr="row1" layout-align="start stretch">
+  <div fxLayout="row wrap" fxLayoutAlign="start start" fxFlex fxLayoutGap="14px">
+    
+        <o-text-input #Origen attr="Origen" label=" Origen*" enabled="yes" required="no" fxFlex="20%" class="form-field"></o-text-input>
+      
+        <o-text-input #Destino attr="Destino" label="Destino" enabled="yes" required="no" fxFlex="20%" class="form-field"></o-text-input>
+      
+        <o-integer-input #Nmero attr="Nmero" label="Nmero" type="integer" editable="no" required="no" ></o-integer-input>
+      
+        <o-text-input #Producto attr="Producto" label="Producto" enabled="yes" required="no" fxFlex="20%" class="form-field"></o-text-input>
+      
+        <o-date-input #FechaTraspaso attr="FechaTraspaso" type="date" label="FechaTraspaso" enabled="yes" required="no" format="LL" fxFlex="20%" class="form-field"></o-date-input>
+      
+        <o-text-input #PedidoProveedor attr="PedidoProveedor" label="PedidoProveedor" enabled="yes" required="no" fxFlex="20%" class="form-field"></o-text-input>
+      
+        <o-integer-input #Referencia attr="Referencia" label="Referencia" type="integer" editable="no" required="no" ></o-integer-input>
+      
+        <o-integer-input #Cantidad attr="Cantidad" label="Cantidad" type="integer" editable="no" required="no" ></o-integer-input>
+      
+</div>
+</o-row>
+
+<div layout-padding></div>
+
+</o-form>

@@ -1,0 +1,28 @@
+
+from database import models
+import database
+import safrs
+import logging
+from security.system.authorization import Grant, Security, DefaultRolePermission
+
+db = safrs.DB
+session = db.session
+
+app_logger = logging.getLogger(__name__)
+
+class Roles():
+	APIDocumentation = 'API Documentation'
+	Readonly = 'Read only'
+	Fullaccess = 'Full access'
+
+#Role: APIDocumentation TablePermission: A
+DefaultRolePermission(to_role='APIDocumentation', can_read=True, can_insert=True , can_update=True , can_delete=True)
+
+#Role: Readonly TablePermission: R
+DefaultRolePermission(to_role='Readonly', can_read=True, can_insert=False , can_update=False , can_delete=False)
+
+#Role: Fullaccess TablePermission: A
+DefaultRolePermission(to_role='Fullaccess', can_read=True, can_insert=True , can_update=True , can_delete=True)
+
+
+

@@ -1,0 +1,95 @@
+#=============================================================================================
+#    ALS may change the name of tables (entity) - so create a endpoint with original name
+#    copy to als api/customize_api.py
+#=============================================================================================
+
+@app.route('/rest/default/herboDeSonia/v1/Cliente', methods=['GET', 'POST','PUT','OPTIONS'])
+@admin_required()
+@jwt_required()
+@cross_origin(supports_credentials=True)
+def Cliente():
+	root = CustomEndpoint(model_class=models.Cliente)
+	result = root.execute(request)
+	return root.transform('LAC', 'cliente', result)
+
+@app.route('/rest/default/herboDeSonia/v1/Compras_CAB', methods=['GET', 'POST','PUT','OPTIONS'])
+@admin_required()
+@jwt_required()
+@cross_origin(supports_credentials=True)
+def ComprasCAB():
+	root = CustomEndpoint(model_class=models.ComprasCAB)
+	result = root.execute(request)
+	return root.transform('LAC', 'comprascab', result)
+
+@app.route('/rest/default/herboDeSonia/v1/Compras_LIN', methods=['GET', 'POST','PUT','OPTIONS'])
+@admin_required()
+@jwt_required()
+@cross_origin(supports_credentials=True)
+def ComprasLIN():
+	root = CustomEndpoint(model_class=models.ComprasLIN)
+	result = root.execute(request)
+	return root.transform('LAC', 'compraslin', result)
+
+@app.route('/rest/default/herboDeSonia/v1/Producto', methods=['GET', 'POST','PUT','OPTIONS'])
+@admin_required()
+@jwt_required()
+@cross_origin(supports_credentials=True)
+def Producto():
+	root = CustomEndpoint(model_class=models.Producto)
+	result = root.execute(request)
+	return root.transform('LAC', 'producto', result)
+
+@app.route('/rest/default/herboDeSonia/v1/Proveedor', methods=['GET', 'POST','PUT','OPTIONS'])
+@admin_required()
+@jwt_required()
+@cross_origin(supports_credentials=True)
+def Proveedor():
+	root = CustomEndpoint(model_class=models.Proveedor)
+	result = root.execute(request)
+	return root.transform('LAC', 'proveedor', result)
+
+@app.route('/rest/default/herboDeSonia/v1/StockTienda', methods=['GET', 'POST','PUT','OPTIONS'])
+@admin_required()
+@jwt_required()
+@cross_origin(supports_credentials=True)
+def StockTienda():
+	root = CustomEndpoint(model_class=models.StockTienda)
+	result = root.execute(request)
+	return root.transform('LAC', 'stocktienda', result)
+
+@app.route('/rest/default/herboDeSonia/v1/Tienda', methods=['GET', 'POST','PUT','OPTIONS'])
+@admin_required()
+@jwt_required()
+@cross_origin(supports_credentials=True)
+def Tienda():
+	root = CustomEndpoint(model_class=models.Tienda)
+	result = root.execute(request)
+	return root.transform('LAC', 'tienda', result)
+
+@app.route('/rest/default/herboDeSonia/v1/Traspasos_LIN', methods=['GET', 'POST','PUT','OPTIONS'])
+@admin_required()
+@jwt_required()
+@cross_origin(supports_credentials=True)
+def TraspasosLIN():
+	root = CustomEndpoint(model_class=models.TraspasosLIN)
+	result = root.execute(request)
+	return root.transform('LAC', 'traspasoslin', result)
+
+@app.route('/rest/default/herboDeSonia/v1/Ventas_CAB', methods=['GET', 'POST','PUT','OPTIONS'])
+@admin_required()
+@jwt_required()
+@cross_origin(supports_credentials=True)
+def VentasCAB():
+	root = CustomEndpoint(model_class=models.VentasCAB)
+	result = root.execute(request)
+	return root.transform('LAC', 'ventascab', result)
+
+@app.route('/rest/default/herboDeSonia/v1/Ventas_LIN', methods=['GET', 'POST','PUT','OPTIONS'])
+@admin_required()
+@jwt_required()
+@cross_origin(supports_credentials=True)
+def VentasLIN():
+	root = CustomEndpoint(model_class=models.VentasLIN)
+	result = root.execute(request)
+	return root.transform('LAC', 'ventaslin', result)
+

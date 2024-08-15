@@ -1,0 +1,26 @@
+<div class="container">
+<o-form-container breadcrumb="yes" breadcrumb-label-columns="STOREDVALUE" breadcrumb-separator=", " class="fill-form">
+      <o-form #form attr="Tienda_form_edit" 
+        service="Tienda" 
+        entity="Tienda" 
+        fxLayout="column" 
+        show-header="yes" 
+        header-actions="R;I;U;D"
+        #oDetailForm keys="STOREDVALUE" 
+        keys-sql-types="INTEGER" 
+        show-header-navigation="yes"
+        (onDataLoaded)="onDataLoaded($event)">
+
+  <o-row attr="row1" layout-align="start stretch">
+    <div fxLayout="row wrap" fxLayoutAlign="start start" fxFlex fxLayoutGap="14px">
+      
+      <o-integer-input #STOREDVALUE attr="STOREDVALUE" label=" S T O R E D V A L U E*" type="integer" editable="no" required="no" ></o-integer-input>
+      
+      <o-text-input #DISPLAYVALUE attr="DISPLAYVALUE" label="DISPLAYVALUE" enabled="yes" required="no" fxFlex="20%" class="form-field"></o-text-input>
+      
+    </div>
+  </o-row>
+      
+    </o-form>
+  </o-form-container>
+</div>

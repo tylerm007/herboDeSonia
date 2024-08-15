@@ -1,0 +1,342 @@
+about:
+  date: August 14, 2024 16:44:28
+  merged:
+    at: August 15, 2024 11:29:03
+    new_attributes: ''
+    new_resources: ''
+    new_tab_groups: ''
+  recent_changes: works with modified safrs-react-admin
+  version: 0.0.0
+api_root: '{http_type}://{swagger_host}:{port}/{api}'
+authentication: '{system-default}'
+info:
+  number_relationships: 0
+  number_tables: 10
+resources:
+  Cliente:
+    attributes:
+    - label: ' Tipo*'
+      name: Tipo
+      search: true
+      sort: true
+    - name: FechaAlta
+      type: DATE
+    - name: TipoCliente
+    - name: DNI_CIF
+    - name: BIC
+    - name: IBAN
+    - name: NCuenta
+    - name: NombreCorto
+    - name: NombreCompleto
+    - name: Calle
+    - name: ExtCalle
+    - name: Provincia
+    - name: CodPostal
+    - name: Tlf
+    - name: Email
+    - name: Web
+    - name: FPago
+    - name: CC
+    - name: DtoGl
+    - name: NCopFact
+    - name: Contacto
+    - name: Recomendado
+    - name: Comentarios
+    - name: Notific
+    - name: DeBaja
+    - name: FechaBaja
+      type: DATE
+    - name: CreadorPor
+    - name: SumaVentas
+    - name: PuntosGenerados
+    - name: PuntosUsados
+    - name: SaldoParaPuntos
+    - name: Localidad
+    type: Cliente
+    user_key: Tipo
+  ComprasCAB:
+    attributes:
+    - label: ' Serie Nmero*'
+      name: SerieNmero
+      search: true
+      sort: true
+    - name: Fecha
+    - name: RaznSocial
+    - name: BaseImponible
+    - name: ImporteIVA
+    - name: ImporteRecargoEq
+    - name: TotalAlbCompra
+    - name: idCabCompras
+    - name: ImporteIVAReducido
+    - name: ImporteIVASuperReducido
+    - name: ImporteIVAAceitesPastas
+    - name: BaseIVAReducido
+    - name: BaseIVASuperReducido
+    - name: BaseIVAAceitesPastas
+    - name: BaseIVACero
+    - name: ImporteIVAGeneral
+    - name: BaseIVAGeneral
+    - name: TotalAlbCalculado
+    - name: tpcDtoProntoPago
+    - name: tpcDtoGlobal
+    - name: Tienda
+    - name: NCuentaProveedor
+    - name: idTienda
+    type: ComprasCAB
+    user_key: SerieNmero
+  ComprasLIN:
+    attributes:
+    - label: ' Tienda*'
+      name: Tienda
+      search: true
+      sort: true
+    - name: NmeroAlbarn
+    - name: AlbarnCompra
+    - name: NombreProveedor
+    - name: FechaAlbarn
+    - name: ImporteAlbarn
+    - name: ReferenciaProducto
+    - name: OLDReferenciaProducto
+    - name: DescripciondelProducto
+    - name: CdigodeBarras
+    - name: PVPProducto
+    - name: PrecioLnea
+    - name: tpcIVA
+    - name: tpcDescuento1
+    - name: tpcDescuento2
+    - name: tpcDescuento3
+    - name: tpcDescuento4
+    - name: tpcDtoGlobal
+    - name: tpcDtoProntoPago
+    - name: Importe
+    - name: NCuentaProveedor
+    - name: CantidadConCoste
+    - name: CantidadGratis
+    - name: PrecioCoste
+    - name: Lote
+    - name: idTienda
+    - name: FechaInventario
+    - name: Cantidad
+    - name: id
+    type: ComprasLIN
+    user_key: Tienda
+  Producto:
+    attributes:
+    - label: ' Referencia*'
+      name: Referencia
+      search: true
+      sort: true
+    - name: Descripcion
+    - name: DescripcionBreve
+    - name: CodBarras
+    - name: CodGenerico
+    - name: FechaCreacion
+    - name: PVP
+    - name: PrecioCoste
+    - name: Familia
+    - name: SubFam
+    - name: Stock
+    - name: Ubicacion
+    - name: IVA
+    - name: Marca
+    - name: Proveedor
+    - name: Descatalogado
+    - name: PublicarWeb
+    - name: OfertaWeb
+    - name: NovedadWeb
+    - name: tipoIVA
+    - name: FechaUltPVP
+    type: Producto
+    user_key: Referencia
+  Proveedor:
+    attributes:
+    - label: ' D N I C I F*'
+      name: DNICIF
+      search: true
+      sort: true
+    - name: RSocial
+    - name: TipoProv
+    - name: FPago
+    - name: Facturacin
+    - name: Provincia
+    - name: NCuenta
+    - name: Calle
+    - name: ExtCalle
+    - name: CPost
+    - name: E_mail
+    - name: Web
+    - name: BIC
+    - name: IBAN
+    - name: CC
+    - name: Tlf1
+    - name: Tlf2
+    - name: Mvil
+    - name: Fax
+    - name: Contacto
+    - name: Comentarios
+    - name: Notific
+    - name: Debaja
+    - name: Localidad
+    type: Proveedor
+    user_key: DNICIF
+  StockTienda:
+    attributes:
+    - label: ' I D*'
+      name: ID
+      required: true
+      search: true
+      sort: true
+    - name: Tienda
+      required: true
+    - name: Referencia
+    - name: Marca
+    - name: Producto
+    - name: ltimaVenta
+      type: DATE
+    - name: ltimaCompra
+      type: DATE
+    - name: Unidades
+    - name: PrecioCoste
+    - name: PrecioCosteConIVA
+    - name: PrecioCosteConIVA_Recargo
+    - name: PCM
+    - name: PCMconIVA
+    - name: PCMconIVA_Recargo
+    - name: PVP
+    - name: PVPsinIVA
+    - name: idTienda
+    - name: StockInicial
+    - name: Entradas
+    - name: Salidas
+    - name: Stock
+    - name: FechaInventario
+    type: StockTienda
+    user_key: ID
+  Tienda:
+    attributes:
+    - label: ' S T O R E D V A L U E*'
+      name: STOREDVALUE
+      search: true
+      sort: true
+    - name: DISPLAYVALUE
+    type: Tienda
+    user_key: STOREDVALUE
+  TraspasosLIN:
+    attributes:
+    - label: ' Origen*'
+      name: Origen
+      search: true
+      sort: true
+    - name: Destino
+    - name: Nmero
+    - name: Producto
+    - name: FechaTraspaso
+    - name: PedidoProveedor
+    - name: Referencia
+    - name: Cantidad
+    type: TraspasosLIN
+    user_key: Origen
+  VentasCAB:
+    attributes:
+    - label: ' Usuario*'
+      name: Usuario
+      search: true
+      sort: true
+    - name: Tienda
+    - name: Serie
+    - name: Nmero
+    - name: VentaMostrador
+    - name: FechaVenta
+    - name: ImporteTotal
+    - name: PrecioLnea
+    - name: NombreOferta
+    - name: tpcDtoGlobal
+    - name: tpcDtoPP
+    - name: ImporteBruto
+    - name: FacturaSN
+    - name: FechaFactura
+    - name: NombreRaznSocialCliente
+    - name: NombreComercialCliente
+    - name: NCuentaCliente
+    - name: TipoCliente
+    - name: NIFCliente
+    - name: Telfono
+    - name: ImporteIVASuperReducido
+    - name: ImporteIVAReducido
+    - name: ImporteIVAAceitesPastas
+    - name: ImporteIVAGeneral
+    - name: BaseIVACero
+    - name: BaseIVASuperReducido
+    - name: BaseIVAReducido
+    - name: BaseIVAAceitesPastas
+    - name: BaseIVAGeneral
+    - name: NumeroLineas
+    - name: TieneValesDto
+    - name: Puntos
+    type: VentasCAB
+    user_key: Usuario
+  VentasLIN:
+    attributes:
+    - label: ' id*'
+      name: id
+      search: true
+      sort: true
+    - name: Usuario
+    - name: Tienda
+    - name: Serie
+    - name: Nmero
+    - name: VentaMostrador
+    - name: FechaVenta
+    - name: Producto
+    - name: CdigoBarras
+    - name: RefProducto
+    - name: OLDRefProducto
+    - name: FamiliaComercial
+    - name: SubFamiliaComercial
+    - name: Marca
+    - name: CantidadVendida
+    - name: LoteVendido
+    - name: ImporteTotal
+    - name: PrecioLnea
+    - name: tpcIVA
+    - name: NombreOferta
+    - name: tpcDtoLnea
+    - name: tpcDtoGlobal
+    - name: tpcDtoPP
+    - name: ImporteBruto
+    - name: FacturaSN
+    - name: FechaFactura
+    - name: NombreRaznSocialCliente
+    - name: NombreComercialCliente
+    - name: NCuentaCliente
+    - name: TipoCliente
+    - name: NIFCliente
+    - name: Telfono
+    - name: StockCantidad
+    - name: FechaCaducidad
+    type: VentasLIN
+    user_key: id
+settings:
+  HomeJS: http://localhost:5656/admin-app/home.js
+  max_list_columns: 8
+  style_guide:
+    currency_symbol: $
+    currency_symbol_position: left
+    date_format: LL
+    decimal_max: '10000000'
+    decimal_min: '0'
+    decimal_separator: .
+    detail_mode: tab
+    edit_on_mode: dblclick
+    include_translation: 'false'
+    keycloak_client_id: alsclient
+    keycloak_realm: kcals
+    keycloak_url: http://localhost:8080
+    max_decimal_digits: '4'
+    min_decimal_digits: '2'
+    new_mode: dialog
+    pick_style: list
+    row_height: small,
+    style: light
+    thousand_separator: ','
+    use_keycloak: 'false'

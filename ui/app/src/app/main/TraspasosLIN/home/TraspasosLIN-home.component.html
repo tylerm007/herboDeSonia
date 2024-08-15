@@ -1,0 +1,45 @@
+<o-form attr="TraspasosLIN" mode="tab" title="{{ 'TRASPASOSLIN' | oTranslate }}" class="fill-form">
+    <div fxFill fxLayout="column" fxLayoutAlign="start">
+        <o-table 
+            attr="TraspasosLINTable" 
+            service="TraspasosLIN" 
+            entity="TraspasosLIN" 
+            title="{{ 'TRASPASOSLIN' | oTranslate }}"
+            keys="Nmero"
+            columns="Origen;Destino;Nmero;Producto;FechaTraspaso;PedidoProveedor;Referencia;Cantidad" 
+            header-actions="R;D"
+            visible-columns="Origen;Destino;Nmero;Producto;FechaTraspaso;PedidoProveedor;Referencia;Cantidad"  
+            sort-columns="Origen" 
+            query-rows="20" 
+            quick-filter="yes"
+            row-height="medium" 
+            select-all-checkbox="true" 
+            pageable="yes"  
+            auto-adjust="true" 
+            virtual-scroll="yes" 
+            edition-mode="dblclick"
+            horizontal-scroll="yes"
+            show-title="yes"
+            export-button="yes">
+            
+            <o-table-column #Origen attr="Origen" title=" Origen*" editable="no" required="no" content-align="left"></o-table-column>
+            
+            <o-table-column #Destino attr="Destino" title="Destino" editable="no" required="no" content-align="left"></o-table-column>
+            
+            <o-table-column #Nmero attr="Nmero" title="Nmero" type="integer" editable="no" required="no" content-align="center"></o-table-column>
+            
+            <o-table-column #Producto attr="Producto" title="Producto" editable="no" required="no" content-align="left"></o-table-column>
+            
+            <o-date-input #FechaTraspaso attr="FechaTraspaso" type="date" label="FechaTraspaso" enabled="yes" required="no" format="LL" fxFlex="20%" class="form-field"></o-date-input>
+            
+            <o-table-column #PedidoProveedor attr="PedidoProveedor" title="PedidoProveedor" editable="no" required="no" content-align="left"></o-table-column>
+            
+            <o-table-column #Referencia attr="Referencia" title="Referencia" type="integer" editable="no" required="no" content-align="center"></o-table-column>
+            
+            <o-table-column #Cantidad attr="Cantidad" title="Cantidad" type="integer" editable="no" required="no" content-align="center"></o-table-column>
+            
+            <o-table-context-menu></o-table-context-menu>
+            <o-table-paginator page-size-options="24;48;96"></o-table-paginator>
+        </o-table>
+    </div>
+</o-form>

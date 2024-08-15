@@ -1,0 +1,1840 @@
+
+from functools import wraps
+import logging
+import yaml
+from pathlib import Path
+from flask_cors import cross_origin
+import util
+import safrs
+from flask import request, jsonify
+from flask_jwt_extended import get_jwt, jwt_required, verify_jwt_in_request
+from safrs import jsonapi_rpc
+from sqlalchemy import and_, or_
+from sqlalchemy.sql import text
+from database import models
+from api.system.custom_endpoint import CustomEndpoint, DotDict
+from security.system.authorization import Security
+from api.system.free_sql import FreeSQL
+from api.system.javascript import JavaScript
+from config import Args
+import json
+
+
+app_logger = logging.getLogger(__name__)
+
+db = safrs.DB  # valid only after is initialized, above
+session = db.session
+
+def add_service(app, api, project_dir, swagger_host: str, PORT: str, method_decorators ):
+    pass
+
+#FreeSQL resource: Count_Ventas_CAB ResourceType: FreeSQL isActive: True
+@app.route('/rest/default/herboDeSonia/v1/count_ventas_cab', methods=['GET','OPTIONS'])
+@jwt_required()
+@cross_origin(supports_credentials=True)
+def count_ventas_cab():
+	sql = get_Count_Ventas_CAB(request)
+	return FreeSQL(sqlExpression=sql).execute(request)
+
+def get_count_ventas_cab(request):
+	args = request.args
+	argValue = args.get("filter", "1=1")
+	return 'SELECT count(*) FROM `Ventas_CAB` WHERE :WHERE '.replace(":WHERE", argValue )
+
+#FreeSQL resource: Count_Traspasos_LIN__Rivas_Vaciamadrid_SF ResourceType: FreeSQL isActive: True
+@app.route('/rest/default/herboDeSonia/v1/count_traspasos_lin__rivas_vaciamadrid_sf', methods=['GET','OPTIONS'])
+@jwt_required()
+@cross_origin(supports_credentials=True)
+def count_traspasos_lin__rivas_vaciamadrid_sf():
+	sql = get_Count_Traspasos_LIN__Rivas_Vaciamadrid_SF(request)
+	return FreeSQL(sqlExpression=sql).execute(request)
+
+def get_count_traspasos_lin__rivas_vaciamadrid_sf(request):
+	args = request.args
+	argValue = args.get("filter", "1=1")
+	return 'SELECT count(*) FROM `Traspasos_LIN` WHERE :WHERE AND (``Origen`` = 'RIVAS VACIAMADRID' OR``Destino`` = 'RIVAS VACIAMADRID') '.replace(":WHERE", argValue )
+
+#FreeSQL resource: Count_Compras_LIN__Rivas_Vaciamadrid_SF ResourceType: FreeSQL isActive: True
+@app.route('/rest/default/herboDeSonia/v1/count_compras_lin__rivas_vaciamadrid_sf', methods=['GET','OPTIONS'])
+@jwt_required()
+@cross_origin(supports_credentials=True)
+def count_compras_lin__rivas_vaciamadrid_sf():
+	sql = get_Count_Compras_LIN__Rivas_Vaciamadrid_SF(request)
+	return FreeSQL(sqlExpression=sql).execute(request)
+
+def get_count_compras_lin__rivas_vaciamadrid_sf(request):
+	args = request.args
+	argValue = args.get("filter", "1=1")
+	return 'SELECT count(*) FROM `Compras_LIN` WHERE :WHERE AND `Tienda` ="RIVAS VACIAMADRID" '.replace(":WHERE", argValue )
+
+#FreeSQL resource: Count_Compras_CAB ResourceType: FreeSQL isActive: True
+@app.route('/rest/default/herboDeSonia/v1/count_compras_cab', methods=['GET','OPTIONS'])
+@jwt_required()
+@cross_origin(supports_credentials=True)
+def count_compras_cab():
+	sql = get_Count_Compras_CAB(request)
+	return FreeSQL(sqlExpression=sql).execute(request)
+
+def get_count_compras_cab(request):
+	args = request.args
+	argValue = args.get("filter", "1=1")
+	return 'SELECT count(*) FROM `Compras_CAB` WHERE :WHERE '.replace(":WHERE", argValue )
+
+#FreeSQL resource: Count_Compras_LIN__Santa_Eugenia_SF ResourceType: FreeSQL isActive: True
+@app.route('/rest/default/herboDeSonia/v1/count_compras_lin__santa_eugenia_sf', methods=['GET','OPTIONS'])
+@jwt_required()
+@cross_origin(supports_credentials=True)
+def count_compras_lin__santa_eugenia_sf():
+	sql = get_Count_Compras_LIN__Santa_Eugenia_SF(request)
+	return FreeSQL(sqlExpression=sql).execute(request)
+
+def get_count_compras_lin__santa_eugenia_sf(request):
+	args = request.args
+	argValue = args.get("filter", "1=1")
+	return 'SELECT count(*) FROM `Compras_LIN` WHERE :WHERE AND Tienda ="Santa Eugenia" '.replace(":WHERE", argValue )
+
+@app.route('/rest/default/herboDeSonia/v1/CR-Tienda__PICK', methods=['GET','POST','PUT','OPTIONS'])
+#@admin_required()
+@jwt_required()
+@cross_origin(supports_credentials=True)
+def CR-Tienda__PICK():
+	root = CustomEndpoint(model_class=models.CRTiendaPick,alias="CR-Tienda__PICK"
+		,fields=[ (models.CRTiendaPick.STOREDVALUE, "STOREDVALUE"), (models.CRTiendaPick.DISPLAYVALUE, "DISPLAYVALUE")]
+	)
+	result = root.execute(request)
+	return root.transform('LAC', 'CR-Tienda__PICK', result)
+
+#FreeSQL resource: Count_Compras_LIN__Barajas_SF ResourceType: FreeSQL isActive: True
+@app.route('/rest/default/herboDeSonia/v1/count_compras_lin__barajas_sf', methods=['GET','OPTIONS'])
+@jwt_required()
+@cross_origin(supports_credentials=True)
+def count_compras_lin__barajas_sf():
+	sql = get_Count_Compras_LIN__Barajas_SF(request)
+	return FreeSQL(sqlExpression=sql).execute(request)
+
+def get_count_compras_lin__barajas_sf(request):
+	args = request.args
+	argValue = args.get("filter", "1=1")
+	return 'SELECT count(*) FROM `Compras_LIN` WHERE :WHERE AND `Tienda` ="Barajas" '.replace(":WHERE", argValue )
+
+#FreeSQL resource: Count_Producto ResourceType: FreeSQL isActive: True
+@app.route('/rest/default/herboDeSonia/v1/count_producto', methods=['GET','OPTIONS'])
+@jwt_required()
+@cross_origin(supports_credentials=True)
+def count_producto():
+	sql = get_Count_Producto(request)
+	return FreeSQL(sqlExpression=sql).execute(request)
+
+def get_count_producto(request):
+	args = request.args
+	argValue = args.get("filter", "1=1")
+	return 'SELECT count(*) FROM `Producto` WHERE :WHERE '.replace(":WHERE", argValue )
+
+#FreeSQL resource: Count_Ventas_LIN__Palomeras_SF ResourceType: FreeSQL isActive: True
+@app.route('/rest/default/herboDeSonia/v1/count_ventas_lin__palomeras_sf', methods=['GET','OPTIONS'])
+@jwt_required()
+@cross_origin(supports_credentials=True)
+def count_ventas_lin__palomeras_sf():
+	sql = get_Count_Ventas_LIN__Palomeras_SF(request)
+	return FreeSQL(sqlExpression=sql).execute(request)
+
+def get_count_ventas_lin__palomeras_sf(request):
+	args = request.args
+	argValue = args.get("filter", "1=1")
+	return 'SELECT count(*) FROM `Ventas_LIN` WHERE :WHERE AND `Tienda` ="Palomeras" '.replace(":WHERE", argValue )
+
+#FreeSQL resource: Count_Tienda ResourceType: FreeSQL isActive: True
+@app.route('/rest/default/herboDeSonia/v1/count_tienda', methods=['GET','OPTIONS'])
+@jwt_required()
+@cross_origin(supports_credentials=True)
+def count_tienda():
+	sql = get_Count_Tienda(request)
+	return FreeSQL(sqlExpression=sql).execute(request)
+
+def get_count_tienda(request):
+	args = request.args
+	argValue = args.get("filter", "1=1")
+	return 'SELECT count(*) FROM `Tienda` WHERE :WHERE '.replace(":WHERE", argValue )
+
+#FreeSQL resource: Count_Compras_LIN__Palomeras_SF ResourceType: FreeSQL isActive: True
+@app.route('/rest/default/herboDeSonia/v1/count_compras_lin__palomeras_sf', methods=['GET','OPTIONS'])
+@jwt_required()
+@cross_origin(supports_credentials=True)
+def count_compras_lin__palomeras_sf():
+	sql = get_Count_Compras_LIN__Palomeras_SF(request)
+	return FreeSQL(sqlExpression=sql).execute(request)
+
+def get_count_compras_lin__palomeras_sf(request):
+	args = request.args
+	argValue = args.get("filter", "1=1")
+	return 'SELECT count(*) FROM `Compras_LIN` WHERE :WHERE AND `Tienda` ="Palomeras" '.replace(":WHERE", argValue )
+
+#FreeSQL resource: Count_Compras_LIN__CComercial_SF ResourceType: FreeSQL isActive: True
+@app.route('/rest/default/herboDeSonia/v1/count_compras_lin__ccomercial_sf', methods=['GET','OPTIONS'])
+@jwt_required()
+@cross_origin(supports_credentials=True)
+def count_compras_lin__ccomercial_sf():
+	sql = get_Count_Compras_LIN__CComercial_SF(request)
+	return FreeSQL(sqlExpression=sql).execute(request)
+
+def get_count_compras_lin__ccomercial_sf(request):
+	args = request.args
+	argValue = args.get("filter", "1=1")
+	return 'SELECT count(*) FROM `Compras_LIN` WHERE :WHERE AND `Tienda` ="Centro Comercial" '.replace(":WHERE", argValue )
+
+#FreeSQL resource: Count_Traspasos_LIN__Palomeras_SF ResourceType: FreeSQL isActive: True
+@app.route('/rest/default/herboDeSonia/v1/count_traspasos_lin__palomeras_sf', methods=['GET','OPTIONS'])
+@jwt_required()
+@cross_origin(supports_credentials=True)
+def count_traspasos_lin__palomeras_sf():
+	sql = get_Count_Traspasos_LIN__Palomeras_SF(request)
+	return FreeSQL(sqlExpression=sql).execute(request)
+
+def get_count_traspasos_lin__palomeras_sf(request):
+	args = request.args
+	argValue = args.get("filter", "1=1")
+	return 'SELECT count(*) FROM `Traspasos_LIN` WHERE :WHERE AND (`Origen` = 'Palomeras' OR `Destino` = 'Palomeras') '.replace(":WHERE", argValue )
+
+#FreeSQL resource: Count_Ventas_LIN__Santa_Eugenia_SF ResourceType: FreeSQL isActive: True
+@app.route('/rest/default/herboDeSonia/v1/count_ventas_lin__santa_eugenia_sf', methods=['GET','OPTIONS'])
+@jwt_required()
+@cross_origin(supports_credentials=True)
+def count_ventas_lin__santa_eugenia_sf():
+	sql = get_Count_Ventas_LIN__Santa_Eugenia_SF(request)
+	return FreeSQL(sqlExpression=sql).execute(request)
+
+def get_count_ventas_lin__santa_eugenia_sf(request):
+	args = request.args
+	argValue = args.get("filter", "1=1")
+	return 'SELECT count(*) FROM `Ventas_LIN` WHERE :WHERE AND Tienda ="Santa Eugenia" '.replace(":WHERE", argValue )
+
+#FreeSQL resource: Count_Cliente ResourceType: FreeSQL isActive: True
+@app.route('/rest/default/herboDeSonia/v1/count_cliente', methods=['GET','OPTIONS'])
+@jwt_required()
+@cross_origin(supports_credentials=True)
+def count_cliente():
+	sql = get_Count_Cliente(request)
+	return FreeSQL(sqlExpression=sql).execute(request)
+
+def get_count_cliente(request):
+	args = request.args
+	argValue = args.get("filter", "1=1")
+	return 'SELECT count(*) FROM `Cliente` WHERE :WHERE '.replace(":WHERE", argValue )
+
+@app.route('/rest/default/herboDeSonia/v1/CR-Producto', methods=['GET','POST','PUT','OPTIONS'])
+#@admin_required()
+@jwt_required()
+@cross_origin(supports_credentials=True)
+def CR-Producto():
+	root = CustomEndpoint(model_class=models.CRProducto,alias="CR-Producto"
+		,fields=[ (models.CRProducto.Referencia, "Referencia"), (models.CRProducto.Descripcion, "Descripcion"), (models.CRProducto.DescripcionBreve, "DescripcionBreve"), (models.CRProducto.CodBarras, "CodBarras"), (models.CRProducto.CodGenerico, "CodGenerico"), (models.CRProducto.FechaCreacion, "FechaCreacion"), (models.CRProducto.PrecioCoste, "PrecioCoste"), (models.CRProducto.SubFam, "SubFam"), (models.CRProducto.Ubicacion, "Ubicacion"), (models.CRProducto.PublicarWeb, "PublicarWeb"), (models.CRProducto.OfertaWeb, "OfertaWeb"), (models.CRProducto.NovedadWeb, "NovedadWeb"), (models.CRProducto.PVP, "PVP"), (models.CRProducto.FechaUltPVP, "FechaUltPVP"), (models.CRProducto.Familia, "Familia"), (models.CRProducto.Stock, "Stock"), (models.CRProducto.IVA, "IVA"), (models.CRProducto.Marca, "Marca"), (models.CRProducto.Proveedor, "Proveedor"), (models.CRProducto.Descatalogado, "Descatalogado"), (models.CRProducto.tipoIVA, "tipoIVA")]
+		,children=CustomEndpoint[(model_class=models.02ListFormextProductoTraspasos,alias="02List-FormExt__Producto__Traspasos" ,join_on=models.02ListFormextProductoTraspasos.Referencia
+		)
+		,CustomEndpoint(model_class=models.00ListFormextProductoVentas,alias="00List-FormExt__Producto__Ventas" ,join_on=models.00ListFormextProductoVentas.Referencia
+		)
+		,CustomEndpoint(model_class=models.01ListFormextProductoCompras,alias="01List-FormExt__Producto__Compras" ,join_on=models.01ListFormextProductoCompras.Referencia
+		)
+		,CustomEndpoint(model_class=models.03ListFormextStocktienda,alias="03List-FormExt__StockTienda" ,join_on=models.03ListFormextStocktienda.Referencia
+		)
+		]
+	)
+	result = root.execute(request)
+	return root.transform('LAC', 'CR-Producto', result)
+
+#FreeSQL resource: Count_Ventas_LIN__CComercial_SF ResourceType: FreeSQL isActive: True
+@app.route('/rest/default/herboDeSonia/v1/count_ventas_lin__ccomercial_sf', methods=['GET','OPTIONS'])
+@jwt_required()
+@cross_origin(supports_credentials=True)
+def count_ventas_lin__ccomercial_sf():
+	sql = get_Count_Ventas_LIN__CComercial_SF(request)
+	return FreeSQL(sqlExpression=sql).execute(request)
+
+def get_count_ventas_lin__ccomercial_sf(request):
+	args = request.args
+	argValue = args.get("filter", "1=1")
+	return 'SELECT count(*) FROM `Ventas_LIN` WHERE :WHERE AND Tienda ="Centro Comercial" '.replace(":WHERE", argValue )
+
+@app.route('/rest/default/herboDeSonia/v1/CR-Cliente', methods=['GET','POST','PUT','OPTIONS'])
+#@admin_required()
+@jwt_required()
+@cross_origin(supports_credentials=True)
+def CR-Cliente():
+	root = CustomEndpoint(model_class=models.CRCliente,alias="CR-Cliente"
+		,fields=[ (models.CRCliente.Tipo, "Tipo"), (models.CRCliente.FechaAlta, "FechaAlta"), (models.CRCliente.TipoCliente, "TipoCliente"), (models.CRCliente.DNI_CIF, "DNI_CIF"), (models.CRCliente.BIC, "BIC"), (models.CRCliente.IBAN, "IBAN"), (models.CRCliente.NCuenta, "NCuenta"), (models.CRCliente.NombreCorto, "NombreCorto"), (models.CRCliente.NombreCompleto, "NombreCompleto"), (models.CRCliente.Calle, "Calle"), (models.CRCliente.ExtCalle, "ExtCalle"), (models.CRCliente.Localidad, "Localidad"), (models.CRCliente.Provincia, "Provincia"), (models.CRCliente.CodPostal, "CodPostal"), (models.CRCliente.Tlf, "Tlf"), (models.CRCliente.Email, "Email"), (models.CRCliente.Web, "Web"), (models.CRCliente.FPago, "FPago"), (models.CRCliente.CC, "CC"), (models.CRCliente.DtoGl, "DtoGl"), (models.CRCliente.NCopFact, "NCopFact"), (models.CRCliente.Contacto, "Contacto"), (models.CRCliente.Recomendado, "Recomendado"), (models.CRCliente.Comentarios, "Comentarios"), (models.CRCliente.Notific, "Notific"), (models.CRCliente.DeBaja, "DeBaja"), (models.CRCliente.FechaBaja, "FechaBaja"), (models.CRCliente.CreadorPor, "CreadorPor")]
+		,children=CustomEndpoint(model_class=models.00ListVentasLin,alias="00List-Ventas_LIN" ,join_on=models.00ListVentasLin.NCuentaCliente
+		)
+	)
+	result = root.execute(request)
+	return root.transform('LAC', 'CR-Cliente', result)
+
+#FreeSQL resource: Count_Traspasos_LIN__CComercial_SF ResourceType: FreeSQL isActive: True
+@app.route('/rest/default/herboDeSonia/v1/count_traspasos_lin__ccomercial_sf', methods=['GET','OPTIONS'])
+@jwt_required()
+@cross_origin(supports_credentials=True)
+def count_traspasos_lin__ccomercial_sf():
+	sql = get_Count_Traspasos_LIN__CComercial_SF(request)
+	return FreeSQL(sqlExpression=sql).execute(request)
+
+def get_count_traspasos_lin__ccomercial_sf(request):
+	args = request.args
+	argValue = args.get("filter", "1=1")
+	return 'SELECT count(*) FROM `Traspasos_LIN` WHERE :WHERE AND (`Origen` = 'Centro Comercial' OR `Destino` = 'Centro Comercial') '.replace(":WHERE", argValue )
+
+#FreeSQL resource: Count_Ventas_LIN__Barajas_SF ResourceType: FreeSQL isActive: True
+@app.route('/rest/default/herboDeSonia/v1/count_ventas_lin__barajas_sf', methods=['GET','OPTIONS'])
+@jwt_required()
+@cross_origin(supports_credentials=True)
+def count_ventas_lin__barajas_sf():
+	sql = get_Count_Ventas_LIN__Barajas_SF(request)
+	return FreeSQL(sqlExpression=sql).execute(request)
+
+def get_count_ventas_lin__barajas_sf(request):
+	args = request.args
+	argValue = args.get("filter", "1=1")
+	return 'SELECT count(*) FROM `Ventas_LIN` WHERE :WHERE AND Tienda ="Barajas" '.replace(":WHERE", argValue )
+
+#FreeSQL resource: Count_Proveedor ResourceType: FreeSQL isActive: True
+@app.route('/rest/default/herboDeSonia/v1/count_proveedor', methods=['GET','OPTIONS'])
+@jwt_required()
+@cross_origin(supports_credentials=True)
+def count_proveedor():
+	sql = get_Count_Proveedor(request)
+	return FreeSQL(sqlExpression=sql).execute(request)
+
+def get_count_proveedor(request):
+	args = request.args
+	argValue = args.get("filter", "1=1")
+	return 'SELECT count(*) FROM `Proveedor` WHERE :WHERE '.replace(":WHERE", argValue )
+
+#FreeSQL resource: Count_Ventas_LIN__Ensanche_SF ResourceType: FreeSQL isActive: True
+@app.route('/rest/default/herboDeSonia/v1/count_ventas_lin__ensanche_sf', methods=['GET','OPTIONS'])
+@jwt_required()
+@cross_origin(supports_credentials=True)
+def count_ventas_lin__ensanche_sf():
+	sql = get_Count_Ventas_LIN__Ensanche_SF(request)
+	return FreeSQL(sqlExpression=sql).execute(request)
+
+def get_count_ventas_lin__ensanche_sf(request):
+	args = request.args
+	argValue = args.get("filter", "1=1")
+	return 'SELECT count(*) FROM `Ventas_LIN` WHERE :WHERE AND `Tienda` ="Ensanche" '.replace(":WHERE", argValue )
+
+#FreeSQL resource: Count_Traspasos_LIN ResourceType: FreeSQL isActive: True
+@app.route('/rest/default/herboDeSonia/v1/count_traspasos_lin', methods=['GET','OPTIONS'])
+@jwt_required()
+@cross_origin(supports_credentials=True)
+def count_traspasos_lin():
+	sql = get_Count_Traspasos_LIN(request)
+	return FreeSQL(sqlExpression=sql).execute(request)
+
+def get_count_traspasos_lin(request):
+	args = request.args
+	argValue = args.get("filter", "1=1")
+	return 'SELECT count(*) FROM `Traspasos_LIN` WHERE :WHERE '.replace(":WHERE", argValue )
+
+#FreeSQL resource: Count_Ventas_LIN ResourceType: FreeSQL isActive: True
+@app.route('/rest/default/herboDeSonia/v1/count_ventas_lin', methods=['GET','OPTIONS'])
+@jwt_required()
+@cross_origin(supports_credentials=True)
+def count_ventas_lin():
+	sql = get_Count_Ventas_LIN(request)
+	return FreeSQL(sqlExpression=sql).execute(request)
+
+def get_count_ventas_lin(request):
+	args = request.args
+	argValue = args.get("filter", "1=1")
+	return 'SELECT count(*) FROM `Ventas_LIN` WHERE :WHERE '.replace(":WHERE", argValue )
+
+#FreeSQL resource: Count_Compras_LIN__Ensanche_SF ResourceType: FreeSQL isActive: True
+@app.route('/rest/default/herboDeSonia/v1/count_compras_lin__ensanche_sf', methods=['GET','OPTIONS'])
+@jwt_required()
+@cross_origin(supports_credentials=True)
+def count_compras_lin__ensanche_sf():
+	sql = get_Count_Compras_LIN__Ensanche_SF(request)
+	return FreeSQL(sqlExpression=sql).execute(request)
+
+def get_count_compras_lin__ensanche_sf(request):
+	args = request.args
+	argValue = args.get("filter", "1=1")
+	return 'SELECT count(*) FROM `Compras_LIN` WHERE :WHERE AND `Tienda` ="Ensanche" '.replace(":WHERE", argValue )
+
+#FreeSQL resource: Count_Compras_LIN ResourceType: FreeSQL isActive: True
+@app.route('/rest/default/herboDeSonia/v1/count_compras_lin', methods=['GET','OPTIONS'])
+@jwt_required()
+@cross_origin(supports_credentials=True)
+def count_compras_lin():
+	sql = get_Count_Compras_LIN(request)
+	return FreeSQL(sqlExpression=sql).execute(request)
+
+def get_count_compras_lin(request):
+	args = request.args
+	argValue = args.get("filter", "1=1")
+	return 'SELECT count(*) FROM `Compras_LIN` WHERE :WHERE '.replace(":WHERE", argValue )
+
+#FreeSQL resource: Count_Traspasos_LIN__Barajas_SF ResourceType: FreeSQL isActive: True
+@app.route('/rest/default/herboDeSonia/v1/count_traspasos_lin__barajas_sf', methods=['GET','OPTIONS'])
+@jwt_required()
+@cross_origin(supports_credentials=True)
+def count_traspasos_lin__barajas_sf():
+	sql = get_Count_Traspasos_LIN__Barajas_SF(request)
+	return FreeSQL(sqlExpression=sql).execute(request)
+
+def get_count_traspasos_lin__barajas_sf(request):
+	args = request.args
+	argValue = args.get("filter", "1=1")
+	return 'SELECT count(*) FROM `Traspasos_LIN` WHERE :WHERE AND (`Origen` = 'Barajas' OR `Destino` = 'Barajas') '.replace(":WHERE", argValue )
+
+@app.route('/rest/default/herboDeSonia/v1/CR-Compras_CAB', methods=['GET','POST','PUT','OPTIONS'])
+#@admin_required()
+@jwt_required()
+@cross_origin(supports_credentials=True)
+def CR-Compras_CAB():
+	root = CustomEndpoint(model_class=models.CRComprasCab,alias="CR-Compras_CAB"
+		,fields=[ (models.CRComprasCab.NºCuentaProveedor, "NºCuentaProveedor"), (models.CRComprasCab.Tienda, "Tienda"), (models.CRComprasCab.idTienda, "idTienda"), (models.CRComprasCab.SerieNúmero, "SerieNúmero"), (models.CRComprasCab.Fecha, "Fecha"), (models.CRComprasCab.RazónSocial, "RazónSocial"), (models.CRComprasCab.BaseImponible, "BaseImponible"), (models.CRComprasCab.ImporteIVA, "ImporteIVA"), (models.CRComprasCab.ImporteRecargoEq, "ImporteRecargoEq"), (models.CRComprasCab.TotalAlbCompra, "TotalAlbCompra"), (models.CRComprasCab.idCabCompras, "idCabCompras"), (models.CRComprasCab.ImporteIVAReducido, "ImporteIVAReducido"), (models.CRComprasCab.ImporteIVASuperReducido, "ImporteIVASuperReducido"), (models.CRComprasCab.ImporteIVAAceitesPastas, "ImporteIVAAceitesPastas"), (models.CRComprasCab.BaseIVAReducido, "BaseIVAReducido"), (models.CRComprasCab.BaseIVASuperReducido, "BaseIVASuperReducido"), (models.CRComprasCab.BaseIVAAceitesPastas, "BaseIVAAceitesPastas"), (models.CRComprasCab.BaseIVACero, "BaseIVACero"), (models.CRComprasCab.ImporteIVAGeneral, "ImporteIVAGeneral"), (models.CRComprasCab.BaseIVAGeneral, "BaseIVAGeneral"), (models.CRComprasCab.TotalAlbCalculado, "TotalAlbCalculado"), (models.CRComprasCab.tpcDtoProntoPago, "tpcDtoProntoPago"), (models.CRComprasCab.tpcDtoGlobal, "tpcDtoGlobal")]
+		,order_by=(models.CRComprasCab.Fecha DESC)
+		,children=CustomEndpoint(model_class=models.ListComprasLin,alias="List-Compras_LIN" ,join_on=models.ListComprasLin.AlbaránCompra
+		)
+	)
+	result = root.execute(request)
+	return root.transform('LAC', 'CR-Compras_CAB', result)
+
+@app.route('/rest/default/herboDeSonia/v1/CR-Producto__PICK', methods=['GET','POST','PUT','OPTIONS'])
+#@admin_required()
+@jwt_required()
+@cross_origin(supports_credentials=True)
+def CR-Producto__PICK():
+	root = CustomEndpoint(model_class=models.CRProductoPick,alias="CR-Producto__PICK"
+		,fields=[ (models.CRProductoPick.Referencia, "Referencia"), (models.CRProductoPick.Descripcion, "Descripcion"), (models.CRProductoPick.DescripcionBreve, "DescripcionBreve"), (models.CRProductoPick.CodBarras, "CodBarras"), (models.CRProductoPick.FechaCreacion, "FechaCreacion"), (models.CRProductoPick.PVP, "PVP"), (models.CRProductoPick.PrecioCoste, "PrecioCoste"), (models.CRProductoPick.IVA, "IVA"), (models.CRProductoPick.tipoIVA, "tipoIVA")]
+	)
+	result = root.execute(request)
+	return root.transform('LAC', 'CR-Producto__PICK', result)
+
+#FreeSQL resource: Count_Traspasos_LIN__Ensanche_SF ResourceType: FreeSQL isActive: True
+@app.route('/rest/default/herboDeSonia/v1/count_traspasos_lin__ensanche_sf', methods=['GET','OPTIONS'])
+@jwt_required()
+@cross_origin(supports_credentials=True)
+def count_traspasos_lin__ensanche_sf():
+	sql = get_Count_Traspasos_LIN__Ensanche_SF(request)
+	return FreeSQL(sqlExpression=sql).execute(request)
+
+def get_count_traspasos_lin__ensanche_sf(request):
+	args = request.args
+	argValue = args.get("filter", "1=1")
+	return 'SELECT count(*) FROM `Traspasos_LIN` WHERE :WHERE AND (`Origen` = 'Ensanche' OR `Destino` = 'Ensanche') '.replace(":WHERE", argValue )
+
+@app.route('/rest/default/herboDeSonia/v1/CR-Proveedor', methods=['GET','POST','PUT','OPTIONS'])
+#@admin_required()
+@jwt_required()
+@cross_origin(supports_credentials=True)
+def CR-Proveedor():
+	root = CustomEndpoint(model_class=models.CRProveedor,alias="CR-Proveedor"
+		,fields=[ (models.CRProveedor.DNICIF, "DNICIF"), (models.CRProveedor.RSocial, "RSocial"), (models.CRProveedor.TipoProv, "TipoProv"), (models.CRProveedor.FPago, "FPago"), (models.CRProveedor.Facturación, "Facturación"), (models.CRProveedor.Provincia, "Provincia"), (models.CRProveedor.NºCuenta, "NºCuenta"), (models.CRProveedor.Calle, "Calle"), (models.CRProveedor.ExtCalle, "ExtCalle"), (models.CRProveedor.Localidad, "Localidad"), (models.CRProveedor.CPost, "CPost"), (models.CRProveedor.E-mail, "E-mail"), (models.CRProveedor.Web, "Web"), (models.CRProveedor.BIC, "BIC"), (models.CRProveedor.IBAN, "IBAN"), (models.CRProveedor.CC, "CC"), (models.CRProveedor.Tlf1, "Tlf1"), (models.CRProveedor.Tlf2, "Tlf2"), (models.CRProveedor.Móvil, "Móvil"), (models.CRProveedor.Fax, "Fax"), (models.CRProveedor.Contacto, "Contacto"), (models.CRProveedor.Comentarios, "Comentarios"), (models.CRProveedor.Notific, "Notific"), (models.CRProveedor.Debaja, "Debaja")]
+		,children=CustomEndpoint(model_class=models.00ListComprasLin,alias="00List-Compras_LIN" ,join_on=models.00ListComprasLin.NºCuentaProveedor
+		)
+	)
+	result = root.execute(request)
+	return root.transform('LAC', 'CR-Proveedor', result)
+
+#FreeSQL resource: Count_Traspasos_LIN__Santa_Eugenia_SF ResourceType: FreeSQL isActive: True
+@app.route('/rest/default/herboDeSonia/v1/count_traspasos_lin__santa_eugenia_sf', methods=['GET','OPTIONS'])
+@jwt_required()
+@cross_origin(supports_credentials=True)
+def count_traspasos_lin__santa_eugenia_sf():
+	sql = get_Count_Traspasos_LIN__Santa_Eugenia_SF(request)
+	return FreeSQL(sqlExpression=sql).execute(request)
+
+def get_count_traspasos_lin__santa_eugenia_sf(request):
+	args = request.args
+	argValue = args.get("filter", "1=1")
+	return 'SELECT count(*) FROM `Traspasos_LIN` WHERE :WHERE AND (`Origen` = 'Santa Eugenia' OR `Destino` = 'Santa Eugenia') '.replace(":WHERE", argValue )
+
+@app.route('/rest/default/herboDeSonia/v1/CR-Proveedor__PICK', methods=['GET','POST','PUT','OPTIONS'])
+#@admin_required()
+@jwt_required()
+@cross_origin(supports_credentials=True)
+def CR-Proveedor__PICK():
+	root = CustomEndpoint(model_class=models.CRProveedorPick,alias="CR-Proveedor__PICK"
+		,fields=[ (models.CRProveedorPick.DNICIF, "DNICIF"), (models.CRProveedorPick.RSocial, "RSocial"), (models.CRProveedorPick.TipoProv, "TipoProv"), (models.CRProveedorPick.FPago, "FPago"), (models.CRProveedorPick.NºCuenta, "NºCuenta"), (models.CRProveedorPick.Provincia, "Provincia")]
+	)
+	result = root.execute(request)
+	return root.transform('LAC', 'CR-Proveedor__PICK', result)
+
+#ResourceType: JavaScript ResourceName: JS_ExtProp isActive: True
+@app.route('/rest/default/herboDeSonia/v1/js_extprop', methods=['GET','OPTIONS'])
+@jwt_required()
+@cross_origin(supports_credentials=True)
+def js_extprop():
+	js = get_JS_ExtProp(request)
+	return JavaScript(javaScript=js).execute(request)
+
+def get_js_extprop(request):
+	
+	args = request.args
+	argValue = args.get("filter", "1=1")
+	return 'resourceName=req.urlParameters.filter+"";
+var extendedProperties = listenerUtil.getExtendedPropertiesFor
+("v1", resourceName);
+if (extendedProperties)// && extendedProperties.MyExtension) {
+{
+var result = {
+    isReadOnly : extendedProperties.isReadOnly,
+    subLayoutClassName : extendedProperties.subLayoutClassName,
+    displaySubFormClassName: extendedProperties.displaySubFormClassName,
+    querySubFormClassName: extendedProperties.querySubFormClassName,
+    insertNotAllow: extendedProperties.insertNotAllow,
+    deleteNotAllow: extendedProperties.deleteNotAllow,
+    updateNotAllow: extendedProperties.updateNotAllow,
+    insertAllow: extendedProperties.insertAllow,
+    deleteAllow: extendedProperties.deleteAllow,
+    updateAllow: extendedProperties.updateAllow,
+    multiSelect: extendedProperties.multiSelect,
+    resourceName: req.urlParameters.filter,
+    extraFilterToSelect:extendedProperties.extraFilterToSelect,
+    tagsForVisibility:extendedProperties.tagsForVisibility,
+    styleForForm:extendedProperties.styleForForm,
+    afterInsertExtraProcess:extendedProperties.afterInsertExtraProcess,
+    sharedColList: extendedProperties.sharedColList
+};
+return result;
+}
+else 
+{
+    return { result:"NO Extended Properties"};
+}
+
+	"""
+
+#FreeSQL resource: Count_StockTienda ResourceType: FreeSQL isActive: True
+@app.route('/rest/default/herboDeSonia/v1/count_stocktienda', methods=['GET','OPTIONS'])
+@jwt_required()
+@cross_origin(supports_credentials=True)
+def count_stocktienda():
+	sql = get_Count_StockTienda(request)
+	return FreeSQL(sqlExpression=sql).execute(request)
+
+def get_count_stocktienda(request):
+	args = request.args
+	argValue = args.get("filter", "1=1")
+	return 'SELECT count(*) FROM `StockTienda` WHERE :WHERE '.replace(":WHERE", argValue )
+
+@app.route('/rest/default/herboDeSonia/v1/CR-Ventas_CAB', methods=['GET','POST','PUT','OPTIONS'])
+#@admin_required()
+@jwt_required()
+@cross_origin(supports_credentials=True)
+def CR-Ventas_CAB():
+	root = CustomEndpoint(model_class=models.CRVentasCab,alias="CR-Ventas_CAB"
+		,fields=[ (models.CRVentasCab.Usuario, "Usuario"), (models.CRVentasCab.Tienda, "Tienda"), (models.CRVentasCab.Serie, "Serie"), (models.CRVentasCab.Número, "Número"), (models.CRVentasCab.VentaMostrador, "VentaMostrador"), (models.CRVentasCab.FechaVenta, "FechaVenta"), (models.CRVentasCab.ImporteTotal, "ImporteTotal"), (models.CRVentasCab.PrecioLínea, "PrecioLínea"), (models.CRVentasCab.NombreOferta, "NombreOferta"), (models.CRVentasCab.tpcDtoGlobal, "tpcDtoGlobal"), (models.CRVentasCab.tpcDtoPP, "tpcDtoPP"), (models.CRVentasCab.ImporteBruto, "ImporteBruto"), (models.CRVentasCab.FacturaSN, "FacturaSN"), (models.CRVentasCab.FechaFactura, "FechaFactura"), (models.CRVentasCab.NombreRazónSocialCliente, "NombreRazónSocialCliente"), (models.CRVentasCab.NombreComercialCliente, "NombreComercialCliente"), (models.CRVentasCab.NCuentaCliente, "NCuentaCliente"), (models.CRVentasCab.TipoCliente, "TipoCliente"), (models.CRVentasCab.NIFCliente, "NIFCliente"), (models.CRVentasCab.Teléfono, "Teléfono"), (models.CRVentasCab.ImporteIVASuperReducido, "ImporteIVASuperReducido"), (models.CRVentasCab.ImporteIVAReducido, "ImporteIVAReducido"), (models.CRVentasCab.ImporteIVAAceitesPastas, "ImporteIVAAceitesPastas"), (models.CRVentasCab.ImporteIVAGeneral, "ImporteIVAGeneral"), (models.CRVentasCab.BaseIVACero, "BaseIVACero"), (models.CRVentasCab.BaseIVASuperReducido, "BaseIVASuperReducido"), (models.CRVentasCab.BaseIVAReducido, "BaseIVAReducido"), (models.CRVentasCab.BaseIVAAceitesPastas, "BaseIVAAceitesPastas"), (models.CRVentasCab.BaseIVAGeneral, "BaseIVAGeneral"), (models.CRVentasCab.NumeroLineas, "NumeroLineas"), (models.CRVentasCab.TieneValesDto, "TieneValesDto"), (models.CRVentasCab.Puntos, "Puntos")]
+		,calling=(fn_cr-ventas_cab_cr-ventas_cab_crventascab_event)
+		,children=CustomEndpoint(model_class=models.ListVentasLin,alias="List-Ventas_LIN" ,join_on=models.ListVentasLin.Número
+		)
+	)
+	result = root.execute(request)
+	return root.transform('LAC', 'CR-Ventas_CAB', result)
+
+#FreeSQL resource: Count_Ventas_LIN__Rivas_Vaciamadrid_SF ResourceType: FreeSQL isActive: True
+@app.route('/rest/default/herboDeSonia/v1/count_ventas_lin__rivas_vaciamadrid_sf', methods=['GET','OPTIONS'])
+@jwt_required()
+@cross_origin(supports_credentials=True)
+def count_ventas_lin__rivas_vaciamadrid_sf():
+	sql = get_Count_Ventas_LIN__Rivas_Vaciamadrid_SF(request)
+	return FreeSQL(sqlExpression=sql).execute(request)
+
+def get_count_ventas_lin__rivas_vaciamadrid_sf(request):
+	args = request.args
+	argValue = args.get("filter", "1=1")
+	return 'SELECT count(*) FROM `Ventas_LIN` WHERE :WHERE AND `Tienda` ="RIVAS VACIAMADRID" '.replace(":WHERE", argValue )
+
+#FreeSQL resource: Count_Ventas_CAB ResourceType: FreeSQL isActive: True
+@app.route('/rest/default/herboDeSonia/v1/count_ventas_cab', methods=['GET','OPTIONS'])
+@jwt_required()
+@cross_origin(supports_credentials=True)
+def count_ventas_cab():
+	sql = get_Count_Ventas_CAB(request)
+	return FreeSQL(sqlExpression=sql).execute(request)
+
+def get_count_ventas_cab(request):
+	args = request.args
+	argValue = args.get("filter", "1=1")
+	return 'SELECT count(*) FROM `Ventas_CAB` WHERE :WHERE '.replace(":WHERE", argValue )
+
+#FreeSQL resource: Count_Traspasos_LIN__Rivas_Vaciamadrid_SF ResourceType: FreeSQL isActive: True
+@app.route('/rest/default/herboDeSonia/v1/count_traspasos_lin__rivas_vaciamadrid_sf', methods=['GET','OPTIONS'])
+@jwt_required()
+@cross_origin(supports_credentials=True)
+def count_traspasos_lin__rivas_vaciamadrid_sf():
+	sql = get_Count_Traspasos_LIN__Rivas_Vaciamadrid_SF(request)
+	return FreeSQL(sqlExpression=sql).execute(request)
+
+def get_count_traspasos_lin__rivas_vaciamadrid_sf(request):
+	args = request.args
+	argValue = args.get("filter", "1=1")
+	return 'SELECT count(*) FROM `Traspasos_LIN` WHERE :WHERE AND (`Origen` = 'RIVAS VACIAMADRID' OR `Destino` = 'RIVAS VACIAMADRID') '.replace(":WHERE", argValue )
+
+#FreeSQL resource: Count_Compras_LIN__Rivas_Vaciamadrid_SF ResourceType: FreeSQL isActive: True
+@app.route('/rest/default/herboDeSonia/v1/count_compras_lin__rivas_vaciamadrid_sf', methods=['GET','OPTIONS'])
+@jwt_required()
+@cross_origin(supports_credentials=True)
+def count_compras_lin__rivas_vaciamadrid_sf():
+	sql = get_Count_Compras_LIN__Rivas_Vaciamadrid_SF(request)
+	return FreeSQL(sqlExpression=sql).execute(request)
+
+def get_count_compras_lin__rivas_vaciamadrid_sf(request):
+	args = request.args
+	argValue = args.get("filter", "1=1")
+	return 'SELECT count(*) FROM `Compras_LIN` WHERE :WHERE AND `Tienda` ="RIVAS VACIAMADRID" '.replace(":WHERE", argValue )
+
+#FreeSQL resource: Count_Compras_CAB ResourceType: FreeSQL isActive: True
+@app.route('/rest/default/herboDeSonia/v1/count_compras_cab', methods=['GET','OPTIONS'])
+@jwt_required()
+@cross_origin(supports_credentials=True)
+def count_compras_cab():
+	sql = get_Count_Compras_CAB(request)
+	return FreeSQL(sqlExpression=sql).execute(request)
+
+def get_count_compras_cab(request):
+	args = request.args
+	argValue = args.get("filter", "1=1")
+	return 'SELECT count(*) FROM `Compras_CAB` WHERE :WHERE '.replace(":WHERE", argValue )
+
+#FreeSQL resource: Count_Compras_LIN__Santa_Eugenia_SF ResourceType: FreeSQL isActive: True
+@app.route('/rest/default/herboDeSonia/v1/count_compras_lin__santa_eugenia_sf', methods=['GET','OPTIONS'])
+@jwt_required()
+@cross_origin(supports_credentials=True)
+def count_compras_lin__santa_eugenia_sf():
+	sql = get_Count_Compras_LIN__Santa_Eugenia_SF(request)
+	return FreeSQL(sqlExpression=sql).execute(request)
+
+def get_count_compras_lin__santa_eugenia_sf(request):
+	args = request.args
+	argValue = args.get("filter", "1=1")
+	return 'SELECT count(*) FROM `Compras_LIN` WHERE :WHERE AND `Tienda` ="Santa Eugenia" '.replace(":WHERE", argValue )
+
+@app.route('/rest/default/herboDeSonia/v1/CR-Tienda__PICK', methods=['GET','POST','PUT','OPTIONS'])
+#@admin_required()
+@jwt_required()
+@cross_origin(supports_credentials=True)
+def CR-Tienda__PICK():
+	root = CustomEndpoint(model_class=models.CRTiendaPick,alias="CR-Tienda__PICK"
+		,fields=[ (models.CRTiendaPick.STOREDVALUE, "STOREDVALUE"), (models.CRTiendaPick.DISPLAYVALUE, "DISPLAYVALUE")]
+	)
+	result = root.execute(request)
+	return root.transform('LAC', 'CR-Tienda__PICK', result)
+
+#FreeSQL resource: Count_Compras_LIN__Barajas_SF ResourceType: FreeSQL isActive: True
+@app.route('/rest/default/herboDeSonia/v1/count_compras_lin__barajas_sf', methods=['GET','OPTIONS'])
+@jwt_required()
+@cross_origin(supports_credentials=True)
+def count_compras_lin__barajas_sf():
+	sql = get_Count_Compras_LIN__Barajas_SF(request)
+	return FreeSQL(sqlExpression=sql).execute(request)
+
+def get_count_compras_lin__barajas_sf(request):
+	args = request.args
+	argValue = args.get("filter", "1=1")
+	return 'SELECT count(*) FROM `Compras_LIN` WHERE :WHERE AND `Tienda` ="Barajas" '.replace(":WHERE", argValue )
+
+#FreeSQL resource: Count_Producto ResourceType: FreeSQL isActive: True
+@app.route('/rest/default/herboDeSonia/v1/count_producto', methods=['GET','OPTIONS'])
+@jwt_required()
+@cross_origin(supports_credentials=True)
+def count_producto():
+	sql = get_Count_Producto(request)
+	return FreeSQL(sqlExpression=sql).execute(request)
+
+def get_count_producto(request):
+	args = request.args
+	argValue = args.get("filter", "1=1")
+	return 'SELECT count(*) FROM `Producto` WHERE :WHERE '.replace(":WHERE", argValue )
+
+#FreeSQL resource: Count_Ventas_LIN__Palomeras_SF ResourceType: FreeSQL isActive: True
+@app.route('/rest/default/herboDeSonia/v1/count_ventas_lin__palomeras_sf', methods=['GET','OPTIONS'])
+@jwt_required()
+@cross_origin(supports_credentials=True)
+def count_ventas_lin__palomeras_sf():
+	sql = get_Count_Ventas_LIN__Palomeras_SF(request)
+	return FreeSQL(sqlExpression=sql).execute(request)
+
+def get_count_ventas_lin__palomeras_sf(request):
+	args = request.args
+	argValue = args.get("filter", "1=1")
+	return 'SELECT count(*) FROM `Ventas_LIN` WHERE :WHERE AND `Tienda` ="Palomeras" '.replace(":WHERE", argValue )
+
+#FreeSQL resource: Count_Tienda ResourceType: FreeSQL isActive: True
+@app.route('/rest/default/herboDeSonia/v1/count_tienda', methods=['GET','OPTIONS'])
+@jwt_required()
+@cross_origin(supports_credentials=True)
+def count_tienda():
+	sql = get_Count_Tienda(request)
+	return FreeSQL(sqlExpression=sql).execute(request)
+
+def get_count_tienda(request):
+	args = request.args
+	argValue = args.get("filter", "1=1")
+	return 'SELECT count(*) FROM `Tienda` WHERE :WHERE '.replace(":WHERE", argValue )
+
+#FreeSQL resource: Count_Compras_LIN__Palomeras_SF ResourceType: FreeSQL isActive: True
+@app.route('/rest/default/herboDeSonia/v1/count_compras_lin__palomeras_sf', methods=['GET','OPTIONS'])
+@jwt_required()
+@cross_origin(supports_credentials=True)
+def count_compras_lin__palomeras_sf():
+	sql = get_Count_Compras_LIN__Palomeras_SF(request)
+	return FreeSQL(sqlExpression=sql).execute(request)
+
+def get_count_compras_lin__palomeras_sf(request):
+	args = request.args
+	argValue = args.get("filter", "1=1")
+	return 'SELECT count(*) FROM `Compras_LIN` WHERE :WHERE AND `Tienda` ="Palomeras" '.replace(":WHERE", argValue )
+
+#FreeSQL resource: Count_Compras_LIN__CComercial_SF ResourceType: FreeSQL isActive: True
+@app.route('/rest/default/herboDeSonia/v1/count_compras_lin__ccomercial_sf', methods=['GET','OPTIONS'])
+@jwt_required()
+@cross_origin(supports_credentials=True)
+def count_compras_lin__ccomercial_sf():
+	sql = get_Count_Compras_LIN__CComercial_SF(request)
+	return FreeSQL(sqlExpression=sql).execute(request)
+
+def get_count_compras_lin__ccomercial_sf(request):
+	args = request.args
+	argValue = args.get("filter", "1=1")
+	return 'SELECT count(*) FROM `Compras_LIN` WHERE :WHERE AND `Tienda` ="Centro Comercial" '.replace(":WHERE", argValue )
+
+#FreeSQL resource: Count_Traspasos_LIN__Palomeras_SF ResourceType: FreeSQL isActive: True
+@app.route('/rest/default/herboDeSonia/v1/count_traspasos_lin__palomeras_sf', methods=['GET','OPTIONS'])
+@jwt_required()
+@cross_origin(supports_credentials=True)
+def count_traspasos_lin__palomeras_sf():
+	sql = get_Count_Traspasos_LIN__Palomeras_SF(request)
+	return FreeSQL(sqlExpression=sql).execute(request)
+
+def get_count_traspasos_lin__palomeras_sf(request):
+	args = request.args
+	argValue = args.get("filter", "1=1")
+	return 'SELECT count(*) FROM `Traspasos_LIN` WHERE :WHERE AND (`Origen` = 'Palomeras' OR `Destino` = 'Palomeras') '.replace(":WHERE", argValue )
+
+#FreeSQL resource: Count_Ventas_LIN__Santa_Eugenia_SF ResourceType: FreeSQL isActive: True
+@app.route('/rest/default/herboDeSonia/v1/count_ventas_lin__santa_eugenia_sf', methods=['GET','OPTIONS'])
+@jwt_required()
+@cross_origin(supports_credentials=True)
+def count_ventas_lin__santa_eugenia_sf():
+	sql = get_Count_Ventas_LIN__Santa_Eugenia_SF(request)
+	return FreeSQL(sqlExpression=sql).execute(request)
+
+def get_count_ventas_lin__santa_eugenia_sf(request):
+	args = request.args
+	argValue = args.get("filter", "1=1")
+	return 'SELECT count(*) FROM `Ventas_LIN` WHERE :WHERE AND `Tienda` ="Santa Eugenia" '.replace(":WHERE", argValue )
+
+#FreeSQL resource: Count_Cliente ResourceType: FreeSQL isActive: True
+@app.route('/rest/default/herboDeSonia/v1/count_cliente', methods=['GET','OPTIONS'])
+@jwt_required()
+@cross_origin(supports_credentials=True)
+def count_cliente():
+	sql = get_Count_Cliente(request)
+	return FreeSQL(sqlExpression=sql).execute(request)
+
+def get_count_cliente(request):
+	args = request.args
+	argValue = args.get("filter", "1=1")
+	return 'SELECT count(*) FROM `Cliente` WHERE :WHERE '.replace(":WHERE", argValue )
+
+@app.route('/rest/default/herboDeSonia/v1/CR-Producto', methods=['GET','POST','PUT','OPTIONS'])
+#@admin_required()
+@jwt_required()
+@cross_origin(supports_credentials=True)
+def CR-Producto():
+	root = CustomEndpoint(model_class=models.CRProducto,alias="CR-Producto"
+		,fields=[ (models.CRProducto.Referencia, "Referencia"), (models.CRProducto.Descripcion, "Descripcion"), (models.CRProducto.DescripcionBreve, "DescripcionBreve"), (models.CRProducto.CodBarras, "CodBarras"), (models.CRProducto.CodGenerico, "CodGenerico"), (models.CRProducto.FechaCreacion, "FechaCreacion"), (models.CRProducto.PrecioCoste, "PrecioCoste"), (models.CRProducto.SubFam, "SubFam"), (models.CRProducto.Ubicacion, "Ubicacion"), (models.CRProducto.PublicarWeb, "PublicarWeb"), (models.CRProducto.OfertaWeb, "OfertaWeb"), (models.CRProducto.NovedadWeb, "NovedadWeb"), (models.CRProducto.PVP, "PVP"), (models.CRProducto.FechaUltPVP, "FechaUltPVP"), (models.CRProducto.Familia, "Familia"), (models.CRProducto.Stock, "Stock"), (models.CRProducto.IVA, "IVA"), (models.CRProducto.Marca, "Marca"), (models.CRProducto.Proveedor, "Proveedor"), (models.CRProducto.Descatalogado, "Descatalogado"), (models.CRProducto.tipoIVA, "tipoIVA")]
+		,children=CustomEndpoint[(model_class=models.02ListFormextProductoTraspasos,alias="02List-FormExt__Producto__Traspasos" ,join_on=models.02ListFormextProductoTraspasos.Referencia
+		)
+		,CustomEndpoint(model_class=models.00ListFormextProductoVentas,alias="00List-FormExt__Producto__Ventas" ,join_on=models.00ListFormextProductoVentas.Referencia
+		)
+		,CustomEndpoint(model_class=models.01ListFormextProductoCompras,alias="01List-FormExt__Producto__Compras" ,join_on=models.01ListFormextProductoCompras.Referencia
+		)
+		,CustomEndpoint(model_class=models.03ListFormextStocktienda,alias="03List-FormExt__StockTienda" ,join_on=models.03ListFormextStocktienda.Referencia
+		)
+		]
+	)
+	result = root.execute(request)
+	return root.transform('LAC', 'CR-Producto', result)
+
+#FreeSQL resource: Count_Ventas_LIN__CComercial_SF ResourceType: FreeSQL isActive: True
+@app.route('/rest/default/herboDeSonia/v1/count_ventas_lin__ccomercial_sf', methods=['GET','OPTIONS'])
+@jwt_required()
+@cross_origin(supports_credentials=True)
+def count_ventas_lin__ccomercial_sf():
+	sql = get_Count_Ventas_LIN__CComercial_SF(request)
+	return FreeSQL(sqlExpression=sql).execute(request)
+
+def get_count_ventas_lin__ccomercial_sf(request):
+	args = request.args
+	argValue = args.get("filter", "1=1")
+	return 'SELECT count(*) FROM `Ventas_LIN` WHERE :WHERE AND `Tienda` ="Centro Comercial" '.replace(":WHERE", argValue )
+
+@app.route('/rest/default/herboDeSonia/v1/CR-Cliente', methods=['GET','POST','PUT','OPTIONS'])
+#@admin_required()
+@jwt_required()
+@cross_origin(supports_credentials=True)
+def CR-Cliente():
+	root = CustomEndpoint(model_class=models.CRCliente,alias="CR-Cliente"
+		,fields=[ (models.CRCliente.Tipo, "Tipo"), (models.CRCliente.FechaAlta, "FechaAlta"), (models.CRCliente.TipoCliente, "TipoCliente"), (models.CRCliente.DNI_CIF, "DNI_CIF"), (models.CRCliente.BIC, "BIC"), (models.CRCliente.IBAN, "IBAN"), (models.CRCliente.NCuenta, "NCuenta"), (models.CRCliente.NombreCorto, "NombreCorto"), (models.CRCliente.NombreCompleto, "NombreCompleto"), (models.CRCliente.Calle, "Calle"), (models.CRCliente.ExtCalle, "ExtCalle"), (models.CRCliente.Localidad, "Localidad"), (models.CRCliente.Provincia, "Provincia"), (models.CRCliente.CodPostal, "CodPostal"), (models.CRCliente.Tlf, "Tlf"), (models.CRCliente.Email, "Email"), (models.CRCliente.Web, "Web"), (models.CRCliente.FPago, "FPago"), (models.CRCliente.CC, "CC"), (models.CRCliente.DtoGl, "DtoGl"), (models.CRCliente.NCopFact, "NCopFact"), (models.CRCliente.Contacto, "Contacto"), (models.CRCliente.Recomendado, "Recomendado"), (models.CRCliente.Comentarios, "Comentarios"), (models.CRCliente.Notific, "Notific"), (models.CRCliente.DeBaja, "DeBaja"), (models.CRCliente.FechaBaja, "FechaBaja"), (models.CRCliente.CreadorPor, "CreadorPor")]
+		,children=CustomEndpoint(model_class=models.00ListVentasLin,alias="00List-Ventas_LIN" ,join_on=models.00ListVentasLin.NCuentaCliente
+		)
+	)
+	result = root.execute(request)
+	return root.transform('LAC', 'CR-Cliente', result)
+
+#FreeSQL resource: Count_Traspasos_LIN__CComercial_SF ResourceType: FreeSQL isActive: True
+@app.route('/rest/default/herboDeSonia/v1/count_traspasos_lin__ccomercial_sf', methods=['GET','OPTIONS'])
+@jwt_required()
+@cross_origin(supports_credentials=True)
+def count_traspasos_lin__ccomercial_sf():
+	sql = get_Count_Traspasos_LIN__CComercial_SF(request)
+	return FreeSQL(sqlExpression=sql).execute(request)
+
+def get_count_traspasos_lin__ccomercial_sf(request):
+	args = request.args
+	argValue = args.get("filter", "1=1")
+	return 'SELECT count(*) FROM `Traspasos_LIN` WHERE :WHERE AND (`Origen` = 'Centro Comercial' OR `Destino` = 'Centro Comercial') '.replace(":WHERE", argValue )
+
+#FreeSQL resource: Count_Ventas_LIN__Barajas_SF ResourceType: FreeSQL isActive: True
+@app.route('/rest/default/herboDeSonia/v1/count_ventas_lin__barajas_sf', methods=['GET','OPTIONS'])
+@jwt_required()
+@cross_origin(supports_credentials=True)
+def count_ventas_lin__barajas_sf():
+	sql = get_Count_Ventas_LIN__Barajas_SF(request)
+	return FreeSQL(sqlExpression=sql).execute(request)
+
+def get_count_ventas_lin__barajas_sf(request):
+	args = request.args
+	argValue = args.get("filter", "1=1")
+	return 'SELECT count(*) FROM `Ventas_LIN` WHERE :WHERE AND `Tienda` ="Barajas" '.replace(":WHERE", argValue )
+
+#FreeSQL resource: Count_Proveedor ResourceType: FreeSQL isActive: True
+@app.route('/rest/default/herboDeSonia/v1/count_proveedor', methods=['GET','OPTIONS'])
+@jwt_required()
+@cross_origin(supports_credentials=True)
+def count_proveedor():
+	sql = get_Count_Proveedor(request)
+	return FreeSQL(sqlExpression=sql).execute(request)
+
+def get_count_proveedor(request):
+	args = request.args
+	argValue = args.get("filter", "1=1")
+	return 'SELECT count(*) FROM `Proveedor` WHERE :WHERE '.replace(":WHERE", argValue )
+
+#FreeSQL resource: Count_Ventas_LIN__Ensanche_SF ResourceType: FreeSQL isActive: True
+@app.route('/rest/default/herboDeSonia/v1/count_ventas_lin__ensanche_sf', methods=['GET','OPTIONS'])
+@jwt_required()
+@cross_origin(supports_credentials=True)
+def count_ventas_lin__ensanche_sf():
+	sql = get_Count_Ventas_LIN__Ensanche_SF(request)
+	return FreeSQL(sqlExpression=sql).execute(request)
+
+def get_count_ventas_lin__ensanche_sf(request):
+	args = request.args
+	argValue = args.get("filter", "1=1")
+	return 'SELECT count(*) FROM `Ventas_LIN` WHERE :WHERE AND `Tienda` ="Ensanche" '.replace(":WHERE", argValue )
+
+#FreeSQL resource: Count_Traspasos_LIN ResourceType: FreeSQL isActive: True
+@app.route('/rest/default/herboDeSonia/v1/count_traspasos_lin', methods=['GET','OPTIONS'])
+@jwt_required()
+@cross_origin(supports_credentials=True)
+def count_traspasos_lin():
+	sql = get_Count_Traspasos_LIN(request)
+	return FreeSQL(sqlExpression=sql).execute(request)
+
+def get_count_traspasos_lin(request):
+	args = request.args
+	argValue = args.get("filter", "1=1")
+	return 'SELECT count(*) FROM `Traspasos_LIN` WHERE :WHERE '.replace(":WHERE", argValue )
+
+#FreeSQL resource: Count_Ventas_LIN ResourceType: FreeSQL isActive: True
+@app.route('/rest/default/herboDeSonia/v1/count_ventas_lin', methods=['GET','OPTIONS'])
+@jwt_required()
+@cross_origin(supports_credentials=True)
+def count_ventas_lin():
+	sql = get_Count_Ventas_LIN(request)
+	return FreeSQL(sqlExpression=sql).execute(request)
+
+def get_count_ventas_lin(request):
+	args = request.args
+	argValue = args.get("filter", "1=1")
+	return 'SELECT count(*) FROM `Ventas_LIN` WHERE :WHERE '.replace(":WHERE", argValue )
+
+#FreeSQL resource: Count_Compras_LIN__Ensanche_SF ResourceType: FreeSQL isActive: True
+@app.route('/rest/default/herboDeSonia/v1/count_compras_lin__ensanche_sf', methods=['GET','OPTIONS'])
+@jwt_required()
+@cross_origin(supports_credentials=True)
+def count_compras_lin__ensanche_sf():
+	sql = get_Count_Compras_LIN__Ensanche_SF(request)
+	return FreeSQL(sqlExpression=sql).execute(request)
+
+def get_count_compras_lin__ensanche_sf(request):
+	args = request.args
+	argValue = args.get("filter", "1=1")
+	return 'SELECT count(*) FROM `Compras_LIN` WHERE :WHERE AND `Tienda` ="Ensanche" '.replace(":WHERE", argValue )
+
+#FreeSQL resource: Count_Compras_LIN ResourceType: FreeSQL isActive: True
+@app.route('/rest/default/herboDeSonia/v1/count_compras_lin', methods=['GET','OPTIONS'])
+@jwt_required()
+@cross_origin(supports_credentials=True)
+def count_compras_lin():
+	sql = get_Count_Compras_LIN(request)
+	return FreeSQL(sqlExpression=sql).execute(request)
+
+def get_count_compras_lin(request):
+	args = request.args
+	argValue = args.get("filter", "1=1")
+	return 'SELECT count(*) FROM `Compras_LIN` WHERE :WHERE '.replace(":WHERE", argValue )
+
+#FreeSQL resource: Count_Traspasos_LIN__Barajas_SF ResourceType: FreeSQL isActive: True
+@app.route('/rest/default/herboDeSonia/v1/count_traspasos_lin__barajas_sf', methods=['GET','OPTIONS'])
+@jwt_required()
+@cross_origin(supports_credentials=True)
+def count_traspasos_lin__barajas_sf():
+	sql = get_Count_Traspasos_LIN__Barajas_SF(request)
+	return FreeSQL(sqlExpression=sql).execute(request)
+
+def get_count_traspasos_lin__barajas_sf(request):
+	args = request.args
+	argValue = args.get("filter", "1=1")
+	return 'SELECT count(*) FROM `Traspasos_LIN` WHERE :WHERE AND (`Origen` = 'Barajas' OR `Destino` = 'Barajas') '.replace(":WHERE", argValue )
+
+@app.route('/rest/default/herboDeSonia/v1/CR-Compras_CAB', methods=['GET','POST','PUT','OPTIONS'])
+#@admin_required()
+@jwt_required()
+@cross_origin(supports_credentials=True)
+def CR-Compras_CAB():
+	root = CustomEndpoint(model_class=models.CRComprasCab,alias="CR-Compras_CAB"
+		,fields=[ (models.CRComprasCab.NºCuentaProveedor, "NºCuentaProveedor"), (models.CRComprasCab.Tienda, "Tienda"), (models.CRComprasCab.idTienda, "idTienda"), (models.CRComprasCab.SerieNúmero, "SerieNúmero"), (models.CRComprasCab.Fecha, "Fecha"), (models.CRComprasCab.RazónSocial, "RazónSocial"), (models.CRComprasCab.BaseImponible, "BaseImponible"), (models.CRComprasCab.ImporteIVA, "ImporteIVA"), (models.CRComprasCab.ImporteRecargoEq, "ImporteRecargoEq"), (models.CRComprasCab.TotalAlbCompra, "TotalAlbCompra"), (models.CRComprasCab.idCabCompras, "idCabCompras"), (models.CRComprasCab.ImporteIVAReducido, "ImporteIVAReducido"), (models.CRComprasCab.ImporteIVASuperReducido, "ImporteIVASuperReducido"), (models.CRComprasCab.ImporteIVAAceitesPastas, "ImporteIVAAceitesPastas"), (models.CRComprasCab.BaseIVAReducido, "BaseIVAReducido"), (models.CRComprasCab.BaseIVASuperReducido, "BaseIVASuperReducido"), (models.CRComprasCab.BaseIVAAceitesPastas, "BaseIVAAceitesPastas"), (models.CRComprasCab.BaseIVACero, "BaseIVACero"), (models.CRComprasCab.ImporteIVAGeneral, "ImporteIVAGeneral"), (models.CRComprasCab.BaseIVAGeneral, "BaseIVAGeneral"), (models.CRComprasCab.TotalAlbCalculado, "TotalAlbCalculado"), (models.CRComprasCab.tpcDtoProntoPago, "tpcDtoProntoPago"), (models.CRComprasCab.tpcDtoGlobal, "tpcDtoGlobal")]
+		,order_by=(models.CRComprasCab.Fecha DESC)
+		,children=CustomEndpoint(model_class=models.ListComprasLin,alias="List-Compras_LIN" ,join_on=models.ListComprasLin.AlbaránCompra
+		)
+	)
+	result = root.execute(request)
+	return root.transform('LAC', 'CR-Compras_CAB', result)
+
+@app.route('/rest/default/herboDeSonia/v1/CR-Producto__PICK', methods=['GET','POST','PUT','OPTIONS'])
+#@admin_required()
+@jwt_required()
+@cross_origin(supports_credentials=True)
+def CR-Producto__PICK():
+	root = CustomEndpoint(model_class=models.CRProductoPick,alias="CR-Producto__PICK"
+		,fields=[ (models.CRProductoPick.Referencia, "Referencia"), (models.CRProductoPick.Descripcion, "Descripcion"), (models.CRProductoPick.DescripcionBreve, "DescripcionBreve"), (models.CRProductoPick.CodBarras, "CodBarras"), (models.CRProductoPick.FechaCreacion, "FechaCreacion"), (models.CRProductoPick.PVP, "PVP"), (models.CRProductoPick.PrecioCoste, "PrecioCoste"), (models.CRProductoPick.IVA, "IVA"), (models.CRProductoPick.tipoIVA, "tipoIVA")]
+	)
+	result = root.execute(request)
+	return root.transform('LAC', 'CR-Producto__PICK', result)
+
+#FreeSQL resource: Count_Traspasos_LIN__Ensanche_SF ResourceType: FreeSQL isActive: True
+@app.route('/rest/default/herboDeSonia/v1/count_traspasos_lin__ensanche_sf', methods=['GET','OPTIONS'])
+@jwt_required()
+@cross_origin(supports_credentials=True)
+def count_traspasos_lin__ensanche_sf():
+	sql = get_Count_Traspasos_LIN__Ensanche_SF(request)
+	return FreeSQL(sqlExpression=sql).execute(request)
+
+def get_count_traspasos_lin__ensanche_sf(request):
+	args = request.args
+	argValue = args.get("filter", "1=1")
+	return 'SELECT count(*) FROM `Traspasos_LIN` WHERE :WHERE AND (`Origen` = 'Ensanche' OR `Destino` = 'Ensanche') '.replace(":WHERE", argValue )
+
+@app.route('/rest/default/herboDeSonia/v1/CR-Proveedor', methods=['GET','POST','PUT','OPTIONS'])
+#@admin_required()
+@jwt_required()
+@cross_origin(supports_credentials=True)
+def CR-Proveedor():
+	root = CustomEndpoint(model_class=models.CRProveedor,alias="CR-Proveedor"
+		,fields=[ (models.CRProveedor.DNICIF, "DNICIF"), (models.CRProveedor.RSocial, "RSocial"), (models.CRProveedor.TipoProv, "TipoProv"), (models.CRProveedor.FPago, "FPago"), (models.CRProveedor.Facturación, "Facturación"), (models.CRProveedor.Provincia, "Provincia"), (models.CRProveedor.NºCuenta, "NºCuenta"), (models.CRProveedor.Calle, "Calle"), (models.CRProveedor.ExtCalle, "ExtCalle"), (models.CRProveedor.Localidad, "Localidad"), (models.CRProveedor.CPost, "CPost"), (models.CRProveedor.E-mail, "E-mail"), (models.CRProveedor.Web, "Web"), (models.CRProveedor.BIC, "BIC"), (models.CRProveedor.IBAN, "IBAN"), (models.CRProveedor.CC, "CC"), (models.CRProveedor.Tlf1, "Tlf1"), (models.CRProveedor.Tlf2, "Tlf2"), (models.CRProveedor.Móvil, "Móvil"), (models.CRProveedor.Fax, "Fax"), (models.CRProveedor.Contacto, "Contacto"), (models.CRProveedor.Comentarios, "Comentarios"), (models.CRProveedor.Notific, "Notific"), (models.CRProveedor.Debaja, "Debaja")]
+		,children=CustomEndpoint(model_class=models.00ListComprasLin,alias="00List-Compras_LIN" ,join_on=models.00ListComprasLin.NºCuentaProveedor
+		)
+	)
+	result = root.execute(request)
+	return root.transform('LAC', 'CR-Proveedor', result)
+
+#FreeSQL resource: Count_Traspasos_LIN__Santa_Eugenia_SF ResourceType: FreeSQL isActive: True
+@app.route('/rest/default/herboDeSonia/v1/count_traspasos_lin__santa_eugenia_sf', methods=['GET','OPTIONS'])
+@jwt_required()
+@cross_origin(supports_credentials=True)
+def count_traspasos_lin__santa_eugenia_sf():
+	sql = get_Count_Traspasos_LIN__Santa_Eugenia_SF(request)
+	return FreeSQL(sqlExpression=sql).execute(request)
+
+def get_count_traspasos_lin__santa_eugenia_sf(request):
+	args = request.args
+	argValue = args.get("filter", "1=1")
+	return 'SELECT count(*) FROM `Traspasos_LIN` WHERE :WHERE AND (`Origen` = 'Santa Eugenia' OR `Destino` = 'Santa Eugenia') '.replace(":WHERE", argValue )
+
+@app.route('/rest/default/herboDeSonia/v1/CR-Proveedor__PICK', methods=['GET','POST','PUT','OPTIONS'])
+#@admin_required()
+@jwt_required()
+@cross_origin(supports_credentials=True)
+def CR-Proveedor__PICK():
+	root = CustomEndpoint(model_class=models.CRProveedorPick,alias="CR-Proveedor__PICK"
+		,fields=[ (models.CRProveedorPick.DNICIF, "DNICIF"), (models.CRProveedorPick.RSocial, "RSocial"), (models.CRProveedorPick.TipoProv, "TipoProv"), (models.CRProveedorPick.FPago, "FPago"), (models.CRProveedorPick.NºCuenta, "NºCuenta"), (models.CRProveedorPick.Provincia, "Provincia")]
+	)
+	result = root.execute(request)
+	return root.transform('LAC', 'CR-Proveedor__PICK', result)
+
+#ResourceType: JavaScript ResourceName: JS_ExtProp isActive: True
+@app.route('/rest/default/herboDeSonia/v1/js_extprop', methods=['GET','OPTIONS'])
+@jwt_required()
+@cross_origin(supports_credentials=True)
+def js_extprop():
+	js = get_JS_ExtProp(request)
+	return JavaScript(javaScript=js).execute(request)
+
+def get_js_extprop(request):
+	
+	args = request.args
+	argValue = args.get("filter", "1=1")
+	return 'resourceName=req.urlParameters.filter+"";
+var extendedProperties = listenerUtil.getExtendedPropertiesFor
+("v1", resourceName);
+if (extendedProperties)// && extendedProperties.MyExtension) {
+{
+var result = {
+    isReadOnly : extendedProperties.isReadOnly,
+    subLayoutClassName : extendedProperties.subLayoutClassName,
+    displaySubFormClassName: extendedProperties.displaySubFormClassName,
+    querySubFormClassName: extendedProperties.querySubFormClassName,
+    insertNotAllow: extendedProperties.insertNotAllow,
+    deleteNotAllow: extendedProperties.deleteNotAllow,
+    updateNotAllow: extendedProperties.updateNotAllow,
+    insertAllow: extendedProperties.insertAllow,
+    deleteAllow: extendedProperties.deleteAllow,
+    updateAllow: extendedProperties.updateAllow,
+    multiSelect: extendedProperties.multiSelect,
+    resourceName: req.urlParameters.filter,
+    extraFilterToSelect:extendedProperties.extraFilterToSelect,
+    tagsForVisibility:extendedProperties.tagsForVisibility,
+    styleForForm:extendedProperties.styleForForm,
+    afterInsertExtraProcess:extendedProperties.afterInsertExtraProcess,
+    sharedColList: extendedProperties.sharedColList
+};
+return result;
+}
+else 
+{
+    return { result:"NO Extended Properties"};
+}
+
+	"""
+
+#FreeSQL resource: Count_StockTienda ResourceType: FreeSQL isActive: True
+@app.route('/rest/default/herboDeSonia/v1/count_stocktienda', methods=['GET','OPTIONS'])
+@jwt_required()
+@cross_origin(supports_credentials=True)
+def count_stocktienda():
+	sql = get_Count_StockTienda(request)
+	return FreeSQL(sqlExpression=sql).execute(request)
+
+def get_count_stocktienda(request):
+	args = request.args
+	argValue = args.get("filter","1=1")
+	return 'SELECT count(*) FROM `StockTienda` WHERE :WHERE '.replace(":WHERE",argValue)
+
+@app.route('/rest/default/herboDeSonia/v1/CR-Ventas_CAB', methods=['GET','POST','PUT','OPTIONS'])
+#@admin_required()
+@jwt_required()
+@cross_origin(supports_credentials=True)
+def CR-Ventas_CAB():
+	root = CustomEndpoint(model_class=models.CRVentasCab,alias="CR-Ventas_CAB"
+		,fields=[ (models.CRVentasCab.Usuario, "Usuario"), (models.CRVentasCab.Tienda, "Tienda"), (models.CRVentasCab.Serie, "Serie"), (models.CRVentasCab.Número, "Número"), (models.CRVentasCab.VentaMostrador, "VentaMostrador"), (models.CRVentasCab.FechaVenta, "FechaVenta"), (models.CRVentasCab.ImporteTotal, "ImporteTotal"), (models.CRVentasCab.PrecioLínea, "PrecioLínea"), (models.CRVentasCab.NombreOferta, "NombreOferta"), (models.CRVentasCab.tpcDtoGlobal, "tpcDtoGlobal"), (models.CRVentasCab.tpcDtoPP, "tpcDtoPP"), (models.CRVentasCab.ImporteBruto, "ImporteBruto"), (models.CRVentasCab.FacturaSN, "FacturaSN"), (models.CRVentasCab.FechaFactura, "FechaFactura"), (models.CRVentasCab.NombreRazónSocialCliente, "NombreRazónSocialCliente"), (models.CRVentasCab.NombreComercialCliente, "NombreComercialCliente"), (models.CRVentasCab.NCuentaCliente, "NCuentaCliente"), (models.CRVentasCab.TipoCliente, "TipoCliente"), (models.CRVentasCab.NIFCliente, "NIFCliente"), (models.CRVentasCab.Teléfono, "Teléfono"), (models.CRVentasCab.ImporteIVASuperReducido, "ImporteIVASuperReducido"), (models.CRVentasCab.ImporteIVAReducido, "ImporteIVAReducido"), (models.CRVentasCab.ImporteIVAAceitesPastas, "ImporteIVAAceitesPastas"), (models.CRVentasCab.ImporteIVAGeneral, "ImporteIVAGeneral"), (models.CRVentasCab.BaseIVACero, "BaseIVACero"), (models.CRVentasCab.BaseIVASuperReducido, "BaseIVASuperReducido"), (models.CRVentasCab.BaseIVAReducido, "BaseIVAReducido"), (models.CRVentasCab.BaseIVAAceitesPastas, "BaseIVAAceitesPastas"), (models.CRVentasCab.BaseIVAGeneral, "BaseIVAGeneral"), (models.CRVentasCab.NumeroLineas, "NumeroLineas"), (models.CRVentasCab.TieneValesDto, "TieneValesDto"), (models.CRVentasCab.Puntos, "Puntos")]
+		,calling=(fn_cr-ventas_cab_cr-ventas_cab_crventascab_event)
+		,children=CustomEndpoint(model_class=models.ListVentasLin,alias="List-Ventas_LIN" ,join_on=models.ListVentasLin.Número
+		)
+	)
+	result = root.execute(request)
+	return root.transform('LAC', 'CR-Ventas_CAB', result)
+
+	def fn_CR-Ventas_CAB_cr-ventas_cab_crventascab_event(row: dict, tableRow: dict, parentRow: dict):
+		
+'''
+	row.cabLin1 = "RACRISSON S.L. - HERBOLARIO"
+row.cabLin2 = "SONIA"
+row.cabLin3 = "AVDA PABLO NERUDA 91-97"
+row.cabLin4 = row.Tienda
+row.cabLin5 = " "
+row.cabLin6 = "CIF else B87472486"
+row.cabLin7 = "Código del cliente else " + row.NCuentaCliente
+row.cabLin8 = "Factura simplif. " + row.VentaMostrador
+row.fecha = row.FechaVenta
+row.footerLin1 = "IVA"
+space = "                      "
+lineasIvas = ""
+
+if row.BaseIVACero != 0):
+    row.footerLin2 = space + "0 x " + row.BaseIVACero.toFixed(2) + "    " + "0,00"
+    lineasIvas += ",footerLin2"
+
+
+if row.BaseIVASuperReducido != 0):
+    row.footerLin3 = space + "4 x " + row.BaseIVASuperReducido.toFixed(2) + "    " + row.ImporteIVASuperReducido.toFixed(2)
+    lineasIvas += ",footerLin3"
+
+
+if row.BaseIVAAceitesPastas != 0):
+    row.footerLin4 = space + "5 x " + row.BaseIVAAceitesPastas.toFixed(2) + "    " + row.ImporteIVAAceitesPastas.toFixed(2)
+    lineasIvas += ",footerLin4"
+
+
+if row.BaseIVAReducido != 0):
+    row.footerLin5 = space + "10 x " + row.BaseIVAReducido.toFixed(2) + "    " + row.ImporteIVAReducido.toFixed(2)
+    lineasIvas += ",footerLin5"
+
+
+if row.BaseIVAGeneral != 0):
+    row.footerLin6 = space + "21 x " + row.BaseIVAGeneral.toFixed(2) + "    " + row.ImporteIVAGeneral.toFixed(2)
+    lineasIvas += ",footerLin6"
+
+
+lineasIvas = lineasIvas.substring(1) # elimina la coma inicial
+
+
+row.footerLin7 = "TOTAL                              " + row.ImporteTotal.toFixed(2)
+
+row.MapPrintFields='#CAB#cabLin1,cabLin2,cabLin3,cabLin4,cabLin5,cabLin6,cabLin7,fecha,cabLin7#LIN#List-Ventas_LIN#HEADER#PROD/SERV     UND/H               TOTAL#L1#Producto#L2#SPACE(15),CantidadXPrecio,ImporteBruto#sizes#46,15,20,15#FOOT#footerLin1,'+lineasIvas+',footerLin7'
+
+'''
+#FreeSQL resource: Count_Ventas_LIN__Rivas_Vaciamadrid_SF ResourceType: FreeSQL isActive: True
+@app.route('/rest/default/herboDeSonia/v1/count_ventas_lin__rivas_vaciamadrid_sf', methods=['GET','OPTIONS'])
+@jwt_required()
+@cross_origin(supports_credentials=True)
+def count_ventas_lin__rivas_vaciamadrid_sf():
+	sql = get_Count_Ventas_LIN__Rivas_Vaciamadrid_SF(request)
+	return FreeSQL(sqlExpression=sql).execute(request)
+
+def get_count_ventas_lin__rivas_vaciamadrid_sf(request):
+	args = request.args
+	argValue = args.get("filter", "1=1")
+	return 'SELECT count(*) FROM `Ventas_LIN` WHERE :WHERE AND `Tienda` ="RIVAS VACIAMADRID" '.replace(":WHERE", argValue )
+
+#FreeSQL section to ALS api/customize_api.py
+#FreeSQL resource: Count_Ventas_CAB ResourceType: FreeSQL isActive: True
+@app.route('/rest/default/herboDeSonia/v1/count_ventas_cab', methods=['GET','OPTIONS'])
+@jwt_required()
+@cross_origin(supports_credentials=True)
+def count_ventas_cab():
+	sql = get_Count_Ventas_CAB(request)
+	return FreeSQL(sqlExpression=sql).execute(request)
+
+def get_count_ventas_cab(request):
+	args = request.args
+	argValue = args.get("filter", "1=1")
+	return 'SELECT count(*) FROM `Ventas_CAB` WHERE :WHERE '.replace(":WHERE", argValue )
+
+#FreeSQL resource: Count_Ventas_CAB ResourceType: FreeSQL isActive: True
+@app.route('/rest/default/herboDeSonia/v1/count_ventas_cab', methods=['GET','OPTIONS'])
+@jwt_required()
+@cross_origin(supports_credentials=True)
+def count_ventas_cab():
+	sql = get_Count_Ventas_CAB(request)
+	return FreeSQL(sqlExpression=sql).execute(request)
+
+def get_count_ventas_cab(request):
+	args = request.args
+	argValue = args.get("filter", "1=1")
+	return 'SELECT count(*) FROM `Ventas_CAB` WHERE :WHERE '.replace(":WHERE", argValue )
+
+#FreeSQL resource: Count_Traspasos_LIN__Rivas_Vaciamadrid_SF ResourceType: FreeSQL isActive: True
+@app.route('/rest/default/herboDeSonia/v1/count_traspasos_lin__rivas_vaciamadrid_sf', methods=['GET','OPTIONS'])
+@jwt_required()
+@cross_origin(supports_credentials=True)
+def count_traspasos_lin__rivas_vaciamadrid_sf():
+	sql = get_Count_Traspasos_LIN__Rivas_Vaciamadrid_SF(request)
+	return FreeSQL(sqlExpression=sql).execute(request)
+
+def get_count_traspasos_lin__rivas_vaciamadrid_sf(request):
+	args = request.args
+	argValue = args.get("filter", "1=1")
+	return 'SELECT count(*) FROM `Traspasos_LIN` WHERE :WHERE AND (`Origen` = 'RIVAS VACIAMADRID' OR `Destino` = 'RIVAS VACIAMADRID') '.replace(":WHERE", argValue )
+
+#FreeSQL resource: Count_Traspasos_LIN__Rivas_Vaciamadrid_SF ResourceType: FreeSQL isActive: True
+@app.route('/rest/default/herboDeSonia/v1/count_traspasos_lin__rivas_vaciamadrid_sf', methods=['GET','OPTIONS'])
+@jwt_required()
+@cross_origin(supports_credentials=True)
+def count_traspasos_lin__rivas_vaciamadrid_sf():
+	sql = get_Count_Traspasos_LIN__Rivas_Vaciamadrid_SF(request)
+	return FreeSQL(sqlExpression=sql).execute(request)
+
+def get_count_traspasos_lin__rivas_vaciamadrid_sf(request):
+	args = request.args
+	argValue = args.get("filter", "1=1")
+	return 'SELECT count(*) FROM `Traspasos_LIN` WHERE :WHERE AND (`Origen` = 'RIVAS VACIAMADRID' OR `Destino` = 'RIVAS VACIAMADRID') '.replace(":WHERE", argValue )
+
+#FreeSQL resource: Count_Compras_LIN__Rivas_Vaciamadrid_SF ResourceType: FreeSQL isActive: True
+@app.route('/rest/default/herboDeSonia/v1/count_compras_lin__rivas_vaciamadrid_sf', methods=['GET','OPTIONS'])
+@jwt_required()
+@cross_origin(supports_credentials=True)
+def count_compras_lin__rivas_vaciamadrid_sf():
+	sql = get_Count_Compras_LIN__Rivas_Vaciamadrid_SF(request)
+	return FreeSQL(sqlExpression=sql).execute(request)
+
+def get_count_compras_lin__rivas_vaciamadrid_sf(request):
+	args = request.args
+	argValue = args.get("filter", "1=1")
+	return 'SELECT count(*) FROM `Compras_LIN` WHERE :WHERE AND `Tienda` ="RIVAS VACIAMADRID" '.replace(":WHERE", argValue )
+
+#FreeSQL resource: Count_Compras_LIN__Rivas_Vaciamadrid_SF ResourceType: FreeSQL isActive: True
+@app.route('/rest/default/herboDeSonia/v1/count_compras_lin__rivas_vaciamadrid_sf', methods=['GET','OPTIONS'])
+@jwt_required()
+@cross_origin(supports_credentials=True)
+def count_compras_lin__rivas_vaciamadrid_sf():
+	sql = get_Count_Compras_LIN__Rivas_Vaciamadrid_SF(request)
+	return FreeSQL(sqlExpression=sql).execute(request)
+
+def get_count_compras_lin__rivas_vaciamadrid_sf(request):
+	args = request.args
+	argValue = args.get("filter", "1=1")
+	return 'SELECT count(*) FROM `Compras_LIN` WHERE :WHERE AND `Tienda` ="RIVAS VACIAMADRID" '.replace(":WHERE", argValue )
+
+#FreeSQL resource: Count_Compras_CAB ResourceType: FreeSQL isActive: True
+@app.route('/rest/default/herboDeSonia/v1/count_compras_cab', methods=['GET','OPTIONS'])
+@jwt_required()
+@cross_origin(supports_credentials=True)
+def count_compras_cab():
+	sql = get_Count_Compras_CAB(request)
+	return FreeSQL(sqlExpression=sql).execute(request)
+
+def get_count_compras_cab(request):
+	args = request.args
+	argValue = args.get("filter", "1=1")
+	return 'SELECT count(*) FROM `Compras_CAB` WHERE :WHERE '.replace(":WHERE", argValue )
+
+#FreeSQL resource: Count_Compras_CAB ResourceType: FreeSQL isActive: True
+@app.route('/rest/default/herboDeSonia/v1/count_compras_cab', methods=['GET','OPTIONS'])
+@jwt_required()
+@cross_origin(supports_credentials=True)
+def count_compras_cab():
+	sql = get_Count_Compras_CAB(request)
+	return FreeSQL(sqlExpression=sql).execute(request)
+
+def get_count_compras_cab(request):
+	args = request.args
+	argValue = args.get("filter", "1=1")
+	return 'SELECT count(*) FROM `Compras_CAB` WHERE :WHERE '.replace(":WHERE", argValue )
+
+#FreeSQL resource: Count_Compras_LIN__Santa_Eugenia_SF ResourceType: FreeSQL isActive: True
+@app.route('/rest/default/herboDeSonia/v1/count_compras_lin__santa_eugenia_sf', methods=['GET','OPTIONS'])
+@jwt_required()
+@cross_origin(supports_credentials=True)
+def count_compras_lin__santa_eugenia_sf():
+	sql = get_Count_Compras_LIN__Santa_Eugenia_SF(request)
+	return FreeSQL(sqlExpression=sql).execute(request)
+
+def get_count_compras_lin__santa_eugenia_sf(request):
+	args = request.args
+	argValue = args.get("filter", "1=1")
+	return 'SELECT count(*) FROM `Compras_LIN` WHERE :WHERE AND `Tienda` ="Santa Eugenia" '.replace(":WHERE", argValue )
+
+#FreeSQL resource: Count_Compras_LIN__Santa_Eugenia_SF ResourceType: FreeSQL isActive: True
+@app.route('/rest/default/herboDeSonia/v1/count_compras_lin__santa_eugenia_sf', methods=['GET','OPTIONS'])
+@jwt_required()
+@cross_origin(supports_credentials=True)
+def count_compras_lin__santa_eugenia_sf():
+	sql = get_Count_Compras_LIN__Santa_Eugenia_SF(request)
+	return FreeSQL(sqlExpression=sql).execute(request)
+
+def get_count_compras_lin__santa_eugenia_sf(request):
+	args = request.args
+	argValue = args.get("filter", "1=1")
+	return 'SELECT count(*) FROM `Compras_LIN` WHERE :WHERE AND `Tienda` ="Santa Eugenia" '.replace(":WHERE", argValue )
+
+#FreeSQL resource: Count_Compras_LIN__Barajas_SF ResourceType: FreeSQL isActive: True
+@app.route('/rest/default/herboDeSonia/v1/count_compras_lin__barajas_sf', methods=['GET','OPTIONS'])
+@jwt_required()
+@cross_origin(supports_credentials=True)
+def count_compras_lin__barajas_sf():
+	sql = get_Count_Compras_LIN__Barajas_SF(request)
+	return FreeSQL(sqlExpression=sql).execute(request)
+
+def get_count_compras_lin__barajas_sf(request):
+	args = request.args
+	argValue = args.get("filter", "1=1")
+	return 'SELECT count(*) FROM `Compras_LIN` WHERE :WHERE AND `Tienda` ="Barajas" '.replace(":WHERE", argValue )
+
+#FreeSQL resource: Count_Compras_LIN__Barajas_SF ResourceType: FreeSQL isActive: True
+@app.route('/rest/default/herboDeSonia/v1/count_compras_lin__barajas_sf', methods=['GET','OPTIONS'])
+@jwt_required()
+@cross_origin(supports_credentials=True)
+def count_compras_lin__barajas_sf():
+	sql = get_Count_Compras_LIN__Barajas_SF(request)
+	return FreeSQL(sqlExpression=sql).execute(request)
+
+def get_count_compras_lin__barajas_sf(request):
+	args = request.args
+	argValue = args.get("filter", "1=1")
+	return 'SELECT count(*) FROM `Compras_LIN` WHERE :WHERE AND `Tienda` ="Barajas" '.replace(":WHERE", argValue )
+
+#FreeSQL resource: Count_Producto ResourceType: FreeSQL isActive: True
+@app.route('/rest/default/herboDeSonia/v1/count_producto', methods=['GET','OPTIONS'])
+@jwt_required()
+@cross_origin(supports_credentials=True)
+def count_producto():
+	sql = get_Count_Producto(request)
+	return FreeSQL(sqlExpression=sql).execute(request)
+
+def get_count_producto(request):
+	args = request.args
+	argValue = args.get("filter", "1=1")
+	return 'SELECT count(*) FROM `Producto` WHERE :WHERE '.replace(":WHERE", argValue )
+
+#FreeSQL resource: Count_Producto ResourceType: FreeSQL isActive: True
+@app.route('/rest/default/herboDeSonia/v1/count_producto', methods=['GET','OPTIONS'])
+@jwt_required()
+@cross_origin(supports_credentials=True)
+def count_producto():
+	sql = get_Count_Producto(request)
+	return FreeSQL(sqlExpression=sql).execute(request)
+
+def get_count_producto(request):
+	args = request.args
+	argValue = args.get("filter", "1=1")
+	return 'SELECT count(*) FROM `Producto` WHERE :WHERE '.replace(":WHERE", argValue )
+
+#FreeSQL resource: Count_Ventas_LIN__Palomeras_SF ResourceType: FreeSQL isActive: True
+@app.route('/rest/default/herboDeSonia/v1/count_ventas_lin__palomeras_sf', methods=['GET','OPTIONS'])
+@jwt_required()
+@cross_origin(supports_credentials=True)
+def count_ventas_lin__palomeras_sf():
+	sql = get_Count_Ventas_LIN__Palomeras_SF(request)
+	return FreeSQL(sqlExpression=sql).execute(request)
+
+def get_count_ventas_lin__palomeras_sf(request):
+	args = request.args
+	argValue = args.get("filter", "1=1")
+	return 'SELECT count(*) FROM `Ventas_LIN` WHERE :WHERE AND `Tienda` ="Palomeras" '.replace(":WHERE", argValue )
+
+#FreeSQL resource: Count_Ventas_LIN__Palomeras_SF ResourceType: FreeSQL isActive: True
+@app.route('/rest/default/herboDeSonia/v1/count_ventas_lin__palomeras_sf', methods=['GET','OPTIONS'])
+@jwt_required()
+@cross_origin(supports_credentials=True)
+def count_ventas_lin__palomeras_sf():
+	sql = get_Count_Ventas_LIN__Palomeras_SF(request)
+	return FreeSQL(sqlExpression=sql).execute(request)
+
+def get_count_ventas_lin__palomeras_sf(request):
+	args = request.args
+	argValue = args.get("filter", "1=1")
+	return 'SELECT count(*) FROM `Ventas_LIN` WHERE :WHERE AND `Tienda` ="Palomeras" '.replace(":WHERE", argValue )
+
+#FreeSQL resource: Count_Tienda ResourceType: FreeSQL isActive: True
+@app.route('/rest/default/herboDeSonia/v1/count_tienda', methods=['GET','OPTIONS'])
+@jwt_required()
+@cross_origin(supports_credentials=True)
+def count_tienda():
+	sql = get_Count_Tienda(request)
+	return FreeSQL(sqlExpression=sql).execute(request)
+
+def get_count_tienda(request):
+	args = request.args
+	argValue = args.get("filter", "1=1")
+	return 'SELECT count(*) FROM `Tienda` WHERE :WHERE '.replace(":WHERE", argValue )
+
+#FreeSQL resource: Count_Tienda ResourceType: FreeSQL isActive: True
+@app.route('/rest/default/herboDeSonia/v1/count_tienda', methods=['GET','OPTIONS'])
+@jwt_required()
+@cross_origin(supports_credentials=True)
+def count_tienda():
+	sql = get_Count_Tienda(request)
+	return FreeSQL(sqlExpression=sql).execute(request)
+
+def get_count_tienda(request):
+	args = request.args
+	argValue = args.get("filter", "1=1")
+	return 'SELECT count(*) FROM `Tienda` WHERE :WHERE '.replace(":WHERE", argValue )
+
+#FreeSQL resource: Count_Compras_LIN__Palomeras_SF ResourceType: FreeSQL isActive: True
+@app.route('/rest/default/herboDeSonia/v1/count_compras_lin__palomeras_sf', methods=['GET','OPTIONS'])
+@jwt_required()
+@cross_origin(supports_credentials=True)
+def count_compras_lin__palomeras_sf():
+	sql = get_Count_Compras_LIN__Palomeras_SF(request)
+	return FreeSQL(sqlExpression=sql).execute(request)
+
+def get_count_compras_lin__palomeras_sf(request):
+	args = request.args
+	argValue = args.get("filter", "1=1")
+	return 'SELECT count(*) FROM `Compras_LIN` WHERE :WHERE AND `Tienda` ="Palomeras" '.replace(":WHERE", argValue )
+
+#FreeSQL resource: Count_Compras_LIN__Palomeras_SF ResourceType: FreeSQL isActive: True
+@app.route('/rest/default/herboDeSonia/v1/count_compras_lin__palomeras_sf', methods=['GET','OPTIONS'])
+@jwt_required()
+@cross_origin(supports_credentials=True)
+def count_compras_lin__palomeras_sf():
+	sql = get_Count_Compras_LIN__Palomeras_SF(request)
+	return FreeSQL(sqlExpression=sql).execute(request)
+
+def get_count_compras_lin__palomeras_sf(request):
+	args = request.args
+	argValue = args.get("filter", "1=1")
+	return 'SELECT count(*) FROM `Compras_LIN` WHERE :WHERE AND `Tienda` ="Palomeras" '.replace(":WHERE", argValue )
+
+#FreeSQL resource: Count_Compras_LIN__CComercial_SF ResourceType: FreeSQL isActive: True
+@app.route('/rest/default/herboDeSonia/v1/count_compras_lin__ccomercial_sf', methods=['GET','OPTIONS'])
+@jwt_required()
+@cross_origin(supports_credentials=True)
+def count_compras_lin__ccomercial_sf():
+	sql = get_Count_Compras_LIN__CComercial_SF(request)
+	return FreeSQL(sqlExpression=sql).execute(request)
+
+def get_count_compras_lin__ccomercial_sf(request):
+	args = request.args
+	argValue = args.get("filter", "1=1")
+	return 'SELECT count(*) FROM `Compras_LIN` WHERE :WHERE AND `Tienda` ="Centro Comercial" '.replace(":WHERE", argValue )
+
+#FreeSQL resource: Count_Compras_LIN__CComercial_SF ResourceType: FreeSQL isActive: True
+@app.route('/rest/default/herboDeSonia/v1/count_compras_lin__ccomercial_sf', methods=['GET','OPTIONS'])
+@jwt_required()
+@cross_origin(supports_credentials=True)
+def count_compras_lin__ccomercial_sf():
+	sql = get_Count_Compras_LIN__CComercial_SF(request)
+	return FreeSQL(sqlExpression=sql).execute(request)
+
+def get_count_compras_lin__ccomercial_sf(request):
+	args = request.args
+	argValue = args.get("filter", "1=1")
+	return 'SELECT count(*) FROM `Compras_LIN` WHERE :WHERE AND `Tienda` ="Centro Comercial" '.replace(":WHERE", argValue )
+
+#FreeSQL resource: Count_Traspasos_LIN__Palomeras_SF ResourceType: FreeSQL isActive: True
+@app.route('/rest/default/herboDeSonia/v1/count_traspasos_lin__palomeras_sf', methods=['GET','OPTIONS'])
+@jwt_required()
+@cross_origin(supports_credentials=True)
+def count_traspasos_lin__palomeras_sf():
+	sql = get_Count_Traspasos_LIN__Palomeras_SF(request)
+	return FreeSQL(sqlExpression=sql).execute(request)
+
+def get_count_traspasos_lin__palomeras_sf(request):
+	args = request.args
+	argValue = args.get("filter", "1=1")
+	return 'SELECT count(*) FROM `Traspasos_LIN` WHERE :WHERE AND (`Origen` = 'Palomeras' OR `Destino` = 'Palomeras') '.replace(":WHERE", argValue )
+
+#FreeSQL resource: Count_Traspasos_LIN__Palomeras_SF ResourceType: FreeSQL isActive: True
+@app.route('/rest/default/herboDeSonia/v1/count_traspasos_lin__palomeras_sf', methods=['GET','OPTIONS'])
+@jwt_required()
+@cross_origin(supports_credentials=True)
+def count_traspasos_lin__palomeras_sf():
+	sql = get_Count_Traspasos_LIN__Palomeras_SF(request)
+	return FreeSQL(sqlExpression=sql).execute(request)
+
+def get_count_traspasos_lin__palomeras_sf(request):
+	args = request.args
+	argValue = args.get("filter", "1=1")
+	return 'SELECT count(*) FROM `Traspasos_LIN` WHERE :WHERE AND (`Origen` = 'Palomeras' OR `Destino` = 'Palomeras') '.replace(":WHERE", argValue )
+
+#FreeSQL resource: Count_Ventas_LIN__Santa_Eugenia_SF ResourceType: FreeSQL isActive: True
+@app.route('/rest/default/herboDeSonia/v1/count_ventas_lin__santa_eugenia_sf', methods=['GET','OPTIONS'])
+@jwt_required()
+@cross_origin(supports_credentials=True)
+def count_ventas_lin__santa_eugenia_sf():
+	sql = get_Count_Ventas_LIN__Santa_Eugenia_SF(request)
+	return FreeSQL(sqlExpression=sql).execute(request)
+
+def get_count_ventas_lin__santa_eugenia_sf(request):
+	args = request.args
+	argValue = args.get("filter", "1=1")
+	return 'SELECT count(*) FROM `Ventas_LIN` WHERE :WHERE AND `Tienda` ="Santa Eugenia" '.replace(":WHERE", argValue )
+
+#FreeSQL resource: Count_Ventas_LIN__Santa_Eugenia_SF ResourceType: FreeSQL isActive: True
+@app.route('/rest/default/herboDeSonia/v1/count_ventas_lin__santa_eugenia_sf', methods=['GET','OPTIONS'])
+@jwt_required()
+@cross_origin(supports_credentials=True)
+def count_ventas_lin__santa_eugenia_sf():
+	sql = get_Count_Ventas_LIN__Santa_Eugenia_SF(request)
+	return FreeSQL(sqlExpression=sql).execute(request)
+
+def get_count_ventas_lin__santa_eugenia_sf(request):
+	args = request.args
+	argValue = args.get("filter", "1=1")
+	return 'SELECT count(*) FROM `Ventas_LIN` WHERE :WHERE AND `Tienda` ="Santa Eugenia" '.replace(":WHERE", argValue )
+
+#FreeSQL resource: Count_Cliente ResourceType: FreeSQL isActive: True
+@app.route('/rest/default/herboDeSonia/v1/count_cliente', methods=['GET','OPTIONS'])
+@jwt_required()
+@cross_origin(supports_credentials=True)
+def count_cliente():
+	sql = get_Count_Cliente(request)
+	return FreeSQL(sqlExpression=sql).execute(request)
+
+def get_count_cliente(request):
+	args = request.args
+	argValue = args.get("filter", "1=1")
+	return 'SELECT count(*) FROM `Cliente` WHERE :WHERE '.replace(":WHERE", argValue )
+
+#FreeSQL resource: Count_Cliente ResourceType: FreeSQL isActive: True
+@app.route('/rest/default/herboDeSonia/v1/count_cliente', methods=['GET','OPTIONS'])
+@jwt_required()
+@cross_origin(supports_credentials=True)
+def count_cliente():
+	sql = get_Count_Cliente(request)
+	return FreeSQL(sqlExpression=sql).execute(request)
+
+def get_count_cliente(request):
+	args = request.args
+	argValue = args.get("filter", "1=1")
+	return 'SELECT count(*) FROM `Cliente` WHERE :WHERE '.replace(":WHERE", argValue )
+
+#FreeSQL resource: Count_Ventas_LIN__CComercial_SF ResourceType: FreeSQL isActive: True
+@app.route('/rest/default/herboDeSonia/v1/count_ventas_lin__ccomercial_sf', methods=['GET','OPTIONS'])
+@jwt_required()
+@cross_origin(supports_credentials=True)
+def count_ventas_lin__ccomercial_sf():
+	sql = get_Count_Ventas_LIN__CComercial_SF(request)
+	return FreeSQL(sqlExpression=sql).execute(request)
+
+def get_count_ventas_lin__ccomercial_sf(request):
+	args = request.args
+	argValue = args.get("filter", "1=1")
+	return 'SELECT count(*) FROM `Ventas_LIN` WHERE :WHERE AND `Tienda` ="Centro Comercial" '.replace(":WHERE", argValue )
+
+#FreeSQL resource: Count_Ventas_LIN__CComercial_SF ResourceType: FreeSQL isActive: True
+@app.route('/rest/default/herboDeSonia/v1/count_ventas_lin__ccomercial_sf', methods=['GET','OPTIONS'])
+@jwt_required()
+@cross_origin(supports_credentials=True)
+def count_ventas_lin__ccomercial_sf():
+	sql = get_Count_Ventas_LIN__CComercial_SF(request)
+	return FreeSQL(sqlExpression=sql).execute(request)
+
+def get_count_ventas_lin__ccomercial_sf(request):
+	args = request.args
+	argValue = args.get("filter", "1=1")
+	return 'SELECT count(*) FROM `Ventas_LIN` WHERE :WHERE AND `Tienda` ="Centro Comercial" '.replace(":WHERE", argValue )
+
+#FreeSQL resource: Count_Traspasos_LIN__CComercial_SF ResourceType: FreeSQL isActive: True
+@app.route('/rest/default/herboDeSonia/v1/count_traspasos_lin__ccomercial_sf', methods=['GET','OPTIONS'])
+@jwt_required()
+@cross_origin(supports_credentials=True)
+def count_traspasos_lin__ccomercial_sf():
+	sql = get_Count_Traspasos_LIN__CComercial_SF(request)
+	return FreeSQL(sqlExpression=sql).execute(request)
+
+def get_count_traspasos_lin__ccomercial_sf(request):
+	args = request.args
+	argValue = args.get("filter", "1=1")
+	return 'SELECT count(*) FROM `Traspasos_LIN` WHERE :WHERE AND (`Origen` = 'Centro Comercial' OR `Destino` = 'Centro Comercial') '.replace(":WHERE", argValue )
+
+#FreeSQL resource: Count_Traspasos_LIN__CComercial_SF ResourceType: FreeSQL isActive: True
+@app.route('/rest/default/herboDeSonia/v1/count_traspasos_lin__ccomercial_sf', methods=['GET','OPTIONS'])
+@jwt_required()
+@cross_origin(supports_credentials=True)
+def count_traspasos_lin__ccomercial_sf():
+	sql = get_Count_Traspasos_LIN__CComercial_SF(request)
+	return FreeSQL(sqlExpression=sql).execute(request)
+
+def get_count_traspasos_lin__ccomercial_sf(request):
+	args = request.args
+	argValue = args.get("filter", "1=1")
+	return 'SELECT count(*) FROM `Traspasos_LIN` WHERE :WHERE AND (`Origen` = 'Centro Comercial' OR `Destino` = 'Centro Comercial') '.replace(":WHERE", argValue )
+
+#FreeSQL resource: Count_Ventas_LIN__Barajas_SF ResourceType: FreeSQL isActive: True
+@app.route('/rest/default/herboDeSonia/v1/count_ventas_lin__barajas_sf', methods=['GET','OPTIONS'])
+@jwt_required()
+@cross_origin(supports_credentials=True)
+def count_ventas_lin__barajas_sf():
+	sql = get_Count_Ventas_LIN__Barajas_SF(request)
+	return FreeSQL(sqlExpression=sql).execute(request)
+
+def get_count_ventas_lin__barajas_sf(request):
+	args = request.args
+	argValue = args.get("filter", "1=1")
+	return 'SELECT count(*) FROM `Ventas_LIN` WHERE :WHERE AND `Tienda` ="Barajas" '.replace(":WHERE", argValue )
+
+#FreeSQL resource: Count_Ventas_LIN__Barajas_SF ResourceType: FreeSQL isActive: True
+@app.route('/rest/default/herboDeSonia/v1/count_ventas_lin__barajas_sf', methods=['GET','OPTIONS'])
+@jwt_required()
+@cross_origin(supports_credentials=True)
+def count_ventas_lin__barajas_sf():
+	sql = get_Count_Ventas_LIN__Barajas_SF(request)
+	return FreeSQL(sqlExpression=sql).execute(request)
+
+def get_count_ventas_lin__barajas_sf(request):
+	args = request.args
+	argValue = args.get("filter", "1=1")
+	return 'SELECT count(*) FROM `Ventas_LIN` WHERE :WHERE AND `Tienda` ="Barajas" '.replace(":WHERE", argValue )
+
+#FreeSQL resource: Count_Proveedor ResourceType: FreeSQL isActive: True
+@app.route('/rest/default/herboDeSonia/v1/count_proveedor', methods=['GET','OPTIONS'])
+@jwt_required()
+@cross_origin(supports_credentials=True)
+def count_proveedor():
+	sql = get_Count_Proveedor(request)
+	return FreeSQL(sqlExpression=sql).execute(request)
+
+def get_count_proveedor(request):
+	args = request.args
+	argValue = args.get("filter", "1=1")
+	return 'SELECT count(*) FROM `Proveedor` WHERE :WHERE '.replace(":WHERE", argValue )
+
+#FreeSQL resource: Count_Proveedor ResourceType: FreeSQL isActive: True
+@app.route('/rest/default/herboDeSonia/v1/count_proveedor', methods=['GET','OPTIONS'])
+@jwt_required()
+@cross_origin(supports_credentials=True)
+def count_proveedor():
+	sql = get_Count_Proveedor(request)
+	return FreeSQL(sqlExpression=sql).execute(request)
+
+def get_count_proveedor(request):
+	args = request.args
+	argValue = args.get("filter", "1=1")
+	return 'SELECT count(*) FROM `Proveedor` WHERE :WHERE '.replace(":WHERE", argValue )
+
+#FreeSQL resource: Count_Ventas_LIN__Ensanche_SF ResourceType: FreeSQL isActive: True
+@app.route('/rest/default/herboDeSonia/v1/count_ventas_lin__ensanche_sf', methods=['GET','OPTIONS'])
+@jwt_required()
+@cross_origin(supports_credentials=True)
+def count_ventas_lin__ensanche_sf():
+	sql = get_Count_Ventas_LIN__Ensanche_SF(request)
+	return FreeSQL(sqlExpression=sql).execute(request)
+
+def get_count_ventas_lin__ensanche_sf(request):
+	args = request.args
+	argValue = args.get("filter", "1=1")
+	return 'SELECT count(*) FROM `Ventas_LIN` WHERE :WHERE AND `Tienda` ="Ensanche" '.replace(":WHERE", argValue )
+
+#FreeSQL resource: Count_Ventas_LIN__Ensanche_SF ResourceType: FreeSQL isActive: True
+@app.route('/rest/default/herboDeSonia/v1/count_ventas_lin__ensanche_sf', methods=['GET','OPTIONS'])
+@jwt_required()
+@cross_origin(supports_credentials=True)
+def count_ventas_lin__ensanche_sf():
+	sql = get_Count_Ventas_LIN__Ensanche_SF(request)
+	return FreeSQL(sqlExpression=sql).execute(request)
+
+def get_count_ventas_lin__ensanche_sf(request):
+	args = request.args
+	argValue = args.get("filter", "1=1")
+	return 'SELECT count(*) FROM `Ventas_LIN` WHERE :WHERE AND `Tienda` ="Ensanche" '.replace(":WHERE", argValue )
+
+#FreeSQL resource: Count_Traspasos_LIN ResourceType: FreeSQL isActive: True
+@app.route('/rest/default/herboDeSonia/v1/count_traspasos_lin', methods=['GET','OPTIONS'])
+@jwt_required()
+@cross_origin(supports_credentials=True)
+def count_traspasos_lin():
+	sql = get_Count_Traspasos_LIN(request)
+	return FreeSQL(sqlExpression=sql).execute(request)
+
+def get_count_traspasos_lin(request):
+	args = request.args
+	argValue = args.get("filter", "1=1")
+	return 'SELECT count(*) FROM `Traspasos_LIN` WHERE :WHERE '.replace(":WHERE", argValue )
+
+#FreeSQL resource: Count_Traspasos_LIN ResourceType: FreeSQL isActive: True
+@app.route('/rest/default/herboDeSonia/v1/count_traspasos_lin', methods=['GET','OPTIONS'])
+@jwt_required()
+@cross_origin(supports_credentials=True)
+def count_traspasos_lin():
+	sql = get_Count_Traspasos_LIN(request)
+	return FreeSQL(sqlExpression=sql).execute(request)
+
+def get_count_traspasos_lin(request):
+	args = request.args
+	argValue = args.get("filter", "1=1")
+	return 'SELECT count(*) FROM `Traspasos_LIN` WHERE :WHERE '.replace(":WHERE", argValue )
+
+#FreeSQL resource: Count_Ventas_LIN ResourceType: FreeSQL isActive: True
+@app.route('/rest/default/herboDeSonia/v1/count_ventas_lin', methods=['GET','OPTIONS'])
+@jwt_required()
+@cross_origin(supports_credentials=True)
+def count_ventas_lin():
+	sql = get_Count_Ventas_LIN(request)
+	return FreeSQL(sqlExpression=sql).execute(request)
+
+def get_count_ventas_lin(request):
+	args = request.args
+	argValue = args.get("filter", "1=1")
+	return 'SELECT count(*) FROM `Ventas_LIN` WHERE :WHERE '.replace(":WHERE", argValue )
+
+#FreeSQL resource: Count_Ventas_LIN ResourceType: FreeSQL isActive: True
+@app.route('/rest/default/herboDeSonia/v1/count_ventas_lin', methods=['GET','OPTIONS'])
+@jwt_required()
+@cross_origin(supports_credentials=True)
+def count_ventas_lin():
+	sql = get_Count_Ventas_LIN(request)
+	return FreeSQL(sqlExpression=sql).execute(request)
+
+def get_count_ventas_lin(request):
+	args = request.args
+	argValue = args.get("filter", "1=1")
+	return 'SELECT count(*) FROM `Ventas_LIN` WHERE :WHERE '.replace(":WHERE", argValue )
+
+#FreeSQL resource: Count_Compras_LIN__Ensanche_SF ResourceType: FreeSQL isActive: True
+@app.route('/rest/default/herboDeSonia/v1/count_compras_lin__ensanche_sf', methods=['GET','OPTIONS'])
+@jwt_required()
+@cross_origin(supports_credentials=True)
+def count_compras_lin__ensanche_sf():
+	sql = get_Count_Compras_LIN__Ensanche_SF(request)
+	return FreeSQL(sqlExpression=sql).execute(request)
+
+def get_count_compras_lin__ensanche_sf(request):
+	args = request.args
+	argValue = args.get("filter", "1=1")
+	return 'SELECT count(*) FROM `Compras_LIN` WHERE :WHERE AND `Tienda` ="Ensanche" '.replace(":WHERE", argValue )
+
+#FreeSQL resource: Count_Compras_LIN__Ensanche_SF ResourceType: FreeSQL isActive: True
+@app.route('/rest/default/herboDeSonia/v1/count_compras_lin__ensanche_sf', methods=['GET','OPTIONS'])
+@jwt_required()
+@cross_origin(supports_credentials=True)
+def count_compras_lin__ensanche_sf():
+	sql = get_Count_Compras_LIN__Ensanche_SF(request)
+	return FreeSQL(sqlExpression=sql).execute(request)
+
+def get_count_compras_lin__ensanche_sf(request):
+	args = request.args
+	argValue = args.get("filter", "1=1")
+	return 'SELECT count(*) FROM `Compras_LIN` WHERE :WHERE AND `Tienda` ="Ensanche" '.replace(":WHERE", argValue )
+
+#FreeSQL resource: Count_Compras_LIN ResourceType: FreeSQL isActive: True
+@app.route('/rest/default/herboDeSonia/v1/count_compras_lin', methods=['GET','OPTIONS'])
+@jwt_required()
+@cross_origin(supports_credentials=True)
+def count_compras_lin():
+	sql = get_Count_Compras_LIN(request)
+	return FreeSQL(sqlExpression=sql).execute(request)
+
+def get_count_compras_lin(request):
+	args = request.args
+	argValue = args.get("filter", "1=1")
+	return 'SELECT count(*) FROM `Compras_LIN` WHERE :WHERE '.replace(":WHERE", argValue )
+
+#FreeSQL resource: Count_Compras_LIN ResourceType: FreeSQL isActive: True
+@app.route('/rest/default/herboDeSonia/v1/count_compras_lin', methods=['GET','OPTIONS'])
+@jwt_required()
+@cross_origin(supports_credentials=True)
+def count_compras_lin():
+	sql = get_Count_Compras_LIN(request)
+	return FreeSQL(sqlExpression=sql).execute(request)
+
+def get_count_compras_lin(request):
+	args = request.args
+	argValue = args.get("filter", "1=1")
+	return 'SELECT count(*) FROM `Compras_LIN` WHERE :WHERE '.replace(":WHERE", argValue )
+
+#FreeSQL resource: Count_Traspasos_LIN__Barajas_SF ResourceType: FreeSQL isActive: True
+@app.route('/rest/default/herboDeSonia/v1/count_traspasos_lin__barajas_sf', methods=['GET','OPTIONS'])
+@jwt_required()
+@cross_origin(supports_credentials=True)
+def count_traspasos_lin__barajas_sf():
+	sql = get_Count_Traspasos_LIN__Barajas_SF(request)
+	return FreeSQL(sqlExpression=sql).execute(request)
+
+def get_count_traspasos_lin__barajas_sf(request):
+	args = request.args
+	argValue = args.get("filter", "1=1")
+	return 'SELECT count(*) FROM `Traspasos_LIN` WHERE :WHERE AND (`Origen` = 'Barajas' OR `Destino` = 'Barajas') '.replace(":WHERE", argValue )
+
+#FreeSQL resource: Count_Traspasos_LIN__Barajas_SF ResourceType: FreeSQL isActive: True
+@app.route('/rest/default/herboDeSonia/v1/count_traspasos_lin__barajas_sf', methods=['GET','OPTIONS'])
+@jwt_required()
+@cross_origin(supports_credentials=True)
+def count_traspasos_lin__barajas_sf():
+	sql = get_Count_Traspasos_LIN__Barajas_SF(request)
+	return FreeSQL(sqlExpression=sql).execute(request)
+
+def get_count_traspasos_lin__barajas_sf(request):
+	args = request.args
+	argValue = args.get("filter", "1=1")
+	return 'SELECT count(*) FROM `Traspasos_LIN` WHERE :WHERE AND (`Origen` = 'Barajas' OR `Destino` = 'Barajas') '.replace(":WHERE", argValue )
+
+#FreeSQL resource: Count_Traspasos_LIN__Ensanche_SF ResourceType: FreeSQL isActive: True
+@app.route('/rest/default/herboDeSonia/v1/count_traspasos_lin__ensanche_sf', methods=['GET','OPTIONS'])
+@jwt_required()
+@cross_origin(supports_credentials=True)
+def count_traspasos_lin__ensanche_sf():
+	sql = get_Count_Traspasos_LIN__Ensanche_SF(request)
+	return FreeSQL(sqlExpression=sql).execute(request)
+
+def get_count_traspasos_lin__ensanche_sf(request):
+	args = request.args
+	argValue = args.get("filter", "1=1")
+	return 'SELECT count(*) FROM `Traspasos_LIN` WHERE :WHERE AND (`Origen` = 'Ensanche' OR `Destino` = 'Ensanche') '.replace(":WHERE", argValue )
+
+#FreeSQL resource: Count_Traspasos_LIN__Ensanche_SF ResourceType: FreeSQL isActive: True
+@app.route('/rest/default/herboDeSonia/v1/count_traspasos_lin__ensanche_sf', methods=['GET','OPTIONS'])
+@jwt_required()
+@cross_origin(supports_credentials=True)
+def count_traspasos_lin__ensanche_sf():
+	sql = get_Count_Traspasos_LIN__Ensanche_SF(request)
+	return FreeSQL(sqlExpression=sql).execute(request)
+
+def get_count_traspasos_lin__ensanche_sf(request):
+	args = request.args
+	argValue = args.get("filter", "1=1")
+	return 'SELECT count(*) FROM `Traspasos_LIN` WHERE :WHERE AND (`Origen` = 'Ensanche' OR `Destino` = 'Ensanche') '.replace(":WHERE", argValue )
+
+#FreeSQL resource: Count_Traspasos_LIN__Santa_Eugenia_SF ResourceType: FreeSQL isActive: True
+@app.route('/rest/default/herboDeSonia/v1/count_traspasos_lin__santa_eugenia_sf', methods=['GET','OPTIONS'])
+@jwt_required()
+@cross_origin(supports_credentials=True)
+def count_traspasos_lin__santa_eugenia_sf():
+	sql = get_Count_Traspasos_LIN__Santa_Eugenia_SF(request)
+	return FreeSQL(sqlExpression=sql).execute(request)
+
+def get_count_traspasos_lin__santa_eugenia_sf(request):
+	args = request.args
+	argValue = args.get("filter", "1=1")
+	return 'SELECT count(*) FROM `Traspasos_LIN` WHERE :WHERE AND (`Origen` = 'Santa Eugenia' OR `Destino` = 'Santa Eugenia') '.replace(":WHERE", argValue )
+
+#FreeSQL resource: Count_Traspasos_LIN__Santa_Eugenia_SF ResourceType: FreeSQL isActive: True
+@app.route('/rest/default/herboDeSonia/v1/count_traspasos_lin__santa_eugenia_sf', methods=['GET','OPTIONS'])
+@jwt_required()
+@cross_origin(supports_credentials=True)
+def count_traspasos_lin__santa_eugenia_sf():
+	sql = get_Count_Traspasos_LIN__Santa_Eugenia_SF(request)
+	return FreeSQL(sqlExpression=sql).execute(request)
+
+def get_count_traspasos_lin__santa_eugenia_sf(request):
+	args = request.args
+	argValue = args.get("filter", "1=1")
+	return 'SELECT count(*) FROM `Traspasos_LIN` WHERE :WHERE AND (`Origen` = 'Santa Eugenia' OR `Destino` = 'Santa Eugenia') '.replace(":WHERE", argValue )
+
+#FreeSQL resource: Count_StockTienda ResourceType: FreeSQL isActive: True
+@app.route('/rest/default/herboDeSonia/v1/count_stocktienda', methods=['GET','OPTIONS'])
+@jwt_required()
+@cross_origin(supports_credentials=True)
+def count_stocktienda():
+	sql = get_Count_StockTienda(request)
+	return FreeSQL(sqlExpression=sql).execute(request)
+
+def get_count_stocktienda(request):
+	args = request.args
+	argValue = args.get("filter", "1=1")
+	return 'SELECT count(*) FROM `StockTienda` WHERE :WHERE '.replace(":WHERE", argValue )
+
+#FreeSQL resource: Count_StockTienda ResourceType: FreeSQL isActive: True
+@app.route('/rest/default/herboDeSonia/v1/count_stocktienda', methods=['GET','OPTIONS'])
+@jwt_required()
+@cross_origin(supports_credentials=True)
+def count_stocktienda():
+	sql = get_Count_StockTienda(request)
+	return FreeSQL(sqlExpression=sql).execute(request)
+
+def get_count_stocktienda(request):
+	args = request.args
+	argValue = args.get("filter", "1=1")
+	return 'SELECT count(*) FROM `StockTienda` WHERE :WHERE '.replace(":WHERE", argValue )
+
+#FreeSQL resource: Count_Ventas_LIN__Rivas_Vaciamadrid_SF ResourceType: FreeSQL isActive: True
+@app.route('/rest/default/herboDeSonia/v1/count_ventas_lin__rivas_vaciamadrid_sf', methods=['GET','OPTIONS'])
+@jwt_required()
+@cross_origin(supports_credentials=True)
+def count_ventas_lin__rivas_vaciamadrid_sf():
+	sql = get_Count_Ventas_LIN__Rivas_Vaciamadrid_SF(request)
+	return FreeSQL(sqlExpression=sql).execute(request)
+
+def get_count_ventas_lin__rivas_vaciamadrid_sf(request):
+	args = request.args
+	argValue = args.get("filter", "1=1")
+	return 'SELECT count(*) FROM `Ventas_LIN` WHERE :WHERE AND `Tienda` ="RIVAS VACIAMADRID" '.replace(":WHERE", argValue )
+
+#FreeSQL resource: Count_Ventas_LIN__Rivas_Vaciamadrid_SF ResourceType: FreeSQL isActive: True
+@app.route('/rest/default/herboDeSonia/v1/count_ventas_lin__rivas_vaciamadrid_sf', methods=['GET','OPTIONS'])
+@jwt_required()
+@cross_origin(supports_credentials=True)
+def count_ventas_lin__rivas_vaciamadrid_sf():
+	sql = get_Count_Ventas_LIN__Rivas_Vaciamadrid_SF(request)
+	return FreeSQL(sqlExpression=sql).execute(request)
+
+def get_count_ventas_lin__rivas_vaciamadrid_sf(request):
+	args = request.args
+	argValue = args.get("filter", "1=1")
+	return 'SELECT count(*) FROM `Ventas_LIN` WHERE :WHERE AND `Tienda` ="RIVAS VACIAMADRID" '.replace(":WHERE", argValue )
+
