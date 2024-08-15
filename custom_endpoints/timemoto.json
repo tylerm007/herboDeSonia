@@ -1,0 +1,13 @@
+{
+    "name": "timemoto",
+    "isActive": true,
+    "description": null,
+    "requiresAuthentication": false,
+    "urlPattern": ".*",
+    "appliesTo": {
+        "get": true,
+        "put": false,
+        "post": true,
+        "delete": false
+    }
+}

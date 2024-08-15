@@ -1,0 +1,26 @@
+{
+    "name": "CR-Tienda__PICK",
+    "description": null,
+    "siblingRank": 100,
+    "resourceType": "TableBased",
+    "prefix": "main",
+    "entity": "Tienda",
+    "isCollection": true,
+    "filter": null,
+    "order": null,
+    "useSchemaAttributes": false,
+    "attributes": [
+        {
+            "name": "STOREDVALUE",
+            "attribute": "STOREDVALUE",
+            "description": null,
+            "isKey": false
+        },
+        {
+            "name": "DISPLAYVALUE",
+            "attribute": "DISPLAYVALUE",
+            "description": null,
+            "isKey": false
+        }
+    ]
+}

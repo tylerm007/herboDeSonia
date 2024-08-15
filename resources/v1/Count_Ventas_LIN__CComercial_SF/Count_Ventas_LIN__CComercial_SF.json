@@ -1,0 +1,8 @@
+{
+    "name": "Count_Ventas_LIN__CComercial_SF",
+    "description": null,
+    "siblingRank": 100,
+    "resourceType": "FreeSQL",
+    "prefix": "main",
+    "isCollection": true
+}

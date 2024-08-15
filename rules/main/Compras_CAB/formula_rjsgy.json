@@ -1,0 +1,13 @@
+{
+    "name": "formula_rjsgy",
+    "entity": "Compras_CAB",
+    "isActive": true,
+    "ruleType": "formula",
+    "attribute": "ImporteIVA",
+    "codeType": "JavaScript",
+    "isJIT": false,
+    "isAutoTitle": true,
+    "title": "ImporteIVA = return row.ImporteIVAGeneral + row.ImporteIVAReducido + row.ImporteIVAAceitesPastas + row.ImporteIVASuperReducido;",
+    "comments": null,
+    "topics": []
+}

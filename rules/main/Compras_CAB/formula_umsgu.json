@@ -1,0 +1,13 @@
+{
+    "name": "formula_umsgu",
+    "entity": "Compras_CAB",
+    "isActive": true,
+    "ruleType": "formula",
+    "attribute": "ImporteIVAAceitesPastas",
+    "codeType": "JavaScript",
+    "isJIT": false,
+    "isAutoTitle": true,
+    "title": "ImporteIVAAceitesPastas = var dtoProntoPago = (100 - row.tpcDtoProntoPago) / 100;",
+    "comments": null,
+    "topics": []
+}

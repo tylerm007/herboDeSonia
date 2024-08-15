@@ -1,0 +1,140 @@
+{
+    "name": "CR-Producto",
+    "description": null,
+    "siblingRank": 100,
+    "resourceType": "TableBased",
+    "prefix": "main",
+    "entity": "Producto",
+    "isCollection": true,
+    "filter": null,
+    "order": null,
+    "useSchemaAttributes": false,
+    "attributes": [
+        {
+            "name": "Referencia",
+            "attribute": "Referencia",
+            "description": null,
+            "isKey": false
+        },
+        {
+            "name": "Descripcion",
+            "attribute": "Descripcion",
+            "description": null,
+            "isKey": false
+        },
+        {
+            "name": "DescripcionBreve",
+            "attribute": "DescripcionBreve",
+            "description": null,
+            "isKey": false
+        },
+        {
+            "name": "CodBarras",
+            "attribute": "CodBarras",
+            "description": null,
+            "isKey": false
+        },
+        {
+            "name": "CodGenerico",
+            "attribute": "CodGenerico",
+            "description": null,
+            "isKey": false
+        },
+        {
+            "name": "FechaCreacion",
+            "attribute": "FechaCreacion",
+            "description": null,
+            "isKey": false
+        },
+        {
+            "name": "PrecioCoste",
+            "attribute": "PrecioCoste",
+            "description": null,
+            "isKey": false
+        },
+        {
+            "name": "SubFam",
+            "attribute": "SubFam",
+            "description": null,
+            "isKey": false
+        },
+        {
+            "name": "Ubicacion",
+            "attribute": "Ubicacion",
+            "description": null,
+            "isKey": false
+        },
+        {
+            "name": "PublicarWeb",
+            "attribute": "PublicarWeb",
+            "description": null,
+            "isKey": false
+        },
+        {
+            "name": "OfertaWeb",
+            "attribute": "OfertaWeb",
+            "description": null,
+            "isKey": false
+        },
+        {
+            "name": "NovedadWeb",
+            "attribute": "NovedadWeb",
+            "description": null,
+            "isKey": false
+        },
+        {
+            "name": "PVP",
+            "attribute": "PVP",
+            "description": null,
+            "isKey": false
+        },
+        {
+            "name": "FechaUltPVP",
+            "attribute": "FechaUltPVP",
+            "description": null,
+            "isKey": false
+        },
+        {
+            "name": "Familia",
+            "attribute": "Familia",
+            "description": null,
+            "isKey": false
+        },
+        {
+            "name": "Stock",
+            "attribute": "Stock",
+            "description": null,
+            "isKey": false
+        },
+        {
+            "name": "IVA",
+            "attribute": "IVA",
+            "description": null,
+            "isKey": false
+        },
+        {
+            "name": "Marca",
+            "attribute": "Marca",
+            "description": null,
+            "isKey": false
+        },
+        {
+            "name": "Proveedor",
+            "attribute": "Proveedor",
+            "description": null,
+            "isKey": false
+        },
+        {
+            "name": "Descatalogado",
+            "attribute": "Descatalogado",
+            "description": null,
+            "isKey": false
+        },
+        {
+            "name": "tipoIVA",
+            "attribute": "tipoIVA",
+            "description": null,
+            "isKey": false
+        }
+    ]
+}

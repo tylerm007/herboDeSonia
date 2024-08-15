@@ -1,0 +1,15 @@
+{
+    "name": "sum_pielg",
+    "entity": "Compras_CAB",
+    "isActive": true,
+    "ruleType": "sum",
+    "attribute": "BaseIVACero",
+    "roleToChildren": "Compras_LIN_List",
+    "childAttribute": "Importe",
+    "qualification": "tpcIVA=0",
+    "isJIT": false,
+    "isAutoTitle": true,
+    "title": "BaseIVACero = sum(Compras_LIN_List.Importe where tpcIVA=0)",
+    "comments": null,
+    "topics": []
+}

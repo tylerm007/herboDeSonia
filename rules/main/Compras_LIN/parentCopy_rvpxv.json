@@ -1,0 +1,13 @@
+{
+    "name": "parentCopy_rvpxv",
+    "entity": "Compras_LIN",
+    "isActive": true,
+    "ruleType": "parentCopy",
+    "attribute": "FechaAlbarán",
+    "roleToParent": "Compras_CAB",
+    "parentAttribute": "Fecha",
+    "isAutoTitle": true,
+    "title": "FechaAlbarán = parentcopy(Compras_CAB.Fecha)",
+    "comments": null,
+    "topics": []
+}

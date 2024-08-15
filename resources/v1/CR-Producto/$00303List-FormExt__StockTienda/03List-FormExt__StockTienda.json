@@ -1,0 +1,141 @@
+{
+    "name": "03List-FormExt__StockTienda",
+    "description": null,
+    "siblingRank": 100,
+    "resourceType": "TableBased",
+    "prefix": "main",
+    "entity": "StockTienda",
+    "join": "\"Referencia\" = [\"Referencia\"]",
+    "isCollection": true,
+    "filter": null,
+    "order": null,
+    "useSchemaAttributes": false,
+    "attributes": [
+        {
+            "name": "idTienda",
+            "attribute": "idTienda",
+            "description": null,
+            "isKey": false
+        },
+        {
+            "name": "Tienda",
+            "attribute": "Tienda",
+            "description": null,
+            "isKey": false
+        },
+        {
+            "name": "Referencia",
+            "attribute": "Referencia",
+            "description": null,
+            "isKey": false
+        },
+        {
+            "name": "Marca",
+            "attribute": "Marca",
+            "description": null,
+            "isKey": false
+        },
+        {
+            "name": "Producto",
+            "attribute": "Producto",
+            "description": null,
+            "isKey": false
+        },
+        {
+            "name": "ÚltimaVenta",
+            "attribute": "ÚltimaVenta",
+            "description": null,
+            "isKey": false
+        },
+        {
+            "name": "ÚltimaCompra",
+            "attribute": "ÚltimaCompra",
+            "description": null,
+            "isKey": false
+        },
+        {
+            "name": "Unidades",
+            "attribute": "Unidades",
+            "description": null,
+            "isKey": false
+        },
+        {
+            "name": "PrecioCoste",
+            "attribute": "PrecioCoste",
+            "description": null,
+            "isKey": false
+        },
+        {
+            "name": "PrecioCosteConIVA",
+            "attribute": "PrecioCosteConIVA",
+            "description": null,
+            "isKey": false
+        },
+        {
+            "name": "PrecioCosteConIVA-Recargo",
+            "attribute": "PrecioCosteConIVA-Recargo",
+            "description": null,
+            "isKey": false
+        },
+        {
+            "name": "PCM",
+            "attribute": "PCM",
+            "description": null,
+            "isKey": false
+        },
+        {
+            "name": "PCMconIVA",
+            "attribute": "PCMconIVA",
+            "description": null,
+            "isKey": false
+        },
+        {
+            "name": "PCMconIVA-Recargo",
+            "attribute": "PCMconIVA-Recargo",
+            "description": null,
+            "isKey": false
+        },
+        {
+            "name": "PVP",
+            "attribute": "PVP",
+            "description": null,
+            "isKey": false
+        },
+        {
+            "name": "PVPsinIVA",
+            "attribute": "PVPsinIVA",
+            "description": null,
+            "isKey": false
+        },
+        {
+            "name": "StockInicial",
+            "attribute": "StockInicial",
+            "description": null,
+            "isKey": false
+        },
+        {
+            "name": "Entradas",
+            "attribute": "Entradas",
+            "description": null,
+            "isKey": false
+        },
+        {
+            "name": "Salidas",
+            "attribute": "Salidas",
+            "description": null,
+            "isKey": false
+        },
+        {
+            "name": "Stock",
+            "attribute": "Stock",
+            "description": null,
+            "isKey": false
+        },
+        {
+            "name": "FechaInventario",
+            "attribute": "FechaInventario",
+            "description": null,
+            "isKey": false
+        }
+    ]
+}

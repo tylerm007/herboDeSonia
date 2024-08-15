@@ -1,0 +1,206 @@
+{
+    "name": "CR-Ventas_CAB",
+    "description": null,
+    "siblingRank": 100,
+    "resourceType": "TableBased",
+    "prefix": "main",
+    "entity": "Ventas_CAB",
+    "isCollection": true,
+    "filter": null,
+    "order": null,
+    "useSchemaAttributes": false,
+    "attributes": [
+        {
+            "name": "Usuario",
+            "attribute": "Usuario",
+            "description": null,
+            "isKey": false
+        },
+        {
+            "name": "Tienda",
+            "attribute": "Tienda",
+            "description": null,
+            "isKey": false
+        },
+        {
+            "name": "Serie",
+            "attribute": "Serie",
+            "description": null,
+            "isKey": false
+        },
+        {
+            "name": "Número",
+            "attribute": "Número",
+            "description": null,
+            "isKey": false
+        },
+        {
+            "name": "VentaMostrador",
+            "attribute": "VentaMostrador",
+            "description": null,
+            "isKey": false
+        },
+        {
+            "name": "FechaVenta",
+            "attribute": "FechaVenta",
+            "description": null,
+            "isKey": false
+        },
+        {
+            "name": "ImporteTotal",
+            "attribute": "ImporteTotal",
+            "description": null,
+            "isKey": false
+        },
+        {
+            "name": "PrecioLínea",
+            "attribute": "PrecioLínea",
+            "description": null,
+            "isKey": false
+        },
+        {
+            "name": "NombreOferta",
+            "attribute": "NombreOferta",
+            "description": null,
+            "isKey": false
+        },
+        {
+            "name": "tpcDtoGlobal",
+            "attribute": "tpcDtoGlobal",
+            "description": null,
+            "isKey": false
+        },
+        {
+            "name": "tpcDtoPP",
+            "attribute": "tpcDtoPP",
+            "description": null,
+            "isKey": false
+        },
+        {
+            "name": "ImporteBruto",
+            "attribute": "ImporteBruto",
+            "description": null,
+            "isKey": false
+        },
+        {
+            "name": "FacturaSN",
+            "attribute": "FacturaSN",
+            "description": null,
+            "isKey": false
+        },
+        {
+            "name": "FechaFactura",
+            "attribute": "FechaFactura",
+            "description": null,
+            "isKey": false
+        },
+        {
+            "name": "NombreRazónSocialCliente",
+            "attribute": "NombreRazónSocialCliente",
+            "description": null,
+            "isKey": false
+        },
+        {
+            "name": "NombreComercialCliente",
+            "attribute": "NombreComercialCliente",
+            "description": null,
+            "isKey": false
+        },
+        {
+            "name": "NCuentaCliente",
+            "attribute": "NCuentaCliente",
+            "description": null,
+            "isKey": false
+        },
+        {
+            "name": "TipoCliente",
+            "attribute": "TipoCliente",
+            "description": null,
+            "isKey": false
+        },
+        {
+            "name": "NIFCliente",
+            "attribute": "NIFCliente",
+            "description": null,
+            "isKey": false
+        },
+        {
+            "name": "Teléfono",
+            "attribute": "Teléfono",
+            "description": null,
+            "isKey": false
+        },
+        {
+            "name": "ImporteIVASuperReducido",
+            "attribute": "ImporteIVASuperReducido",
+            "description": null,
+            "isKey": false
+        },
+        {
+            "name": "ImporteIVAReducido",
+            "attribute": "ImporteIVAReducido",
+            "description": null,
+            "isKey": false
+        },
+        {
+            "name": "ImporteIVAAceitesPastas",
+            "attribute": "ImporteIVAAceitesPastas",
+            "description": null,
+            "isKey": false
+        },
+        {
+            "name": "ImporteIVAGeneral",
+            "attribute": "ImporteIVAGeneral",
+            "description": null,
+            "isKey": false
+        },
+        {
+            "name": "BaseIVACero",
+            "attribute": "BaseIVACero",
+            "description": null,
+            "isKey": false
+        },
+        {
+            "name": "BaseIVASuperReducido",
+            "attribute": "BaseIVASuperReducido",
+            "description": null,
+            "isKey": false
+        },
+        {
+            "name": "BaseIVAReducido",
+            "attribute": "BaseIVAReducido",
+            "description": null,
+            "isKey": false
+        },
+        {
+            "name": "BaseIVAAceitesPastas",
+            "attribute": "BaseIVAAceitesPastas",
+            "description": null,
+            "isKey": false
+        },
+        {
+            "name": "BaseIVAGeneral",
+            "attribute": "BaseIVAGeneral",
+            "description": null,
+            "isKey": false
+        },
+        {
+            "name": "NumeroLineas",
+            "attribute": "NumeroLineas",
+            "description": null,
+            "isKey": false
+        },
+        {
+            "name": "TieneValesDto",
+            "attribute": "TieneValesDto",
+            "description": null,
+            "isKey": false
+        },
+        {
+            "name": "Puntos",
+            "attribute": "Puntos",
+            "description": null,
+            "isKey": false
+        }
+    ]
+}

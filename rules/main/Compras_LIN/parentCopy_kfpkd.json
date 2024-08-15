@@ -1,0 +1,13 @@
+{
+    "name": "parentCopy_kfpkd",
+    "entity": "Compras_LIN",
+    "isActive": true,
+    "ruleType": "parentCopy",
+    "attribute": "NºCuentaProveedor",
+    "roleToParent": "Compras_CAB",
+    "parentAttribute": "NºCuentaProveedor",
+    "isAutoTitle": true,
+    "title": "NºCuentaProveedor = parentcopy(Compras_CAB.NºCuentaProveedor)",
+    "comments": null,
+    "topics": []
+}

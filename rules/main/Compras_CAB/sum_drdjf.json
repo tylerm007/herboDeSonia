@@ -1,0 +1,15 @@
+{
+    "name": "sum_drdjf",
+    "entity": "Compras_CAB",
+    "isActive": true,
+    "ruleType": "sum",
+    "attribute": "BaseIVAReducido",
+    "roleToChildren": "Compras_LIN_List",
+    "childAttribute": "Importe",
+    "qualification": "tpcIVA=10",
+    "isJIT": false,
+    "isAutoTitle": true,
+    "title": "BaseIVAReducido = sum(Compras_LIN_List.Importe where tpcIVA=10)",
+    "comments": null,
+    "topics": []
+}

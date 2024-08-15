@@ -1,0 +1,8 @@
+{
+    "name": "Count_Traspasos_LIN__Barajas_SF",
+    "description": null,
+    "siblingRank": 100,
+    "resourceType": "FreeSQL",
+    "prefix": "main",
+    "isCollection": true
+}

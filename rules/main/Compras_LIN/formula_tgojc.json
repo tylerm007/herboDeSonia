@@ -1,0 +1,13 @@
+{
+    "name": "formula_tgojc",
+    "entity": "Compras_LIN",
+    "isActive": true,
+    "ruleType": "formula",
+    "attribute": "Importe",
+    "codeType": "JavaScript",
+    "isJIT": false,
+    "isAutoTitle": true,
+    "title": "Importe = var dto1 = (100 - row.tpcDescuento1) / 100;",
+    "comments": null,
+    "topics": []
+}

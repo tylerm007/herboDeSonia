@@ -1,0 +1,17 @@
+{
+    "name": "event_dinpp",
+    "entity": "Compras_LIN",
+    "isActive": true,
+    "ruleType": "event",
+    "asynchronous": false,
+    "appliesTo": {
+        "insert": true,
+        "update": true,
+        "delete": true
+    },
+    "codeType": "JavaScript",
+    "isAutoTitle": false,
+    "title": "Event: PonStockIncial",
+    "comments": null,
+    "topics": []
+}

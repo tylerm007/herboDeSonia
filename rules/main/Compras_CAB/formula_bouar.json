@@ -1,0 +1,13 @@
+{
+    "name": "formula_bouar",
+    "entity": "Compras_CAB",
+    "isActive": true,
+    "ruleType": "formula",
+    "attribute": "TotalAlbCompra",
+    "codeType": "JavaScript",
+    "isJIT": false,
+    "isAutoTitle": false,
+    "title": "TotalAlbCompra = return row.ImporteIVA + row.BaseImponible;",
+    "comments": null,
+    "topics": []
+}

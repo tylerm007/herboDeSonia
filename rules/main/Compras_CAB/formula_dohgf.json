@@ -1,0 +1,13 @@
+{
+    "name": "formula_dohgf",
+    "entity": "Compras_CAB",
+    "isActive": true,
+    "ruleType": "formula",
+    "attribute": "ImporteIVASuperReducido",
+    "codeType": "JavaScript",
+    "isJIT": false,
+    "isAutoTitle": true,
+    "title": "ImporteIVASuperReducido = var dtoProntoPago = (100 - row.tpcDtoProntoPago) / 100;",
+    "comments": null,
+    "topics": []
+}

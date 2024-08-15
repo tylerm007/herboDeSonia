@@ -1,0 +1,158 @@
+{
+    "name": "CR-Proveedor",
+    "description": null,
+    "siblingRank": 100,
+    "resourceType": "TableBased",
+    "prefix": "main",
+    "entity": "Proveedor",
+    "isCollection": true,
+    "filter": null,
+    "order": null,
+    "useSchemaAttributes": false,
+    "attributes": [
+        {
+            "name": "DNICIF",
+            "attribute": "DNICIF",
+            "description": null,
+            "isKey": false
+        },
+        {
+            "name": "RSocial",
+            "attribute": "RSocial",
+            "description": null,
+            "isKey": false
+        },
+        {
+            "name": "TipoProv",
+            "attribute": "TipoProv",
+            "description": null,
+            "isKey": false
+        },
+        {
+            "name": "FPago",
+            "attribute": "FPago",
+            "description": null,
+            "isKey": false
+        },
+        {
+            "name": "Facturación",
+            "attribute": "Facturación",
+            "description": null,
+            "isKey": false
+        },
+        {
+            "name": "Provincia",
+            "attribute": "Provincia",
+            "description": null,
+            "isKey": false
+        },
+        {
+            "name": "NºCuenta",
+            "attribute": "NºCuenta",
+            "description": null,
+            "isKey": false
+        },
+        {
+            "name": "Calle",
+            "attribute": "Calle",
+            "description": null,
+            "isKey": false
+        },
+        {
+            "name": "ExtCalle",
+            "attribute": "ExtCalle",
+            "description": null,
+            "isKey": false
+        },
+        {
+            "name": "Localidad",
+            "attribute": "Localidad",
+            "description": null,
+            "isKey": false
+        },
+        {
+            "name": "CPost",
+            "attribute": "CPost",
+            "description": null,
+            "isKey": false
+        },
+        {
+            "name": "E-mail",
+            "attribute": "E-mail",
+            "description": null,
+            "isKey": false
+        },
+        {
+            "name": "Web",
+            "attribute": "Web",
+            "description": null,
+            "isKey": false
+        },
+        {
+            "name": "BIC",
+            "attribute": "BIC",
+            "description": null,
+            "isKey": false
+        },
+        {
+            "name": "IBAN",
+            "attribute": "IBAN",
+            "description": null,
+            "isKey": false
+        },
+        {
+            "name": "CC",
+            "attribute": "CC",
+            "description": null,
+            "isKey": false
+        },
+        {
+            "name": "Tlf1",
+            "attribute": "Tlf1",
+            "description": null,
+            "isKey": false
+        },
+        {
+            "name": "Tlf2",
+            "attribute": "Tlf2",
+            "description": null,
+            "isKey": false
+        },
+        {
+            "name": "Móvil",
+            "attribute": "Móvil",
+            "description": null,
+            "isKey": false
+        },
+        {
+            "name": "Fax",
+            "attribute": "Fax",
+            "description": null,
+            "isKey": false
+        },
+        {
+            "name": "Contacto",
+            "attribute": "Contacto",
+            "description": null,
+            "isKey": false
+        },
+        {
+            "name": "Comentarios",
+            "attribute": "Comentarios",
+            "description": null,
+            "isKey": false
+        },
+        {
+            "name": "Notific",
+            "attribute": "Notific",
+            "description": null,
+            "isKey": false
+        },
+        {
+            "name": "Debaja",
+            "attribute": "Debaja",
+            "description": null,
+            "isKey": false
+        }
+    ]
+}

@@ -1,0 +1,63 @@
+{
+    "name": "06List-Traspasos_LIN__Rivas_Vaciamadrid_SF",
+    "description": "RIVAS VACIAMADRID",
+    "siblingRank": 100,
+    "resourceType": "TableBased",
+    "prefix": "main",
+    "entity": "Traspasos_LIN",
+    "join": "\"Referencia\" = [\"Referencia\"]",
+    "isCollection": true,
+    "filter": "Origen = 'RIVAS VACIAMADRID' OR Destino = 'RIVAS VACIAMADRID'",
+    "order": null,
+    "useSchemaAttributes": false,
+    "attributes": [
+        {
+            "name": "Origen",
+            "attribute": "Origen",
+            "description": null,
+            "isKey": false
+        },
+        {
+            "name": "Destino",
+            "attribute": "Destino",
+            "description": null,
+            "isKey": false
+        },
+        {
+            "name": "Número",
+            "attribute": "Número",
+            "description": null,
+            "isKey": false
+        },
+        {
+            "name": "Producto",
+            "attribute": "Producto",
+            "description": null,
+            "isKey": false
+        },
+        {
+            "name": "Cantidad",
+            "attribute": "Cantidad",
+            "description": null,
+            "isKey": false
+        },
+        {
+            "name": "FechaTraspaso",
+            "attribute": "FechaTraspaso",
+            "description": null,
+            "isKey": false
+        },
+        {
+            "name": "PedidoProveedor",
+            "attribute": "PedidoProveedor",
+            "description": null,
+            "isKey": false
+        },
+        {
+            "name": "Referencia",
+            "attribute": "Referencia",
+            "description": null,
+            "isKey": false
+        }
+    ]
+}

@@ -1,0 +1,219 @@
+{
+    "name": "05List-Ventas_LIN__Santa_Eugenia_SF",
+    "description": null,
+    "siblingRank": 100,
+    "resourceType": "TableBased",
+    "prefix": "main",
+    "entity": "Ventas_LIN",
+    "join": "\"RefProducto\" = [\"Referencia\"]",
+    "isCollection": true,
+    "filter": "Tienda = \"Santa Eugenia\"",
+    "order": null,
+    "useSchemaAttributes": false,
+    "attributes": [
+        {
+            "name": "id",
+            "attribute": "id",
+            "description": null,
+            "isKey": false
+        },
+        {
+            "name": "Usuario",
+            "attribute": "Usuario",
+            "description": null,
+            "isKey": false
+        },
+        {
+            "name": "Tienda",
+            "attribute": "Tienda",
+            "description": null,
+            "isKey": false
+        },
+        {
+            "name": "Serie",
+            "attribute": "Serie",
+            "description": null,
+            "isKey": false
+        },
+        {
+            "name": "Número",
+            "attribute": "Número",
+            "description": null,
+            "isKey": false
+        },
+        {
+            "name": "VentaMostrador",
+            "attribute": "VentaMostrador",
+            "description": null,
+            "isKey": false
+        },
+        {
+            "name": "FechaVenta",
+            "attribute": "FechaVenta",
+            "description": null,
+            "isKey": false
+        },
+        {
+            "name": "Producto",
+            "attribute": "Producto",
+            "description": null,
+            "isKey": false
+        },
+        {
+            "name": "CódigoBarras",
+            "attribute": "CódigoBarras",
+            "description": null,
+            "isKey": false
+        },
+        {
+            "name": "RefProducto",
+            "attribute": "RefProducto",
+            "description": null,
+            "isKey": false
+        },
+        {
+            "name": "OLDRefProducto",
+            "attribute": "OLDRefProducto",
+            "description": null,
+            "isKey": false
+        },
+        {
+            "name": "StockCantidad",
+            "attribute": "StockCantidad",
+            "description": null,
+            "isKey": false
+        },
+        {
+            "name": "FamiliaComercial",
+            "attribute": "FamiliaComercial",
+            "description": null,
+            "isKey": false
+        },
+        {
+            "name": "SubFamiliaComercial",
+            "attribute": "SubFamiliaComercial",
+            "description": null,
+            "isKey": false
+        },
+        {
+            "name": "Marca",
+            "attribute": "Marca",
+            "description": null,
+            "isKey": false
+        },
+        {
+            "name": "CantidadVendida",
+            "attribute": "CantidadVendida",
+            "description": null,
+            "isKey": false
+        },
+        {
+            "name": "LoteVendido",
+            "attribute": "LoteVendido",
+            "description": null,
+            "isKey": false
+        },
+        {
+            "name": "FechaCaducidad",
+            "attribute": "FechaCaducidad",
+            "description": null,
+            "isKey": false
+        },
+        {
+            "name": "ImporteTotal",
+            "attribute": "ImporteTotal",
+            "description": null,
+            "isKey": false
+        },
+        {
+            "name": "PrecioLínea",
+            "attribute": "PrecioLínea",
+            "description": null,
+            "isKey": false
+        },
+        {
+            "name": "tpcIVA",
+            "attribute": "tpcIVA",
+            "description": null,
+            "isKey": false
+        },
+        {
+            "name": "NombreOferta",
+            "attribute": "NombreOferta",
+            "description": null,
+            "isKey": false
+        },
+        {
+            "name": "tpcDtoLínea",
+            "attribute": "tpcDtoLínea",
+            "description": null,
+            "isKey": false
+        },
+        {
+            "name": "tpcDtoGlobal",
+            "attribute": "tpcDtoGlobal",
+            "description": null,
+            "isKey": false
+        },
+        {
+            "name": "tpcDtoPP",
+            "attribute": "tpcDtoPP",
+            "description": null,
+            "isKey": false
+        },
+        {
+            "name": "ImporteBruto",
+            "attribute": "ImporteBruto",
+            "description": null,
+            "isKey": false
+        },
+        {
+            "name": "FacturaSN",
+            "attribute": "FacturaSN",
+            "description": null,
+            "isKey": false
+        },
+        {
+            "name": "FechaFactura",
+            "attribute": "FechaFactura",
+            "description": null,
+            "isKey": false
+        },
+        {
+            "name": "NombreRazónSocialCliente",
+            "attribute": "NombreRazónSocialCliente",
+            "description": null,
+            "isKey": false
+        },
+        {
+            "name": "NombreComercialCliente",
+            "attribute": "NombreComercialCliente",
+            "description": null,
+            "isKey": false
+        },
+        {
+            "name": "NCuentaCliente",
+            "attribute": "NCuentaCliente",
+            "description": null,
+            "isKey": false
+        },
+        {
+            "name": "TipoCliente",
+            "attribute": "TipoCliente",
+            "description": null,
+            "isKey": false
+        },
+        {
+            "name": "NIFCliente",
+            "attribute": "NIFCliente",
+            "description": null,
+            "isKey": false
+        },
+        {
+            "name": "Teléfono",
+            "attribute": "Teléfono",
+            "description": null,
+            "isKey": false
+        }
+    ]
+}

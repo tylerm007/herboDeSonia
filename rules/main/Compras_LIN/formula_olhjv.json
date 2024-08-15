@@ -1,0 +1,13 @@
+{
+    "name": "formula_olhjv",
+    "entity": "Compras_LIN",
+    "isActive": true,
+    "ruleType": "formula",
+    "attribute": "PrecioLínea",
+    "codeType": "JavaScript",
+    "isJIT": false,
+    "isAutoTitle": false,
+    "title": "Formula PrecioLinea",
+    "comments": null,
+    "topics": []
+}

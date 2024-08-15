@@ -1,0 +1,141 @@
+{
+    "name": "04List-Compras_LIN__Barajas_SF",
+    "description": null,
+    "siblingRank": 100,
+    "resourceType": "TableBased",
+    "prefix": "main",
+    "entity": "Compras_LIN",
+    "join": "\"ReferenciaProducto\" = [\"Referencia\"]",
+    "isCollection": true,
+    "filter": "Tienda = \"Barajas\"",
+    "order": null,
+    "useSchemaAttributes": false,
+    "attributes": [
+        {
+            "name": "Tienda",
+            "attribute": "Tienda",
+            "description": null,
+            "isKey": false
+        },
+        {
+            "name": "NúmeroAlbarán",
+            "attribute": "NúmeroAlbarán",
+            "description": null,
+            "isKey": false
+        },
+        {
+            "name": "AlbaránCompra",
+            "attribute": "AlbaránCompra",
+            "description": null,
+            "isKey": false
+        },
+        {
+            "name": "NombreProveedor",
+            "attribute": "NombreProveedor",
+            "description": null,
+            "isKey": false
+        },
+        {
+            "name": "FechaAlbarán",
+            "attribute": "FechaAlbarán",
+            "description": null,
+            "isKey": false
+        },
+        {
+            "name": "ImporteAlbarán",
+            "attribute": "ImporteAlbarán",
+            "description": null,
+            "isKey": false
+        },
+        {
+            "name": "ReferenciaProducto",
+            "attribute": "ReferenciaProducto",
+            "description": null,
+            "isKey": false
+        },
+        {
+            "name": "DescripciondelProducto",
+            "attribute": "DescripciondelProducto",
+            "description": null,
+            "isKey": false
+        },
+        {
+            "name": "CódigodeBarras",
+            "attribute": "CódigodeBarras",
+            "description": null,
+            "isKey": false
+        },
+        {
+            "name": "Cantidad",
+            "attribute": "Cantidad",
+            "description": null,
+            "isKey": false
+        },
+        {
+            "name": "PVPProducto",
+            "attribute": "PVPProducto",
+            "description": null,
+            "isKey": false
+        },
+        {
+            "name": "PrecioLínea",
+            "attribute": "PrecioLínea",
+            "description": null,
+            "isKey": false
+        },
+        {
+            "name": "tpcIVA",
+            "attribute": "tpcIVA",
+            "description": null,
+            "isKey": false
+        },
+        {
+            "name": "tpcDescuento1",
+            "attribute": "tpcDescuento1",
+            "description": null,
+            "isKey": false
+        },
+        {
+            "name": "tpcDescuento2",
+            "attribute": "tpcDescuento2",
+            "description": null,
+            "isKey": false
+        },
+        {
+            "name": "tpcDescuento3",
+            "attribute": "tpcDescuento3",
+            "description": null,
+            "isKey": false
+        },
+        {
+            "name": "tpcDescuento4",
+            "attribute": "tpcDescuento4",
+            "description": null,
+            "isKey": false
+        },
+        {
+            "name": "tpcDtoGlobal",
+            "attribute": "tpcDtoGlobal",
+            "description": null,
+            "isKey": false
+        },
+        {
+            "name": "tpcDtoProntoPago",
+            "attribute": "tpcDtoProntoPago",
+            "description": null,
+            "isKey": false
+        },
+        {
+            "name": "id",
+            "attribute": "id",
+            "description": null,
+            "isKey": false
+        },
+        {
+            "name": "Importe",
+            "attribute": "Importe",
+            "description": null,
+            "isKey": false
+        }
+    ]
+}
