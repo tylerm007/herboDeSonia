@@ -2,7 +2,8 @@
 from sqlalchemy import BigInteger, CHAR, Column, DECIMAL, Date, DateTime, Float, Index, Integer, SmallInteger, String, Text
 from sqlalchemy.dialects.mysql import BIT
 from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy import ForeignKey
+from sqlalchemy import ForeignKey, ForeignKeyConstraint
+
 ########################################################################################################################
 # Classes describing database for SqlAlchemy ORM, initially created by schema introspection.
 #
@@ -125,7 +126,7 @@ class ComprasCAB(SAFRSBaseX, Base):
     # parent relationships (access parent)
 
     # child relationships (access children)
-
+    #ComprasLIN_List  : Mapped[List["ComprasLIN"]] = relationship(back_populates="ComprasCAB")
     @jsonapi_attr
     def _check_sum_(self):  # type: ignore [no-redef]
         return None if isinstance(self, flask_sqlalchemy.model.DefaultMeta) \
@@ -145,12 +146,12 @@ class ComprasLIN(SAFRSBaseX, Base):
     __bind_key__ = 'None'
     __table_args__ = (
         Index('Fk_Producto', 'idTienda', 'ReferenciaProducto'),
-        ForeignKeyConstraint(['AlbaránCompra'], ['ComprasCAB.SerieNmero']),
+        ForeignKeyConstraint(['AlbaránCompra'], ['Compras_CAB.SerieNúmero']),
     )
 
     Tienda = Column('Tienda', Text(collation='utf8mb4_general_ci'), quote = True)
     NmeroAlbarn = Column('NúmeroAlbarán', Integer, quote = True)
-    AlbarnCompra = Column('AlbaránCompra', String(11, 'utf8mb4_general_ci'), index=True, quote = True)
+    AlbarnCompra = Column('AlbaránCompra', String(11, 'utf8mb4_general_ci'), ForeignKey('Compras_CAB.SerieNúmero'), index=True, quote = True)
     NombreProveedor = Column('NombreProveedor', Text(collation='utf8mb4_general_ci'), quote = True)
     FechaAlbarn = Column('FechaAlbarán', DateTime, quote = True)
     ImporteAlbarn = Column('ImporteAlbarán', DECIMAL(11, 2), quote = True)
@@ -179,9 +180,9 @@ class ComprasLIN(SAFRSBaseX, Base):
     FechaInventario = Column('FechaInventario', DateTime, quote = True)
 
     # parent relationships (access parent)
-
+    #ComprasCAB_Parent: Mapped["Compras_CAB"]  = relationship(back_populates="ComprasLIN_List")
     # child relationships (access children)
-
+    
     @jsonapi_attr
     def _check_sum_(self):  # type: ignore [no-redef]
         return None if isinstance(self, flask_sqlalchemy.model.DefaultMeta) \
