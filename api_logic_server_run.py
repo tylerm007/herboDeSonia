@@ -2,13 +2,18 @@
 
 ###############################################################################
 #
-#    This file initializes and starts the API Logic Server (v 11.00.22, August 14, 2024 15:42:37):
+#    This file initializes and starts the API Logic Server, e.g.:
+#        $ Use your IDE Run Configurations (for debug)
+#        $ sh run.sh
 #        $ python3 api_logic_server_run.py [--help]
+#        $ gunicorn --log-level=info -b 0.0.0.0:5656 -w2 --reload api_logic_server_run:flask_app
 #
 #    Then, access the Admin App and API via the Browser, eg:  
-#        http://localhost:5656
+#        http://api_logic_server_host:api_logic_server_port
 #
-#    You typically do not customize this file,
+#    You typically do not customize this file.
+
+#    (v api_logic_server_version, api_logic_server_created_on)
 #
 #    See Main Code (at end).
 #        Use log messages to understand API and Logic activation.

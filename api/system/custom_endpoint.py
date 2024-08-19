@@ -146,6 +146,7 @@ class CustomEndpoint():
         from api.api_discovery.ontimize_api import getMetaData
         resources = getMetaData(key)
         self._attributes = resources["resources"][key]["attributes"]
+        self._quote = '`' if Args.backtic_as_quote else '"'
         
     def __str__(self):
             return  f"Alias {self.alias} Model: {self._model_class.__name__} PrimaryKey: {self.primaryKey} FilterBy: {self.filter_by} OrderBy: {self.order_by}"
@@ -263,11 +264,12 @@ class CustomEndpoint():
         resource_logger.debug(f"CustomEndpoint execute on: {self._model_class_name} using alias: {self.alias}")
         filter_by = None
         #key = args.get(pkey) if args.get(pkey) is not None else args.get(f"filter[{pkey}]")
+        _quote = '`' if Args.backtic_as_quote else '"'
         if value is not None and value != 'undefined':
-            filter_by = f'`{pkey}` = {self.quoteStr(value)}'
+            filter_by = f'{_quote}{pkey}{_quote} = {self.quoteStr(value)}'
             self._pkeyList.append(self.quoteStr(value))
         elif altKey is not None:
-            filter_by = f'`{pkey}` = {self.quoteStr(altKey)}'
+            filter_by = f'{_quote}{pkey}{_quote} = {self.quoteStr(altKey)}'
             self._pkeyList.append(self.quoteStr(altKey))
         filter_by = filter_by if filter_ is None else f"{filter_by} and {filter_}" if filter_by is not None else filter_
         self._href = f"{request.url_root[:-1]}{request.path}"

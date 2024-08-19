@@ -13,7 +13,6 @@ from sqlalchemy.orm import joinedload, Query
 from operator import not_, and_, or_, eq, ne, lt, le, gt, ge
 from sqlalchemy import or_ as OR_
 from sqlalchemy import and_ as AND_
-from config.config import Args as args
 
 BASIC_EXPRESSION =  "@basic_expression"
 """Ontimize Advanced Filter Expressions"""
@@ -57,6 +56,7 @@ class DotDict(dict):
     __setattr__ = dict.__setitem__
     __delattr__ = dict.__delitem__
 
+
 def parsePayload(clz, payload: str):
     """
     Parse the Ontimize payload 
@@ -81,7 +81,7 @@ def parsePayload(clz, payload: str):
     return expressions, _filter, columns, sqltypes, offset, pagesize, orderBy, data
 
 
-def parseFilter(clz, filter: dict, sqltypes: any):
+def parseFilter(clz: any, filter: dict, sqltypes: any):
     # sourcery skip: merge-duplicate-blocks, remove-pass-elif
     filters = []
     sql_where = ""
@@ -99,12 +99,16 @@ def parseFilter(clz, filter: dict, sqltypes: any):
                 filters = expr.get_filters()
                 join = " OR "
         else:
-            q = "'" if isinstance(value, str) else ""
-            attr = clz._s_jsonapi_attrs[f] if f !="id" else clz.id 
-            attr_name = repr(attr.name)[1:-1]
-            sql_where += f'{join} `{attr_name}` = {q}{value}{q}'
+            from config.config import Args
+            _quote = '`' if Args.backtic_as_quote else '"' 
+            attr = clz._s_jsonapi_attrs[f]._proxy_key if f != "id" else clz.id
+            if f == "id":
+                attr = f'{_quote}{clz.__tablename__}{_quote}.{_quote}id{_quote}'
+                _quote = ""
+            q = '"' if isinstance(value, str) else ""
+            sql_where += f'{join} {_quote}{attr}{_quote} = {q}{value}{q}'
             #name = clz._s_jsonapi_attrs[f] if f !: "id" else clz.id
-            filters.append({"join": join,"lop": attr_name, "op": "eq", "rop": value})
+            filters.append({"join": join,"lop": attr, "op": "eq", "rop": value})
             join = " AND "
             
     return sql_where, filters
@@ -157,8 +161,6 @@ class BasicExpression:
         self.join_condition = ""
         self.sqltypes = sqltypes
         self.filters = []
-        db_uri = args.database_uri
-        self.double_quote = False # use double quotes for string values for Oracle and Postgres - MySQL uses back tic
 
         # Left Operator
         if isinstance(lop, dict):
@@ -217,7 +219,7 @@ class BasicExpression:
                     value = datetime.fromtimestamp(value / 1000).strftime("%Y-%m-%d %H:%M:%S")
                 else:
                     value = datetime.fromtimestamp(value / 1000).strftime("%Y-%m-%d")
-            q =  "" if expr.is_numeric(value) else "'" if self.double_quote else "`"
+            q =  "" if expr.is_numeric(value) else "'"
             
             self.filters.append({"join": self.join_condition,"lop": expr.lop, "op": expr.op, "rop": f"{q}{value}{q}"})
             return f'{self.join_condition} "{expr.lop}" {expr.op} {q}{value}{q}'
@@ -234,7 +236,6 @@ def advancedFilter(cls, args) -> any:
     import urllib.parse
     import operator
     sqlWhere = ""
-
     for req_arg, item in args.items():
         if not req_arg.startswith("filter"):
             continue
@@ -616,8 +617,8 @@ if __name__ == "__main__":
     #print(x)
     # from database.models import models
     #filter = {"filter": {"@basic_expression": {"lop": "BALANCE", "op": "=", "rop": 35000}}}
-    #print(urllib.parse.quote(json.dumps(filter)))
-    sqlWhere, filters, expressions = parseFilter(None,filter,None)
+    print(urllib.parse.quote(json.dumps(filter)))
+    sqlWhere, filters, expressions = parseFilter(None, filter,None)
     print(sqlWhere)
     print(filters)
     print(expressions)

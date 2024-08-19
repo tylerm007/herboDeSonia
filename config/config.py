@@ -97,6 +97,10 @@ class Config:
     SQLALCHEMY_DATABASE_URI : typing.Optional[str] = f"mysql+pymysql://root:p@localhost:3306/herboDeSonia?charset=utf8mb4"
     # override SQLALCHEMY_DATABASE_URI here as required
 
+    BACKTIC_AS_QUOTE = False # use backtic as quote for table names for API Bridge
+    if SQLALCHEMY_DATABASE_URI.startswith("mysql") or SQLALCHEMY_DATABASE_URI.startswith("mariadb"):
+        BACKTIC_AS_QUOTE = True
+        
     app_logger.debug(f'config.py - SQLALCHEMY_DATABASE_URI: {SQLALCHEMY_DATABASE_URI}')
 
     # as desired, use env variable: export SQLALCHEMY_DATABASE_URI='sqlite:////Users/val/dev/servers/docker_api_logic_project/database/db.sqliteXX'
@@ -225,6 +229,7 @@ class Args():
         self.keycloak_realm = Config.KEYCLOAK_REALM
         self.keycloak_base_url = Config.KEYCLOAK_BASE_URL
         self.keycloak_client_id = Config.KEYCLOAK_CLIENT_ID
+        self.backtic_as_quote = Config.BACKTIC_AS_QUOTE
 
         self.verbose = False
         self.create_and_run = False
@@ -372,7 +377,15 @@ class Args():
     def api_prefix(self, a):
         self.flask_app.config["API_PREFIX"] = a
 
-
+    @property
+    def backtic_as_quote(self) -> bool:
+        """ use backtic as quote for table names """
+        return self.flask_app.config["BACKTIC_AS_QUOTE"]
+    
+    @backtic_as_quote.setter
+    def backtic_as_quote(self, a):
+        self.flask_app.config["BACKTIC_AS_QUOTE"] = a
+        
     @property
     def http_scheme(self) -> str:
         """ http or https """
@@ -472,7 +485,7 @@ class Args():
             local_ip = f"Warning - Failed local_ip = socket.gethostbyname(hostname) with hostname: {hostname}"
             app_logger.debug(f"Failed local_ip = socket.gethostbyname(hostname) with hostname: {hostname}")
 
-        app_logger.debug(f"Getting cli args, with hostname={hostname} on local_ip={local_ip}")
+        app_logger.debug(f"config - get_cli_args: Getting cli args, with hostname={hostname} on local_ip={local_ip}")
         args.verbose = False
         args.create_and_run = False
 
@@ -489,14 +502,15 @@ class Args():
                 return formatter
 
         if dunder_name != "__main__":  
-            app_logger.debug(f"WSGI - no args, using creation default host/port..  sys.argv = {sys.argv}\n")
+            app_logger.debug(f"config - get_cli_args: WSGI - no args, using creation default host/port..  sys.argv = {sys.argv}\n")
         else:   # gunicorn-friendly host/port settings ()
             # thanks to https://www.geeksforgeeks.org/command-line-arguments-in-python/#argparse
             import argparse
             # Initialize parser
             if len(sys.argv) == 1:
-                app_logger.debug("No arguments - using creation default host/port")
+                app_logger.debug("config - get_cli_args: No arguments - using creation default host/port")
             else:
+                app_logger.debug(f"config - get_cli_args [{dunder_name}]: Parse the args")
                 msg = "API Logic Project"
                 parser = argparse.ArgumentParser(
                     formatter_class=make_wide(argparse.ArgumentDefaultsHelpFormatter))
