@@ -80,7 +80,8 @@ class Cliente(SAFRSBaseX, Base):
     # parent relationships (access parent)
 
     # child relationships (access children)
-
+    # Cliente = relationship('Cliente', backref='Ventas_LIN')
+    #VentasLIN_LIST: Mapped[List["Cliente"]] = relationship(backref='Cliente')
     @jsonapi_attr
     def _check_sum_(self):  # type: ignore [no-redef]
         return None if isinstance(self, flask_sqlalchemy.model.DefaultMeta) \
@@ -480,13 +481,13 @@ class VentasLIN(SAFRSBaseX, Base):
     FechaFactura = Column('FechaFactura', Text(collation='utf8mb4_general_ci'), quote = True)
     NombreRaznSocialCliente = Column('NombreRazónSocialCliente', Text(collation='utf8mb4_general_ci'), quote = True)
     NombreComercialCliente = Column('NombreComercialCliente', Text(collation='utf8mb4_general_ci'), quote = True)
-    NCuentaCliente = Column('NCuentaCliente', Integer, index=True, quote = True)
+    NCuentaCliente = Column('NCuentaCliente',  ForeignKey('Cliente.NCuenta'), index=True, quote = True)
     TipoCliente = Column('TipoCliente', Text(collation='utf8mb4_general_ci'), quote = True)
     NIFCliente = Column('NIFCliente', Text(collation='utf8mb4_general_ci'), quote = True)
     Telfono = Column('Teléfono', Text(collation='utf8mb4_general_ci'), quote = True)
 
     # parent relationships (access parent)
-
+    Cliente: Mapped["Cliente"]  = relationship('Cliente', backref='VentasLIST')
     # child relationships (access children)
 
     @jsonapi_attr

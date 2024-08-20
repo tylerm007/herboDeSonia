@@ -101,7 +101,7 @@ def parseFilter(clz: any, filter: dict, sqltypes: any):
         else:
             from config.config import Args
             _quote = '`' if Args.backtic_as_quote else '"' 
-            attr = clz._s_jsonapi_attrs[f]._proxy_key if f != "id" else clz.id
+            attr = clz._s_jsonapi_attrs[f]._proxy_key if f != "id" else clz.id if 'id' in clz._s_jsonapi_attrs else f
             if f == "id":
                 attr = f'{_quote}{clz.__tablename__}{_quote}.{_quote}id{_quote}'
                 _quote = ""
@@ -321,7 +321,7 @@ def advancedFilter(cls, args) -> any:
         if not op_name in ONTIMIZE_OPERATORS:
             raise ValidationError(f'Invalid filter {flt}, unknown operator: {op_name}')
         #join = flt.get("join", "").strip("_").lower()   
-        attr = cls._s_jsonapi_attrs[attr_name] if attr_name != "id" else cls.id
+        attr = cls._s_jsonapi_attrs[attr_name] if attr_name != "id" else cls.id if 'id' in cls._s_jsonapi_attrs else attr_name
         if op_name in ["IN"]:
             expr = ExpressionHolder(expr=attr.in_(clean(attr_val)), join=join)
             expression_holder.append(expr)

@@ -1,5 +1,10 @@
 about:
   date: August 14, 2024 16:44:28
+  merged:
+    at: August 20, 2024 10:18:21
+    new_attributes: ''
+    new_resources: ''
+    new_tab_groups: 'Cliente.VentasLIST '
   recent_changes: works with modified safrs-react-admin
   version: 0.0.0
 api_root: '{http_type}://{swagger_host}:{port}/{api}'
@@ -112,6 +117,12 @@ entities:
     new_template: new_template.html
     primary_key:
     - NCuenta
+    tab_groups:
+    - direction: tomany
+      fks:
+      - NCuentaCliente
+      name: Ventas_LIN
+      resource: VentasLIN
     type: Cliente
   ComprasCAB:
     columns:
@@ -824,6 +835,12 @@ entities:
     new_template: new_template.html
     primary_key:
     - id
+    tab_groups:
+    - direction: toone
+      fks:
+      - NCuentaCliente
+      name: Cliente
+      resource: Cliente
     type: VentasLIN
 settings:
   HomeJS: http://localhost:5656/admin-app/home.js
