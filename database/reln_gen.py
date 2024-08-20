@@ -223,8 +223,20 @@ def generate_relns(rel):
     childColumns =   rel['childColumns'][0]
     parent_key_template = jinja2.Template("{{parent_table}}.{{parent_attr}}")
     child_key_template = jinja2.Template("{{child_table}}.{{child_attr}}")
-    reln_template = jinja2.Template("models.{{childEntity}}.{{roleToParent}} = relationship('{{parentEntity}}', \n backref='{{roleToChild}}', \n primaryjoin=remote(models.{{parentEntity}}.{{parentColumns}}) == foreign(models.{{childEntity}}.{{childColumns}}))\n")
-    print(reln_template.render(childEntity=childEntity, roleToParent=roleToParent, roleToChild=roleToChild, parentEntity=parentEntity, childColumns=childColumns, parentColumns=parentColumns))
+    
+    if len(rel['childColumns']) == 1:
+        parent_reln_template = jinja2.Template("models.{{childEntity}}.{{roleToParent}} : Mapped[\"{{parentEntity}}\"] = relationship('{{parentEntity}}', \n backref='{{roleToChild}}', \n primaryjoin=remote(models.{{parentEntity}}.{{parentColumns}}) == foreign(models.{{childEntity}}.{{childColumns}}))\n")
+        print(parent_reln_template.render(childEntity=childEntity, roleToParent=roleToParent, roleToChild=roleToChild, parentEntity=parentEntity, childColumns=childColumns, parentColumns=parentColumns))
+        
+        # Do not need to gen backref for parent Swagger will show both
+        #child_reln_templates =jinja2.Template("models.{{parentEntity}}.{{roleToChild}} : Mapped[List[\"{{childEntity}}\"]] = relationship('{{childEntity}}', \n backref='{{roleToParent}}')\n")
+        #print(child_reln_templates.render(childEntity=childEntity, roleToParent=roleToParent, roleToChild=roleToChild, parentEntity=parentEntity, childColumns=childColumns, parentColumns=parentColumns))
+    else:
+        #TODO - need to handle multiple columns
+        pass
+        parent_reln_template = jinja2.Template("models.{{childEntity}}.{{roleToParent}} : Mapped[\"{{parentEntity}}\"] = relationship('{{parentEntity}}', \n backref='{{roleToChild}}', \n primaryjoin=remote(models.{{parentEntity}}.{{parentColumns}}) == foreign(models.{{childEntity}}.{{childColumns}}))\n")
+        print(parent_reln_template.render(childEntity=childEntity, roleToParent=roleToParent, roleToChild=roleToChild, parentEntity=parentEntity, childColumns=childColumns, parentColumns=parentColumns))
+    
     '''
     parent_fkey = jinja2.Template("ForeignKey('{{parent_table}}.{{parent_attr}}'),")
     parent_reln = jinja2.Template("{{roleToParent}} :Mapped['{{parent_table}}'] = relationship('{{parent_table}}', backref='{{child_table}}')\n")
@@ -232,7 +244,11 @@ def generate_relns(rel):
     
     #parent_reln2 = jinja2.Template("    primaryjoin=remote('{{parent_table}}.{{parent_attr}}') == foreign('{{child_table}}.{{child_attr}}'))")  
     print (parent_fkey.render(parent_table=parent_table, parent_attr=parent_attr))
-    print(parent_reln.render(roleToParent=roleToParent,parent_table=parent_table, child_table=child_table))
+    print(parent_reln.render(roleToParent=roleToParent, parent_table=parent_table, child_table=child_table))
+    
+    #  * Department : Mapped["Department"] = relationship("Department", foreign_keys='[Employee.OnLoanDepartmentId]', back_populates=("EmployeeList"))
+    #  * EmployeeList : Mapped[List["Employee"]] = relationship("Employee", foreign_keys='[Employee.OnLoanDepartmentId]', back_populates="Department")
+
     '''
     pass
 

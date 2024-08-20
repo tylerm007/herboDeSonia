@@ -31,6 +31,7 @@ Your Code Goes Here
 
 # models.Cliente.Ventas_LIST  = relationship(models.VentasLIN, backref='Cliente')
 
+
 """
 models.ComprasLIN.Compras_CAB = relationship(
     "ComprasCAB",
@@ -40,24 +41,24 @@ models.ComprasLIN.Compras_CAB = relationship(
     == foreign(models.ComprasLIN.AlbarnCompra),
 )
 """
-#GENERATED from LAC JSON !!!!
+# GENERATED from LAC JSON !!!!
 models.VentasLIN.Cliente = relationship(
     "Cliente",
     backref="Ventas_LIN_List",
     primaryjoin=remote(models.Cliente.NCuenta)
     == foreign(models.VentasLIN.NCuentaCliente),
 )
+
 models.ComprasLIN.Compras_CAB = relationship(
     "ComprasCAB",
     backref="Compras_LIN_List",
-    primaryjoin=remote(models.ComprasCAB.SerieNmero)
-    == foreign(models.ComprasLIN.AlbarnCompra),
+    primaryjoin=remote(models.ComprasCAB.SerieNmero) == foreign(models.ComprasLIN.AlbarnCompra),
 )
+
 models.ComprasLIN.Producto = relationship(
     "Producto",
     backref="Compras_LIN_List",
-    primaryjoin=remote(models.Producto.Referencia)
-    == foreign(models.ComprasLIN.ReferenciaProducto),
+    primaryjoin=remote(models.Producto.Referencia) == foreign(models.ComprasLIN.ReferenciaProducto),
 )
 models.StockTienda.Producto_1 = relationship(
     "Producto",
@@ -89,14 +90,28 @@ models.ComprasLIN.Proveedor = relationship(
     primaryjoin=remote(models.Proveedor.NCuenta)
     == foreign(models.ComprasLIN.NCuentaProveedor),
 )
+"""
+models.ComprasLIN.StockTienda = relationship(
+    "StockTienda",
+    secondary="Compras_LIN",
+    primaryjoin='StockTienda.idTienda == Compras_LIN.idTienda',
+    secondaryjoin='StockTienda.Referencia == Compras_LIN.ReferenciaProducto',
+    backref="Compras_LIN_List",
+)
 
-'''
 models.ComprasLIN.StockTienda = relationship(
     "StockTienda",
     backref="Compras_LIN_List",
-    primaryjoin=remote([models.StockTienda.idTienda, models.StockTienda.Referencia])
-    == foreign([models.ComprasLIN.idTienda, models.ComprasLIN.ReferenciaProduct])
+    primaryjoin=models.StockTienda.idTienda == models.StockTienda.Referencia],
+    secondaryJoin=models.StockTienda.idTienda == models.ComprasLIN.ReferenciaProduct
 )
+
+models.TraspasosLIN.StockTienda = relationship("StockTienda",
+    primaryjoin=remote(models.StockTienda.Referencia) == foreign(models.TraspasosLIN.Referencia),
+    secondaryJoin=foreign(models.StockTienda.Referencia == models.TraspasosLIN.Destino),
+    backref="Traspasos_LIN_List_DESTINO",
+)
+
 
 models.TraspasosLIN.StockTienda = relationship(
     "StockTienda",
@@ -116,7 +131,7 @@ models.VentasLIN.StockTienda = relationship(
     primaryjoin=remote(models.StockTienda.Referencia)
     == foreign(models.VentasLIN.RefProducto),
 )
-'''
+"""
 models.VentasLIN.Ventas_CAB = relationship(
     "VentasCAB",
     backref="Ventas_LIN_List",
