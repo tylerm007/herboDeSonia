@@ -90,8 +90,8 @@ def declare_logic():
 	# Comments: None
 
     # TODO - no relationship to: ComprasCAB in Derive ComprasCAB.BaseIVAGeneral
-    #Rule.sum(derive=models.ComprasCAB.BaseIVAGeneral,
-    #            as_sum_of=models.ComprasLIN.Importe, where=lambda row: row.tpcIVA == 21)
+    Rule.sum(derive=models.ComprasCAB.BaseIVAGeneral,
+                as_sum_of=models.ComprasLIN.Importe, where=lambda row: row.tpcIVA == 21)
     
     # RuleType: sum
 	# Title: BaseIVASuperReducido = sum(Compras_LIN_List.Importe where tpcIVA=4)
@@ -110,9 +110,9 @@ def declare_logic():
 	# Entity: ComprasCab
 	# Comments: None
 
-    #Rule.sum(derive=models.ComprasCAB.BaseIVAAceitesPastas, 
-    #    as_sum_of=models.ComprasLIN.Importe,
-    #		where=lambda row: row.tpcIVA==5)
+    Rule.sum(derive=models.ComprasCAB.BaseIVAAceitesPastas, 
+        as_sum_of=models.ComprasLIN.Importe,
+            where=lambda row: row.tpcIVA==5)
     
     # RuleType: formula
 	# Title: ImporteIVAReducido = var dtoProntoPago = (100 - row.tpcDtoProntoPago) / 100;
@@ -123,7 +123,7 @@ def declare_logic():
     def fn_comprascab_formula_formula_luvit(row: models.ComprasCAB, old_row: models.ComprasCAB, logic_row: LogicRow):
         dtoProntoPago = (100 - row.tpcDtoProntoPago) / 100
         dtoGlobal = (100 - row.tpcDtoGlobal) / 100
-        logic_row.log('dtoProntoPago '+  dtoProntoPago + ' dtoGlobal '+ dtoGlobal)
+        logic_row.log(f'dtoProntoPago: {dtoProntoPago} , dtoGlobal: {dtoGlobal}')
         baseIVAReducido = row.BaseIVAReducido * dtoProntoPago
         logic_row.log('row.baseIVAReducido '+ row.baseIVAReducido + ' baseIVAReducido '+ baseIVAReducido)
         baseIVAReducido = baseIVAReducido * dtoGlobal
@@ -140,9 +140,9 @@ def declare_logic():
 	# Entity: ComprasCab
 	# Comments: None
 
-    #Rule.sum(derive=models.ComprasCAB.BaseIVACero, 
-    #    as_sum_of=models.ComprasLIN.Importe,
-    #    where=lambda row: row.tpcIVA==0)
+    Rule.sum(derive=models.ComprasCAB.BaseIVACero, 
+        as_sum_of=models.ComprasLIN.Importe,
+        where=lambda row: row.tpcIVA==0)
 
     # RuleType: sum
 	# Title: BaseIVAReducido = sum(Compras_LIN_List.Importe where tpcIVA=10)
@@ -150,9 +150,9 @@ def declare_logic():
 	# Entity: ComprasCab
 	# Comments: None
 
-    #Rule.sum(derive=models.ComprasCAB.BaseIVAReducido, 
-    #    as_sum_of=models.ComprasLIN.Importe,
-    #    where=lambda row: row.tpcIVA==10)
+    Rule.sum(derive=models.ComprasCAB.BaseIVAReducido, 
+        as_sum_of=models.ComprasLIN.Importe,
+        where=lambda row: row.tpcIVA==10)
     
     app_logger.debug("..logic/declare_logic.py (logic == rules + code)")
 
