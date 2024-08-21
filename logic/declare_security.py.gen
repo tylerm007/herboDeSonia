@@ -19,66 +19,66 @@ def declare_logic():
 app_logger.debug("..logic/declare_logic.py (logic == rules + code)")
 
 
-	# ENTITY: ComprasCab
+	# ENTITY:  ComprasCAB
 	# RuleType: formula
 	# Title: ImporteIVA = return row.ImporteIVAGeneral + row.ImporteIVAReducido + row.ImporteIVAAceitesPastas + row.ImporteIVASuperReducido;
 	# Name: formula_rjsgy
-	# Entity: ComprasCab
+	# Entity:  ComprasCAB
 	# Comments: None
 
-	def 	fn_comprascab_formula_formula_rjsgy(row: models.ComprasCab, old_row: models.ComprasCab, logic_row: LogicRow):
+	def 	fn_comprascab_formula_formula_rjsgy(row: models. ComprasCAB, old_row: models. ComprasCAB, logic_row: LogicRow):
         return row.ImporteIVAGeneral + row.ImporteIVAReducido + row.ImporteIVAAceitesPastas + row.ImporteIVASuperReducido
 
-	Rule.formula(derive=models.ComprasCab.ImporteIVA,
+	Rule.formula(derive=models. ComprasCAB.ImporteIVA,
 		calling=	fn_comprascab_formula_formula_rjsgy)
 
 	# RuleType: formula
 	# Title: TotalAlbCompra = return row.ImporteIVA + row.BaseImponible;
 	# Name: formula_bouar
-	# Entity: ComprasCab
+	# Entity:  ComprasCAB
 	# Comments: None
 
-	Rule.formula(derive=models.ComprasCab.TotalAlbCompra,
+	Rule.formula(derive=models. ComprasCAB.TotalAlbCompra,
 		as_expression=lambda row:  row.ImporteIVA + row.BaseImponible
 )
 
 	# RuleType: sum
 	# Title: BaseIVAGeneral = sum(Compras_LIN_List.Importe where tpcIVA=21)
 	# Name: sum_glfeh
-	# Entity: ComprasCab
+	# Entity:  ComprasCAB
 	# Comments: None
 
-	Rule.sum(derive=models.ComprasCab.BaseIVAGeneral, 
+	Rule.sum(derive=models. ComprasCAB.BaseIVAGeneral, 
 	   		as_sum_of=models.ComprasLIN.Importe,
 		where=lambda row: tpcIVA=21)
 
 	# RuleType: sum
 	# Title: BaseIVASuperReducido = sum(Compras_LIN_List.Importe where tpcIVA=4)
 	# Name: sum_vvqti
-	# Entity: ComprasCab
+	# Entity:  ComprasCAB
 	# Comments: None
 
-	Rule.sum(derive=models.ComprasCab.BaseIVASuperReducido, 
+	Rule.sum(derive=models. ComprasCAB.BaseIVASuperReducido, 
 	   		as_sum_of=models.ComprasLIN.Importe,
 		where=lambda row: tpcIVA=4)
 
 	# RuleType: sum
 	# Title: BaseIVAAceitesPastas = sum(Compras_LIN_List.Importe where tpcIVA=5)
 	# Name: sum_dqles
-	# Entity: ComprasCab
+	# Entity:  ComprasCAB
 	# Comments: None
 
-	Rule.sum(derive=models.ComprasCab.BaseIVAAceitesPastas, 
+	Rule.sum(derive=models. ComprasCAB.BaseIVAAceitesPastas, 
 	   		as_sum_of=models.ComprasLIN.Importe,
 		where=lambda row: tpcIVA=5)
 
 	# RuleType: formula
 	# Title: ImporteIVAReducido = var dtoProntoPago = (100 - row.tpcDtoProntoPago) / 100;
 	# Name: formula_luvit
-	# Entity: ComprasCab
+	# Entity:  ComprasCAB
 	# Comments: None
 
-	def 	fn_comprascab_formula_formula_luvit(row: models.ComprasCab, old_row: models.ComprasCab, logic_row: LogicRow):
+	def 	fn_comprascab_formula_formula_luvit(row: models. ComprasCAB, old_row: models. ComprasCAB, logic_row: LogicRow):
         dtoProntoPago = (100 - row.tpcDtoProntoPago) / 100
 dtoGlobal = (100 - row.tpcDtoGlobal) / 100
 logic_row.log('dtoProntoPago '+  dtoProntoPago + ' dtoGlobal '+ dtoGlobal)
@@ -88,16 +88,16 @@ baseIVAReducido = baseIVAReducido * dtoGlobal
 logic_row.log(' baseIVAReducido ' + baseIVAReducido)
 return baseIVAReducido * 10 /100
 
-	Rule.formula(derive=models.ComprasCab.ImporteIVAReducido,
+	Rule.formula(derive=models. ComprasCAB.ImporteIVAReducido,
 		calling=	fn_comprascab_formula_formula_luvit)
 
 	# RuleType: formula
 	# Title: ImporteIVASuperReducido = var dtoProntoPago = (100 - row.tpcDtoProntoPago) / 100;
 	# Name: formula_dohgf
-	# Entity: ComprasCab
+	# Entity:  ComprasCAB
 	# Comments: None
 
-	def 	fn_comprascab_formula_formula_dohgf(row: models.ComprasCab, old_row: models.ComprasCab, logic_row: LogicRow):
+	def 	fn_comprascab_formula_formula_dohgf(row: models. ComprasCAB, old_row: models. ComprasCAB, logic_row: LogicRow):
         dtoProntoPago = (100 - row.tpcDtoProntoPago) / 100
 dtoGlobal = (100 - row.tpcDtoGlobal) / 100
 baseIVASuperReducido = row.BaseIVASuperReducido * dtoProntoPago
@@ -105,52 +105,52 @@ baseIVASuperReducido = baseIVASuperReducido * dtoGlobal
 
 return baseIVASuperReducido * 4 /100
 
-	Rule.formula(derive=models.ComprasCab.ImporteIVASuperReducido,
+	Rule.formula(derive=models. ComprasCAB.ImporteIVASuperReducido,
 		calling=	fn_comprascab_formula_formula_dohgf)
 
 	# RuleType: sum
 	# Title: BaseIVACero = sum(Compras_LIN_List.Importe where tpcIVA=0)
 	# Name: sum_pielg
-	# Entity: ComprasCab
+	# Entity:  ComprasCAB
 	# Comments: None
 
-	Rule.sum(derive=models.ComprasCab.BaseIVACero, 
+	Rule.sum(derive=models. ComprasCAB.BaseIVACero, 
 	   		as_sum_of=models.ComprasLIN.Importe,
 		where=lambda row: tpcIVA=0)
 
 	# RuleType: sum
 	# Title: BaseIVAReducido = sum(Compras_LIN_List.Importe where tpcIVA=10)
 	# Name: sum_drdjf
-	# Entity: ComprasCab
+	# Entity:  ComprasCAB
 	# Comments: None
 
-	Rule.sum(derive=models.ComprasCab.BaseIVAReducido, 
+	Rule.sum(derive=models. ComprasCAB.BaseIVAReducido, 
 	   		as_sum_of=models.ComprasLIN.Importe,
 		where=lambda row: tpcIVA=10)
 
 	# RuleType: formula
 	# Title: ImporteIVAGeneral = var dtoProntoPago = (100 - row.tpcDtoProntoPago) / 100;
 	# Name: formula_umdvr
-	# Entity: ComprasCab
+	# Entity:  ComprasCAB
 	# Comments: None
 
-	def 	fn_comprascab_formula_formula_umdvr(row: models.ComprasCab, old_row: models.ComprasCab, logic_row: LogicRow):
+	def 	fn_comprascab_formula_formula_umdvr(row: models. ComprasCAB, old_row: models. ComprasCAB, logic_row: LogicRow):
         dtoProntoPago = (100 - row.tpcDtoProntoPago) / 100
 dtoGlobal = (100 - row.tpcDtoGlobal) / 100
 baseIVAGeneral = row.BaseIVAGeneral * dtoProntoPago
 baseIVAGeneral = baseIVAGeneral * dtoGlobal
 return baseIVAGeneral *21 /100
 
-	Rule.formula(derive=models.ComprasCab.ImporteIVAGeneral,
+	Rule.formula(derive=models. ComprasCAB.ImporteIVAGeneral,
 		calling=	fn_comprascab_formula_formula_umdvr)
 
 	# RuleType: formula
 	# Title: BaseImponible = var dtoProntoPago = (100 - row.tpcDtoProntoPago) / 100;
 	# Name: formula_phvqk
-	# Entity: ComprasCab
+	# Entity:  ComprasCAB
 	# Comments: None
 
-	def 	fn_comprascab_formula_formula_phvqk(row: models.ComprasCab, old_row: models.ComprasCab, logic_row: LogicRow):
+	def 	fn_comprascab_formula_formula_phvqk(row: models. ComprasCAB, old_row: models. ComprasCAB, logic_row: LogicRow):
         dtoProntoPago = (100 - row.tpcDtoProntoPago) / 100
 dtoGlobal = (100 - row.tpcDtoGlobal) / 100
 
@@ -171,23 +171,23 @@ baseIVACero = baseIVACero * dtoGlobal
 
 return baseIVAGeneral + baseIVAReducido + baseIVAAceitesPastas + baseIVASuperReducido + baseIVACero
 
-	Rule.formula(derive=models.ComprasCab.BaseImponible,
+	Rule.formula(derive=models. ComprasCAB.BaseImponible,
 		calling=	fn_comprascab_formula_formula_phvqk)
 
 	# RuleType: formula
 	# Title: ImporteIVAAceitesPastas = var dtoProntoPago = (100 - row.tpcDtoProntoPago) / 100;
 	# Name: formula_umsgu
-	# Entity: ComprasCab
+	# Entity:  ComprasCAB
 	# Comments: None
 
-	def 	fn_comprascab_formula_formula_umsgu(row: models.ComprasCab, old_row: models.ComprasCab, logic_row: LogicRow):
+	def 	fn_comprascab_formula_formula_umsgu(row: models. ComprasCAB, old_row: models. ComprasCAB, logic_row: LogicRow):
         dtoProntoPago = (100 - row.tpcDtoProntoPago) / 100
 dtoGlobal = (100 - row.tpcDtoGlobal) / 100
 baseIVAAceitesPastas = row.BaseIVAAceitesPastas * dtoProntoPago
 baseIVAAceitesPastas = baseIVAAceitesPastas * dtoGlobal
 return baseIVAAceitesPastas * 5 /100
 
-	Rule.formula(derive=models.ComprasCab.ImporteIVAAceitesPastas,
+	Rule.formula(derive=models. ComprasCAB.ImporteIVAAceitesPastas,
 		calling=	fn_comprascab_formula_formula_umsgu)
 
 	# ENTITY: StockTienda
@@ -211,14 +211,14 @@ return baseIVAAceitesPastas * 5 /100
 	   		as_sum_of=models.ComprasLIN.Cantidad,
 		where=lambda row: NºCuentaProveedor>0)
 
-	# ENTITY: ComprasLin
+	# ENTITY:  ComprasLIN
 	# RuleType: event
 	# Title: Event: PonStockIncial
 	# Name: event_dinpp
-	# Entity: ComprasLin
+	# Entity:  ComprasLIN
 	# Comments: None
 
-	def 	fn_compraslin_event_event_dinpp(row: models.ComprasLin, old_row: models.ComprasLin, logic_row: LogicRow):
+	def 	fn_compraslin_event_event_dinpp(row: models. ComprasLIN, old_row: models. ComprasLIN, logic_row: LogicRow):
 	#AppliesTo: {'insert': True, 'update': True, 'delete': True}
         logic_row.log('>>>>>>>>>>>>>>>>>> Event else  PonStockIncial >>>>>>>>>>>>>>>>>>')
  if (logic_row.getInitialVerb() == "UPDATE" or logic_row.getInitialVerb() == "INSERT") and row.FechaAlbarán >= row.FechaInventario) 
@@ -244,13 +244,13 @@ return baseIVAAceitesPastas * 5 /100
     
      
 
-	Rule.row_event(on_class=models.ComprasLin,
+	Rule.row_event(on_class=models. ComprasLIN,
 		calling=	fn_compraslin_event_event_dinpp)
 
 	# RuleType: managedParent
 	# Title: Create parent using role StockTienda if it does not exist.
 	# Name: managedParent_evxaf
-	# Entity: ComprasLin
+	# Entity:  ComprasLIN
 	# Comments: None
 
 	#Rule.managedParent(...TODO...)
@@ -258,10 +258,10 @@ return baseIVAAceitesPastas * 5 /100
 	# RuleType: validation
 	# Title: Validation: //log.debug(logicContext.getLogicNestLevel() + 'row.StockTienda.FechaInventario > row.FechaAlbarán '+ row.StockTienda.FechaInventario  + " "+ row.FechaAlbarán);
 	# Name: validation_vfwmg
-	# Entity: ComprasLin
+	# Entity:  ComprasLIN
 	# Comments: None
 
-	def 	fn_compraslin_validation_validation_vfwmg(row: models.ComprasLin, old_row: models.ComprasLin, logic_row: LogicRow):
+	def 	fn_compraslin_validation_validation_vfwmg(row: models. ComprasLIN, old_row: models. ComprasLIN, logic_row: LogicRow):
         #logic_row.log(logic_row.getLogicNestLevel() + 'row.StockTienda.FechaInventario > row.FechaAlbarán '+ row.StockTienda.FechaInventario  + " "+ row.FechaAlbarán)
 if row.StockTienda and logic_row.getLogicNestLevel()== 0)
     {
@@ -272,35 +272,35 @@ if row.StockTienda and logic_row.getLogicNestLevel()== 0)
     
     return True
 
-	Rule.constraint(validate=models.ComprasLin,
+	Rule.constraint(validate=models. ComprasLIN,
 		calling=	fn_compraslin_validation_validation_vfwmg,
 		error_msg="No se puede modifica una entrada si su fecha es anterior a inventario")
 
 	# RuleType: parentCopy
 	# Title: NºCuentaProveedor = parentcopy(Compras_CAB.NºCuentaProveedor)
 	# Name: parentCopy_kfpkd
-	# Entity: ComprasLin
+	# Entity:  ComprasLIN
 	# Comments: None
 
-	Rule.copy(derive=models.ComprasLin.NºCuentaProveedor,
-		from_parent=models.ComprasCab.NºCuentaProveedor)
+	Rule.copy(derive=models. ComprasLIN.NºCuentaProveedor,
+		from_parent=models. ComprasCAB.NºCuentaProveedor)
 
-	# RuleType: parentCopy
-	# Title: FechaAlbarán = parentcopy(Compras_CAB.Fecha)
-	# Name: parentCopy_rvpxv
-	# Entity: ComprasLin
-	# Comments: None
+# RuleType: parentCopy
+# Title: FechaAlbarán = parentcopy(Compras_CAB.Fecha)
+# Name: parentCopy_rvpxv
+# Entity:  ComprasLIN
+# Comments: None
 
-	Rule.copy(derive=models.ComprasLin.FechaAlbarán,
-		from_parent=models.ComprasCab.Fecha)
+Rule.copy(derive=models. ComprasLIN.FechaAlbarán,
+	from_parent=models. ComprasCAB.Fecha)
 
 	# RuleType: formula
 	# Title: Importe = var dto1 = (100 - row.tpcDescuento1) / 100;
 	# Name: formula_tgojc
-	# Entity: ComprasLin
+	# Entity:  ComprasLIN
 	# Comments: None
 
-	def 	fn_compraslin_formula_formula_tgojc(row: models.ComprasLin, old_row: models.ComprasLin, logic_row: LogicRow):
+	def 	fn_compraslin_formula_formula_tgojc(row: models. ComprasLIN, old_row: models. ComprasLIN, logic_row: LogicRow):
         dto1 = (100 - row.tpcDescuento1) / 100
 dto2 = (100 - row.tpcDescuento2) / 100
 importe = row.CantidadConCoste * row.PrecioCoste
@@ -308,26 +308,26 @@ importe = importe * dto1
 importe = importe * dto2
 return importe
 
-	Rule.formula(derive=models.ComprasLin.Importe,
+	Rule.formula(derive=models. ComprasLIN.Importe,
 		calling=	fn_compraslin_formula_formula_tgojc)
 
 	# RuleType: formula
 	# Title: Cantidad = return row.CantidadConCoste + row.CantidadGratis;
 	# Name: formula_ilmjy
-	# Entity: ComprasLin
+	# Entity:  ComprasLIN
 	# Comments: None
 
-	Rule.formula(derive=models.ComprasLin.Cantidad,
+	Rule.formula(derive=models. ComprasLIN.Cantidad,
 		as_expression=lambda row:  row.CantidadConCoste + row.CantidadGratis
 )
 
 	# RuleType: event
 	# Title: Event: keepLastPVP
 	# Name: event_nzgws
-	# Entity: ComprasLin
+	# Entity:  ComprasLIN
 	# Comments: None
 
-	def 	fn_compraslin_event_event_nzgws(row: models.ComprasLin, old_row: models.ComprasLin, logic_row: LogicRow):
+	def 	fn_compraslin_event_event_nzgws(row: models. ComprasLIN, old_row: models. ComprasLIN, logic_row: LogicRow):
 	#AppliesTo: {'insert': True, 'update': True, 'delete': True}
         logic_row.log('>>>>>>>>>>>>>>>>>> Event else  keepLastPVP >>>>>>>>>>>>>>>>>>')
  if (logic_row.getInitialVerb() == "UPDATE" and row.PVPProducto != old_row.PVPProducto) or logic_row.getInitialVerb() == "INSERT") 
@@ -348,28 +348,28 @@ return importe
     
      
 
-	Rule.row_event(on_class=models.ComprasLin,
+	Rule.row_event(on_class=models. ComprasLIN,
 		calling=	fn_compraslin_event_event_nzgws)
 
 	# RuleType: formula
 	# Title: Formula PrecioLinea
 	# Name: formula_olhjv
-	# Entity: ComprasLin
+	# Entity:  ComprasLIN
 	# Comments: None
 
-	def 	fn_compraslin_formula_formula_olhjv(row: models.ComprasLin, old_row: models.ComprasLin, logic_row: LogicRow):
+	def 	fn_compraslin_formula_formula_olhjv(row: models. ComprasLIN, old_row: models. ComprasLIN, logic_row: LogicRow):
         return (row.CantidadConCoste * row.PrecioCoste) / (row.CantidadConCoste + row.CantidadGratis)
 
-	Rule.formula(derive=models.ComprasLin.PrecioLínea,
+	Rule.formula(derive=models. ComprasLIN.PrecioLínea,
 		calling=	fn_compraslin_formula_formula_olhjv)
 
 	# RuleType: parentCopy
 	# Title: FechaInventario = parentcopy(StockTienda.FechaInventario)
 	# Name: parentCopy_qpovr
-	# Entity: ComprasLin
+	# Entity:  ComprasLIN
 	# Comments: None
 
-	Rule.copy(derive=models.ComprasLin.FechaInventario,
+	Rule.copy(derive=models. ComprasLIN.FechaInventario,
 		from_parent=models.StockTienda.FechaInventario)
 
 

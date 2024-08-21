@@ -154,5 +154,243 @@ def declare_logic():
         as_sum_of=models.ComprasLIN.Importe,
         where=lambda row: row.tpcIVA==10)
     
+    
+	# RuleType: formula
+	# Title: ImporteIVAGeneral = var dtoProntoPago = (100 - row.tpcDtoProntoPago) / 100;
+	# Name: formula_umdvr
+	# Entity: ComprasCab
+	# Comments: None
+
+    def fn_comprascab_formula_formula_umdvr(row: models.ComprasCAB, old_row: models.ComprasCAB, logic_row: LogicRow):
+        dtoProntoPago = (100 - row.tpcDtoProntoPago) / 100
+        dtoGlobal = (100 - row.tpcDtoGlobal) / 100
+        baseIVAGeneral = row.BaseIVAGeneral * dtoProntoPago
+        baseIVAGeneral = baseIVAGeneral * dtoGlobal
+        return baseIVAGeneral *21 /100
+
+    Rule.formula(derive=models.ComprasCAB.ImporteIVAGeneral,
+        calling=fn_comprascab_formula_formula_umdvr)
+ 
+    # RuleType: formula
+	# Title: BaseImponible = var dtoProntoPago = (100 - row.tpcDtoProntoPago) / 100;
+	# Name: formula_phvqk
+	# Entity:  ComprasCAB
+	# Comments: None
+
+    def fn_comprascab_formula_formula_phvqk(row: models. ComprasCAB, old_row: models. ComprasCAB, logic_row: LogicRow):
+        dtoProntoPago = (100 - row.tpcDtoProntoPago) / 100
+        dtoGlobal = (100 - row.tpcDtoGlobal) / 100
+
+        baseIVAGeneral = row.BaseIVAGeneral * dtoProntoPago
+        baseIVAGeneral = baseIVAGeneral * dtoGlobal
+
+        baseIVAReducido = row.BaseIVAReducido * dtoProntoPago
+        baseIVAReducido = baseIVAReducido * dtoGlobal
+
+        baseIVAAceitesPastas = row.BaseIVAAceitesPastas * dtoProntoPago
+        baseIVAAceitesPastas = baseIVAAceitesPastas * dtoGlobal
+
+        baseIVASuperReducido = row.BaseIVASuperReducido * dtoProntoPago
+        baseIVASuperReducido = baseIVASuperReducido * dtoGlobal
+
+        baseIVACero = row.BaseIVACero * dtoProntoPago
+        baseIVACero = baseIVACero * dtoGlobal
+
+        return baseIVAGeneral + baseIVAReducido + baseIVAAceitesPastas + baseIVASuperReducido + baseIVACero
+
+    Rule.formula(derive=models. ComprasCAB.BaseImponible,
+        calling=fn_comprascab_formula_formula_phvqk)
+    
+    
+	# RuleType: formula
+	# Title: ImporteIVAAceitesPastas = var dtoProntoPago = (100 - row.tpcDtoProntoPago) / 100;
+	# Name: formula_umsgu
+	# Entity:  ComprasCAB
+	# Comments: None
+
+    def fn_comprascab_formula_formula_umsgu(row: models. ComprasCAB, old_row: models. ComprasCAB, logic_row: LogicRow):
+        dtoProntoPago = (100 - row.tpcDtoProntoPago) / 100
+        dtoGlobal = (100 - row.tpcDtoGlobal) / 100
+        baseIVAAceitesPastas = row.BaseIVAAceitesPastas * dtoProntoPago
+        baseIVAAceitesPastas = baseIVAAceitesPastas * dtoGlobal
+        return baseIVAAceitesPastas * 5 /100
+
+    Rule.formula(derive=models. ComprasCAB.ImporteIVAAceitesPastas,
+        calling=fn_comprascab_formula_formula_umsgu)
+
+    # ENTITY: StockTienda
+	# RuleType: formula
+	# Title: Stock = return row.StockInicial + row.Entradas - row.Salidas;
+	# Name: formula_aycut
+	# Entity: StockTienda
+	# Comments: None
+
+    Rule.formula(derive=models.StockTienda.Stock,
+        as_expression=lambda row: row.StockInicial + row.Entradas - row.Salidas
+    )
+    
+    
+	# RuleType: sum
+	# Title: Entradas = sum(Compras_LIN_List.Cantidad where NºCuentaProveedor>0 AND FechaAlbarán >=)
+	# Name: sum_sqfwp
+	# Entity: StockTienda
+	# Comments: None
+
+    Rule.sum(derive=models.StockTienda.Entradas, 
+            as_sum_of=models.ComprasLIN.Cantidad,
+            where=lambda row: row.NCuentaProveedor>0)
+
+
+    # ENTITY: ComprasLin
+	# RuleType: event
+	# Title: Event: PonStockIncial
+	# Name: event_dinpp
+	# Entity: ComprasLin
+	# Comments: None
+
+    def fn_compraslin_event_event_dinpp(row: models.ComprasLIN, old_row: models.ComprasLIN, logic_row: LogicRow):
+        #AppliesTo: {'insert': True, 'update': True, 'delete': True}
+        logic_row.log('>>>>>>>>>>>>>>>>>> Event else  PonStockIncial >>>>>>>>>>>>>>>>>>')
+        if logic_row.is_updated or logic_row.is_inserted and row.FechaAlbarán >= row.FechaInventario: 
+            parentRow = row.StockTienda
+            logic_row.log(row.Cantidad+ " logic_row.getLogicNestLevel() "+ logic_row.getLogicNestLevel())
+            if parentRow and logic_row.getLogicNestLevel() == 0:
+                logic_row.log(' TIENE PADRE ' + parentRow)
+                if row.NCuentaProveedor == 0:
+                    logic_row.log(' es el proveedor Inventario ' + parentRow)
+                    #logic_row.touch(parentRow)
+                    parentRow.StockInicial = row.Cantidad
+                    parentRow.FechaInventario = row.FechaAlbarán
+                    if logic_row.is_inserted:
+                        parentRow.Entradas = 0
+                        parentRow.Salidas = 0
+                            
+                    logic_row.update(parentRow)
+
+
+    Rule.row_event(on_class=models.ComprasLIN,
+        calling=fn_compraslin_event_event_dinpp)
+    
+    # RuleType: validation
+	# Title: Validation: //log.debug(logicContext.getLogicNestLevel() + 'row.StockTienda.FechaInventario > row.FechaAlbarán '+ row.StockTienda.FechaInventario  + " "+ row.FechaAlbarán);
+	# Name: validation_vfwmg
+	# Entity: ComprasLin
+	# Comments: None
+
+    def fn_compraslin_validation_validation_vfwmg(row: models.ComprasLIN, old_row: models.ComprasLIN, logic_row: LogicRow):
+        #logic_row.log(logic_row.getLogicNestLevel() + 'row.StockTienda.FechaInventario > row.FechaAlbarán '+ row.StockTienda.FechaInventario  + " "+ row.FechaAlbarán)
+        if row.StockTienda and logic_row.getLogicNestLevel()== 0:
+            if row.StockTienda.FechaInventario > row.FechaAlbarán:
+                return False
+            else:
+                return True
+
+        return True
+
+    Rule.constraint(validate=models.ComprasLIN,
+        calling=fn_compraslin_validation_validation_vfwmg,
+        error_msg="No se puede modifica una entrada si su fecha es anterior a inventario")
+
+
+	# RuleType: managedParent
+	# Title: Create parent using role StockTienda if it does not exist.
+	# Name: managedParent_evxaf
+	# Entity: ComprasLin
+	# Comments: None
+
+	#Rule.managedParent(...TODO...) 
+
+    # RuleType: parentCopy
+	# Title: NºCuentaProveedor = parentcopy(Compras_CAB.NºCuentaProveedor)
+	# Name: parentCopy_kfpkd
+	# Entity: ComprasLin
+	# Comments: None
+
+    Rule.copy(derive=models.ComprasLIN.NCuentaProveedor,
+		from_parent=models. ComprasCAB.NCuentaProveedor)
+    
+    # RuleType: parentCopy
+    # Title: FechaAlbarán = parentcopy(Compras_CAB.Fecha)
+    # Name: parentCopy_rvpxv
+    # Entity:  ComprasLIN
+    # Comments: None
+
+    Rule.copy(derive=models. ComprasLIN.FechaAlbarn,
+        from_parent=models. ComprasCAB.Fecha)
+
+    # RuleType: formula
+	# Title: Importe = var dto1 = (100 - row.tpcDescuento1) / 100;
+	# Name: formula_tgojc
+	# Entity:  ComprasLIN
+	# Comments: None
+
+    def fn_compraslin_formula_formula_tgojc(row: models. ComprasLIN, old_row: models. ComprasLIN, logic_row: LogicRow):
+        dto1 = (100 - row.tpcDescuento1) / 100
+        dto2 = (100 - row.tpcDescuento2) / 100
+        importe = row.CantidadConCoste * row.PrecioCoste
+        importe = importe * dto1
+        importe = importe * dto2
+        return importe
+
+    Rule.formula(derive=models. ComprasLIN.Importe,
+		calling=fn_compraslin_formula_formula_tgojc)
+
+    # RuleType: formula
+	# Title: Cantidad = return row.CantidadConCoste + row.CantidadGratis;
+	# Name: formula_ilmjy
+	# Entity:  ComprasLIN
+	# Comments: None
+
+    Rule.formula(derive=models. ComprasLIN.Cantidad,
+		as_expression=lambda row: row.CantidadConCoste + row.CantidadGratis
+    )
+    
+    # RuleType: event
+	# Title: Event: keepLastPVP
+	# Name: event_nzgws
+	# Entity:  ComprasLIN
+	# Comments: None
+
+    def 	fn_compraslin_event_event_nzgws(row: models. ComprasLIN, old_row: models. ComprasLIN, logic_row: LogicRow):
+        #AppliesTo: {'insert': True, 'update': True, 'delete': True}
+        logic_row.log('>>>>>>>>>>>>>>>>>> Event else  keepLastPVP >>>>>>>>>>>>>>>>>>')
+        if (logic_row.is_updated and row.PVPProducto != old_row.PVPProducto) or logic_row.is_inserted:
+            parentRow = row.Producto
+            logic_row.log(row.Cantidad+ " logic_row.getLogicNestLevel() "+ logic_row.getLogicNestLevel())
+            if parentRow and logic_row.getLogicNestLevel() == 0:
+                logic_row.log(' TIENE PADRE ' + parentRow)
+                if parentRow.FechaUltPVP == None or ( row.FechaAlbarán >= parentRow.FechaUltPVP):
+                    logic_row.log(' la fecha de Ult PVP ' + row.Producto.FechaUltPVP)
+                    logic_row.touch(parentRow)
+                    parentRow.FechaUltPVP = row.FechaAlbarán
+                    parentRow.PVP = row.PVPProducto
+                    logic_row.update(parentRow)
+                
+
+    Rule.row_event(on_class=models.ComprasLIN,
+		calling=fn_compraslin_event_event_nzgws)
+
+	# RuleType: formula
+	# Title: Formula PrecioLinea
+	# Name: formula_olhjv
+	# Entity:  ComprasLIN
+	# Comments: None
+
+    def fn_compraslin_formula_formula_olhjv(row: models.ComprasLIN, old_row: models.ComprasLIN, logic_row: LogicRow):
+        return (row.CantidadConCoste * row.PrecioCoste) / (row.CantidadConCoste + row.CantidadGratis)
+
+    Rule.formula(derive=models.ComprasLIN.PrecioLnea,
+		calling=fn_compraslin_formula_formula_olhjv)
+
+    # RuleType: parentCopy
+	# Title: FechaInventario = parentcopy(StockTienda.FechaInventario)
+	# Name: parentCopy_qpovr
+	# Entity:  ComprasLIN
+	# Comments: None
+
+    Rule.copy(derive=models.ComprasLIN.FechaInventario,
+		from_parent=models.StockTienda.FechaInventario)
+
+
     app_logger.debug("..logic/declare_logic.py (logic == rules + code)")
 
