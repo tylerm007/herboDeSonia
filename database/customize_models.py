@@ -90,15 +90,15 @@ models.ComprasLIN.Proveedor = relationship(
     primaryjoin=remote(models.Proveedor.NCuenta)
     == foreign(models.ComprasLIN.NCuentaProveedor),
 )
-"""
+
 models.ComprasLIN.StockTienda = relationship(
     "StockTienda",
     secondary="Compras_LIN",
-    primaryjoin='StockTienda.idTienda == Compras_LIN.idTienda',
-    secondaryjoin='StockTienda.Referencia == Compras_LIN.ReferenciaProducto',
+    primaryjoin=(models.StockTienda.idTienda == models.ComprasLIN.idTienda),
+    secondaryjoin=(models.StockTienda.Referencia == models.ComprasLIN.ReferenciaProducto),
     backref="Compras_LIN_List",
 )
-
+"""
 models.ComprasLIN.StockTienda = relationship(
     "StockTienda",
     backref="Compras_LIN_List",

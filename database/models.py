@@ -318,6 +318,8 @@ class StockTienda(SAFRSBaseX, Base):
     FechaInventario = Column('FechaInventario', DateTime, quote = True)
     allow_client_generated_ids = True
 
+    id = ID
+
     # parent relationships (access parent)
 
     # child relationships (access children)
@@ -367,7 +369,7 @@ class TraspasosLIN(SAFRSBaseX, Base):
 
     Origen = Column('Origen', Text(collation='utf8mb4_general_ci'), quote = True)
     Destino = Column('Destino', Text(collation='utf8mb4_general_ci'), quote = True)
-    Nmero = Column('Número', Integer, primary_key=True, unique=True, quote = True)
+    Número = Column('Número', Integer, primary_key=True, unique=True, quote = True)
     Producto = Column('Producto', Text(collation='utf8mb4_general_ci'), quote = True)
     Cantidad = Column('Cantidad', Integer, quote = True)
     FechaTraspaso = Column('FechaTraspaso', DateTime, quote = True)
