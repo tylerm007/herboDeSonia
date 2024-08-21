@@ -233,9 +233,36 @@ def generate_relns(rel):
         #print(child_reln_templates.render(childEntity=childEntity, roleToParent=roleToParent, roleToChild=roleToChild, parentEntity=parentEntity, childColumns=childColumns, parentColumns=parentColumns))
     else:
         #TODO - need to handle multiple columns
-        pass
-        parent_reln_template = jinja2.Template("models.{{childEntity}}.{{roleToParent}} : Mapped[\"{{parentEntity}}\"] = relationship('{{parentEntity}}', \n backref='{{roleToChild}}', \n primaryjoin=remote(models.{{parentEntity}}.{{parentColumns}}) == foreign(models.{{childEntity}}.{{childColumns}}))\n")
-        print(parent_reln_template.render(childEntity=childEntity, roleToParent=roleToParent, roleToChild=roleToChild, parentEntity=parentEntity, childColumns=childColumns, parentColumns=parentColumns))
+        parentColumns = rel['parentColumns']
+        childColumns =   rel['childColumns']
+        '''
+        models.ComprasLIN.StockTienda = relationship(
+            "StockTienda",
+            secondary="Compras_LIN",
+            primaryjoin=(models.StockTienda.idTienda == models.ComprasLIN.idTienda),
+            secondaryjoin=(models.StockTienda.Referencia == models.ComprasLIN.ReferenciaProducto),
+            backref="Compras_LIN_List",
+            )
+            
+        {
+        "parentEntity": "StockTienda",
+        "childEntity": "Compras_LIN",
+        "roleToParent": "StockTienda",
+        "roleToChild": "Compras_LIN_List",
+        "deleteRule": "No Action",
+        "updateRule": "No Action",
+        "parentColumns": [
+            "idTienda",
+            "Referencia"
+        ],
+        "childColumns": [
+            "idTienda",
+            "ReferenciaProducto"
+        ]
+        },
+        '''
+        multi_parent_reln_template = jinja2.Template("models.{{childEntity}}.{{roleToParent}} = relationship('{{parentEntity}}', \n  secondary='{{childEntity}}', \n  primaryjoin=(models.{{parentEntity}}.{{parentColumns[0]}} == models.{{childEntity}}.{{childColumns[0]}}), \n  secondaryjoin=(models.{{parentEntity}}.{{parentColumns[1]}} == models.{{childEntity}}.{{childColumns[1]}}) ,\n  backref='{{roleToChild}}')"\n )
+        print(multi_parent_reln_template.render(childEntity=childEntity, roleToParent=roleToParent, roleToChild=roleToChild, parentEntity=parentEntity, childColumns=childColumns, parentColumns=parentColumns))
     
     '''
     parent_fkey = jinja2.Template("ForeignKey('{{parent_table}}.{{parent_attr}}'),")

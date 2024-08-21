@@ -90,48 +90,38 @@ models.ComprasLIN.Proveedor = relationship(
     primaryjoin=remote(models.Proveedor.NCuenta)
     == foreign(models.ComprasLIN.NCuentaProveedor),
 )
-"""
 models.ComprasLIN.StockTienda = relationship(
     "StockTienda",
     secondary="Compras_LIN",
-    primaryjoin='StockTienda.idTienda == Compras_LIN.idTienda',
-    secondaryjoin='StockTienda.Referencia == Compras_LIN.ReferenciaProducto',
+    primaryjoin=(models.StockTienda.idTienda == models.ComprasLIN.idTienda),
+    secondaryjoin=(models.StockTienda.Referencia == models.ComprasLIN.ReferenciaProducto),
     backref="Compras_LIN_List",
 )
+'''
+models.ComprasLIN.StockTienda = relationship('StockTienda', 
+    secondary='ComprasLIN',
+    primaryjoin=(models.StockTienda.idTienda == models.ComprasLIN.idTienda), 
+    secondaryjoin=(models.StockTienda.Referencia == models.ComprasLIN.ReferenciaProducto) ,
+    backref='Compras_LIN_List')
 
-models.ComprasLIN.StockTienda = relationship(
-    "StockTienda",
-    backref="Compras_LIN_List",
-    primaryjoin=models.StockTienda.idTienda == models.StockTienda.Referencia],
-    secondaryJoin=models.StockTienda.idTienda == models.ComprasLIN.ReferenciaProduct
-)
+models.TraspasosLIN.StockTienda = relationship('StockTienda', 
+    secondary='TraspasosLIN' ,
+    primaryjoin=(models.StockTienda.Referencia == models.TraspasosLIN.Referencia), 
+    secondaryjoin=(models.StockTienda.Tienda == models.TraspasosLIN.Destino) ,
+    backref='Traspasos_LIN_List_DESTINO')
 
-models.TraspasosLIN.StockTienda = relationship("StockTienda",
-    primaryjoin=remote(models.StockTienda.Referencia) == foreign(models.TraspasosLIN.Referencia),
-    secondaryJoin=foreign(models.StockTienda.Referencia == models.TraspasosLIN.Destino),
-    backref="Traspasos_LIN_List_DESTINO",
-)
+models.TraspasosLIN.StockTienda_1 = relationship('StockTienda', 
+    secondary='TraspasosLIN' ,
+    primaryjoin=(models.StockTienda.Referencia == models.TraspasosLIN.Referencia), 
+    secondaryjoin=(models.StockTienda.Tienda == models.TraspasosLIN.Origen) ,
+    backref='Traspasos_LIN_List_ORIGEN')
 
-
-models.TraspasosLIN.StockTienda = relationship(
-    "StockTienda",
-    backref="Traspasos_LIN_List_DESTINO",
-    primaryjoin=remote(models.StockTienda.Referencia)
-    == foreign(models.TraspasosLIN.Referencia),
-)
-models.TraspasosLIN.StockTienda_1 = relationship(
-    "StockTienda",
-    backref="Traspasos_LIN_List_ORIGEN",
-    primaryjoin=remote(models.StockTienda.Referencia)
-    == foreign(models.TraspasosLIN.Referencia),
-)
-models.VentasLIN.StockTienda = relationship(
-    "StockTienda",
-    backref="Ventas_LIN_List",
-    primaryjoin=remote(models.StockTienda.Referencia)
-    == foreign(models.VentasLIN.RefProducto),
-)
-"""
+models.VentasLIN.StockTienda = relationship('StockTienda', 
+    secondary='VentasLIN' ,
+    primaryjoin=(models.StockTienda.Referencia == models.VentasLIN.RefProducto), 
+    secondaryjoin=(models.StockTienda.Tienda == models.VentasLIN.Tienda) ,
+    backref='Ventas_LIN_List')
+'''
 models.VentasLIN.Ventas_CAB = relationship(
     "VentasCAB",
     backref="Ventas_LIN_List",
