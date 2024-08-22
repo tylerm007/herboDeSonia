@@ -2,8 +2,8 @@
 #    als command line tests for each table endpoint ?page[limit]=10&page[offset]=00&filter[key]=value
 #=============================================================================================
 
-
-als login http://localhost:5656 -u u1 -p p
+#
+#als login http://localhost:5656 -u admin -p p
 
 # als calling endpoint: Cliente?page[limit]=1
 als curl   "http://localhost:5656/api/Cliente?page%5Blimit%5D=1" 
@@ -38,7 +38,7 @@ als curl   "http://localhost:5656/api/TraspasosLIN?page%5Blimit%5D=1"
 
 
 # als calling endpoint: Ventas_CAB?page[limit]=1
-als curl   "http://localhost:5656/api/Ventas_CAB?page%5Blimit%5D=1" 
+als curl "http://localhost:5656/api/VentasCAB?page%5Blimit%5D=1" 
 
 
 # als calling endpoint: Ventas_LIN?page[limit]=1

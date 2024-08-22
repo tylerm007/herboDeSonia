@@ -170,7 +170,7 @@ def declare_logic():
 
     Rule.formula(derive=models.ComprasCAB.ImporteIVAGeneral,
         calling=fn_comprascab_formula_formula_umdvr)
- 
+
     # RuleType: formula
 	# Title: BaseImponible = var dtoProntoPago = (100 - row.tpcDtoProntoPago) / 100;
 	# Name: formula_phvqk
