@@ -2,6 +2,7 @@
 # This is used by LAC conversion projects to simulate the JavaScript endpoint
 # Code is modified from original JavaScript and converted to Python
 # Libraries are imported to support execution
+# TODO headers, scheme, host, port need to be imported from config Args
 import requests
 
 class JavaScript:
@@ -22,8 +23,7 @@ class SysUtility:
         header_settings: str = None,
         request_data: str = None,
     ):
-        #resp = requests.post(post_url=post_url, headers=header_settings, data=request_data)
-        pass
+        return requests.post(post_url=post_url, headers=header_settings, data=request_data)
 
     @classmethod
     def restPut(
@@ -33,8 +33,8 @@ class SysUtility:
         header_settings: str = None,
         request_data: str = None,
     ):
-        #resp = requests.patch(patch_url=patch_url, headers=header_settings, data=request_data)
-        pass
+        return requests.patch(patch_url=patch_url, headers=header_settings, data=request_data)
+
     @staticmethod
     @classmethod
     def restGet(
@@ -44,12 +44,15 @@ class SysUtility:
         header_settings: str = None,
         request_data: str = None,
     ):
-        #resp = requests.get(get_url=get_url, headers=header_settings)
-        pass
+       return requests.get(get_url=get_url, headers=header_settings)
+
     
     @staticmethod
     @classmethod
     def findEntities(cls, entity_name: str, params: any):
-        #get_url = {scheme}//{host}[:{port]}]/api/{entity_name} --params?
-        #resp = requests.get(get_url=get_url)
-        pass
+        scheme = 'http'
+        host = 'localhost'
+        port = 5656
+        
+        get_url = "{scheme}//{host}:{port}/api/{entity_name}" 
+        return requests.get(get_url=get_url) # --params?

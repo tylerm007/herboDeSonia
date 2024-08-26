@@ -154,7 +154,6 @@ def declare_logic():
         as_sum_of=models.ComprasLIN.Importe,
         where=lambda row: row.tpcIVA==10)
     
-    
 	# RuleType: formula
 	# Title: ImporteIVAGeneral = var dtoProntoPago = (100 - row.tpcDtoProntoPago) / 100;
 	# Name: formula_umdvr

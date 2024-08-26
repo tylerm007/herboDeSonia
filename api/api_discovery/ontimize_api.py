@@ -112,6 +112,22 @@ def add_service(app, api, project_dir, swagger_host: str, PORT: str, method_deco
         return gen_report(api_clz, request, _project_dir, payload, attributes)
         
     # Ontimize apiEndpoint path for all services
+    @app.route('/api/export')
+    @cross_origin()
+    @admin_required()
+    def api_export(path):
+        if request.method == "OPTIONS":
+            return jsonify(success=True)
+        return gen_export(request)
+    
+    @app.route('/api/dynamicjasper')
+    @cross_origin()
+    @admin_required()
+    def api_report(path):
+        if request.method == "OPTIONS":
+            return jsonify(success=True)
+        return  _gen_report(request)
+    
     @app.route("/ontimizeweb/services/rest/<path:path>", methods=['GET','POST','PUT','PATCH','DELETE','OPTIONS'])
     @cross_origin()
     @admin_required()
@@ -140,7 +156,7 @@ def add_service(app, api, project_dir, swagger_host: str, PORT: str, method_deco
         
         #api_clz = api_map.get(clz_name)
         resource = find_model(clz_name)
-        if resource == None:
+        if resource is None:
             return jsonify(
                 {"code": 1, "message": f"Resource {clz_name} not found", "data": None}
             )
