@@ -5,8 +5,9 @@
 # docker push tylerm007/ontimize_app:1.0.0  # requires docker login
 #
 # docker tag tylerm007/ontimize_app tylerm007/ontimize_app:latest
-# docker push tylerm007/ontimize_app:latest  
-FROM node:18.10.0-alpine as build
+# docker push tylerm007/ontimize_app:latest
+#DOCKER_DEFAULT_PLATFORM=linux/amd64
+FROM --platform=linux/amd64/v3 node:18.10.0-alpine as build
 
 # Set the working directory
 WORKDIR /usr/local/app

@@ -9,11 +9,11 @@
 #        $ gunicorn --log-level=info -b 0.0.0.0:5656 -w2 --reload api_logic_server_run:flask_app
 #
 #    Then, access the Admin App and API via the Browser, eg:  
-#        http://api_logic_server_host:api_logic_server_port
+#        http://localhost:5656
 #
 #    You typically do not customize this file.
 
-#    (v api_logic_server_version, api_logic_server_created_on)
+#    (v 11.01.04, August 26, 2024 14:20:53)
 #
 #    See Main Code (at end).
 #        Use log messages to understand API and Logic activation.

@@ -1,0 +1,17 @@
+services:
+
+    mysql-service:
+        image: apilogicserver/mysql8.0:latest
+        restart: always
+        environment:
+            - MYSQL_USER=root
+            - MYSQL_PASSWORD=p
+            - MYSQL_ROOT_PASSWORD=p
+        ports:
+            # <Port exposed> : <MySQL Port running inside container>
+            - '3306:3306'
+        expose:
+            # Opens port 3306 on the container
+            - '3306'
+        volumes:
+          - ./mysql:/docker-entrypoint-initdb.d
