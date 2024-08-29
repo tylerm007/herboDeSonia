@@ -40,7 +40,7 @@ services:
           - APILOGICPROJECT_SWAGGER_HOST=lac0.intergal.coop
           - APILOGICPROJECT_SWAGGER_PORT=5656
           - APILOGICPROJECT_SQLALCHEMY_DATABASE_URI=mysql+pymysql://root:rootBrasin44@82.223.204.248:3306/herboDeSonia?charset=utf8mb4
-          - APILOGICPROJECT_SQLALCHEMY_DATABASE_URI_AUTHENTICATION=mysql+pymysql://root:p@mysql-service:3308/authdb
+          - APILOGICPROJECT_SQLALCHEMY_DATABASE_URI_AUTHENTICATION=mysql+pymysql://root:rootBrasin44@82.223.204.248:3308/authdb
         expose:
           - 5656
         ports:
@@ -54,10 +54,10 @@ services:
       expose:
         - 8088
       ports:
-        - 8088:80
+        - 8088:8088
       volumes:
         # local:path-in-container
-        - ../../ui/yaml/dist:/home/node  
+        - ../../ui/app/dist:/home/node  
       depends_on:
         - api-logic-server
       environment:
