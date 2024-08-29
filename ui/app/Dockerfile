@@ -1,13 +1,14 @@
 # Stage 1: Compile and Build angular codebase
 # Use official node image as the base image
-# docker build -f Dockerfile -t tylerm007/ontimize_app --rm .
+# docker buildx create --use
+# docker buildx build --platform linux/amd64 -t tylerm007/ontimize_app --push .
 # docker tag tylerm007/ontimize_app tylerm007/ontimize_app:1.0.0
 # docker push tylerm007/ontimize_app:1.0.0  # requires docker login
 #
 # docker tag tylerm007/ontimize_app tylerm007/ontimize_app:latest
 # docker push tylerm007/ontimize_app:latest
 #DOCKER_DEFAULT_PLATFORM=linux/amd64
-FROM --platform=linux/amd64/v3 node:18.10.0-alpine as build
+FROM node:18.10.0-alpine as build
 
 # Set the working directory
 WORKDIR /usr/local/app
@@ -31,5 +32,5 @@ FROM nginx:latest
 COPY --from=build /usr/local/app/dist /usr/share/nginx/html
 COPY nginx/nginx.conf /etc/nginx/conf.d/default.conf
 
-# Expose port 80
-EXPOSE 80
+# Expose port 8088
+EXPOSE 8088

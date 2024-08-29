@@ -124,7 +124,7 @@ class Authentication_Provider(Abstract_Authentication_Provider):
             object: ApiLogicServer user (with roles) DotMapX object
         """
         rtn_user = DotMapX()
-        rtn_user.client_id = 1  # hack until user data in place
+        #rtn_user.client_id = 1  # hack until user data in place
         rtn_user.name = jwt_data["preferred_username"]
         rtn_user.password_hash = None
 
