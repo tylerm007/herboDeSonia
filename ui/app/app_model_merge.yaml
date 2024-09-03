@@ -1,10 +1,10 @@
 about:
   date: August 14, 2024 16:44:28
   merged:
-    at: August 20, 2024 10:18:21
+    at: August 20, 2024 11:22:44
     new_attributes: ''
     new_resources: ''
-    new_tab_groups: 'Cliente.VentasLIST '
+    new_tab_groups: ''
   recent_changes: works with modified safrs-react-admin
   version: 0.0.0
 api_root: '{http_type}://{swagger_host}:{port}/{api}'

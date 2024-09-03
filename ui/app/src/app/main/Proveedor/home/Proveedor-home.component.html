@@ -1,10 +1,10 @@
-<o-form attr="Proveedor" mode="tab" title="{{ 'PROVEEDOR' | oTranslate }}" class="fill-form">
+<o-form-Layout-manager attr="Proveedor" mode="tab" title="PROVEEDOR">
     <div fxFill fxLayout="column" fxLayoutAlign="start">
         <o-table 
             attr="ProveedorTable" 
             service="Proveedor" 
             entity="Proveedor" 
-            title="{{ 'PROVEEDOR' | oTranslate }}"
+            title="PROVEEDOR"
             keys="NCuenta"
             columns="DNICIF;RSocial;TipoProv;FPago;Facturacin;Provincia;NCuenta;Calle;ExtCalle;CPost;E_mail;Web;BIC;IBAN;CC;Tlf1;Tlf2;Mvil;Fax;Contacto;Comentarios;Notific;Debaja;Localidad" 
             header-actions="R;D"
@@ -74,4 +74,4 @@
             <o-table-paginator page-size-options="24;48;96"></o-table-paginator>
         </o-table>
     </div>
-</o-form>
+</o-form-Layout-manager>

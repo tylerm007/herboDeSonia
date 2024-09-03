@@ -1,10 +1,10 @@
-<o-form attr="ComprasCAB" mode="tab" title="{{ 'COMPRASCAB' | oTranslate }}" class="fill-form">
+<o-form-Layout-manager attr="ComprasCAB" mode="tab" title="COMPRASCAB">
     <div fxFill fxLayout="column" fxLayoutAlign="start">
         <o-table 
             attr="ComprasCABTable" 
             service="ComprasCAB" 
             entity="ComprasCAB" 
-            title="{{ 'COMPRASCAB' | oTranslate }}"
+            title="COMPRASCAB"
             keys="idCabCompras"
             columns="SerieNmero;Fecha;RaznSocial;BaseImponible;ImporteIVA;ImporteRecargoEq;TotalAlbCompra;idCabCompras;ImporteIVAReducido;ImporteIVASuperReducido;ImporteIVAAceitesPastas;BaseIVAReducido;BaseIVASuperReducido;BaseIVAAceitesPastas;BaseIVACero;ImporteIVAGeneral;BaseIVAGeneral;TotalAlbCalculado;tpcDtoProntoPago;tpcDtoGlobal;Tienda;NCuentaProveedor;idTienda" 
             header-actions="R;D"
@@ -72,4 +72,4 @@
             <o-table-paginator page-size-options="24;48;96"></o-table-paginator>
         </o-table>
     </div>
-</o-form>
+</o-form-Layout-manager>

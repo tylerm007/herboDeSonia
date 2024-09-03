@@ -1,10 +1,10 @@
-<o-form attr="Tienda" mode="tab" title="{{ 'TIENDA' | oTranslate }}" class="fill-form">
+<o-form-Layout-manager attr="Tienda" mode="tab" title="TIENDA">
     <div fxFill fxLayout="column" fxLayoutAlign="start">
         <o-table 
             attr="TiendaTable" 
             service="Tienda" 
             entity="Tienda" 
-            title="{{ 'TIENDA' | oTranslate }}"
+            title="TIENDA"
             keys="STOREDVALUE"
             columns="STOREDVALUE;DISPLAYVALUE" 
             header-actions="R;D"
@@ -30,4 +30,4 @@
             <o-table-paginator page-size-options="24;48;96"></o-table-paginator>
         </o-table>
     </div>
-</o-form>
+</o-form-Layout-manager>

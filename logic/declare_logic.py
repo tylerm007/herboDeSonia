@@ -90,8 +90,8 @@ def declare_logic():
 	# Comments: None
 
     # TODO - no relationship to: ComprasCAB in Derive ComprasCAB.BaseIVAGeneral
-    Rule.sum(derive=models.ComprasCAB.BaseIVAGeneral,
-                as_sum_of=models.ComprasLIN.Importe, where=lambda row: row.tpcIVA == 21)
+    #Rule.sum(derive=models.ComprasCAB.BaseIVAGeneral,
+    #            as_sum_of=models.ComprasLIN.Importe, where=lambda row: row.tpcIVA == 21)
     
     # RuleType: sum
 	# Title: BaseIVASuperReducido = sum(Compras_LIN_List.Importe where tpcIVA=4)
@@ -110,9 +110,9 @@ def declare_logic():
 	# Entity: ComprasCab
 	# Comments: None
 
-    Rule.sum(derive=models.ComprasCAB.BaseIVAAceitesPastas, 
-        as_sum_of=models.ComprasLIN.Importe,
-            where=lambda row: row.tpcIVA==5)
+    #Rule.sum(derive=models.ComprasCAB.BaseIVAAceitesPastas, 
+    #    as_sum_of=models.ComprasLIN.Importe,
+    #        where=lambda row: row.tpcIVA==5)
     
     # RuleType: formula
 	# Title: ImporteIVAReducido = var dtoProntoPago = (100 - row.tpcDtoProntoPago) / 100;
@@ -140,9 +140,9 @@ def declare_logic():
 	# Entity: ComprasCab
 	# Comments: None
 
-    Rule.sum(derive=models.ComprasCAB.BaseIVACero, 
-        as_sum_of=models.ComprasLIN.Importe,
-        where=lambda row: row.tpcIVA==0)
+    #Rule.sum(derive=models.ComprasCAB.BaseIVACero, 
+    #    as_sum_of=models.ComprasLIN.Importe,
+    #    where=lambda row: row.tpcIVA==0)
 
     # RuleType: sum
 	# Title: BaseIVAReducido = sum(Compras_LIN_List.Importe where tpcIVA=10)
@@ -150,9 +150,9 @@ def declare_logic():
 	# Entity: ComprasCab
 	# Comments: None
 
-    Rule.sum(derive=models.ComprasCAB.BaseIVAReducido, 
-        as_sum_of=models.ComprasLIN.Importe,
-        where=lambda row: row.tpcIVA==10)
+    #Rule.sum(derive=models.ComprasCAB.BaseIVAReducido, 
+    #    as_sum_of=models.ComprasLIN.Importe,
+    #    where=lambda row: row.tpcIVA==10)
     
 	# RuleType: formula
 	# Title: ImporteIVAGeneral = var dtoProntoPago = (100 - row.tpcDtoProntoPago) / 100;
@@ -235,9 +235,9 @@ def declare_logic():
 	# Entity: StockTienda
 	# Comments: None
 
-    Rule.sum(derive=models.StockTienda.Entradas, 
-            as_sum_of=models.ComprasLIN.Cantidad,
-            where=lambda row: row.NCuentaProveedor>0)
+    #Rule.sum(derive=models.StockTienda.Entradas, 
+    #        as_sum_of=models.ComprasLIN.Cantidad,
+    #        where=lambda row: row.NCuentaProveedor>0)
 
 
     # ENTITY: ComprasLin
@@ -305,8 +305,8 @@ def declare_logic():
 	# Entity: ComprasLin
 	# Comments: None
 
-    Rule.copy(derive=models.ComprasLIN.NCuentaProveedor,
-		from_parent=models. ComprasCAB.NCuentaProveedor)
+    #Rule.copy(derive=models.ComprasLIN.NCuentaProveedor,
+    #		from_parent=models. ComprasCAB.NCuentaProveedor)
     
     # RuleType: parentCopy
     # Title: FechaAlbarán = parentcopy(Compras_CAB.Fecha)
@@ -314,8 +314,8 @@ def declare_logic():
     # Entity:  ComprasLIN
     # Comments: None
 
-    Rule.copy(derive=models. ComprasLIN.FechaAlbarn,
-        from_parent=models. ComprasCAB.Fecha)
+    #Rule.copy(derive=models. ComprasLIN.FechaAlbarn,
+    #    from_parent=models. ComprasCAB.Fecha)
 
     # RuleType: formula
 	# Title: Importe = var dto1 = (100 - row.tpcDescuento1) / 100;
@@ -387,8 +387,8 @@ def declare_logic():
 	# Entity:  ComprasLIN
 	# Comments: None
 
-    Rule.copy(derive=models.ComprasLIN.FechaInventario,
-		from_parent=models.StockTienda.FechaInventario)
+    #Rule.copy(derive=models.ComprasLIN.FechaInventario,
+    #		from_parent=models.StockTienda.FechaInventario)
 
 
     app_logger.debug("..logic/declare_logic.py (logic == rules + code)")

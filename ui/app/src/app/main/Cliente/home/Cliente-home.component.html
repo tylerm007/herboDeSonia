@@ -1,10 +1,10 @@
-<o-form attr="Cliente" mode="tab" title="{{ 'CLIENTE' | oTranslate }}" class="fill-form">
+<o-form-Layout-manager attr="Cliente" mode="tab" title="CLIENTE">
     <div fxFill fxLayout="column" fxLayoutAlign="start">
         <o-table 
             attr="ClienteTable" 
             service="Cliente" 
             entity="Cliente" 
-            title="{{ 'CLIENTE' | oTranslate }}"
+            title="CLIENTE"
             keys="NCuenta"
             columns="Tipo;FechaAlta;TipoCliente;DNI_CIF;BIC;IBAN;NCuenta;NombreCorto;NombreCompleto;Calle;ExtCalle;Provincia;CodPostal;Tlf;Email;Web;FPago;CC;DtoGl;NCopFact;Contacto;Recomendado;Comentarios;Notific;DeBaja;FechaBaja;CreadorPor;SumaVentas;PuntosGenerados;PuntosUsados;SaldoParaPuntos;Localidad" 
             header-actions="R;D"
@@ -90,4 +90,4 @@
             <o-table-paginator page-size-options="24;48;96"></o-table-paginator>
         </o-table>
     </div>
-</o-form>
+</o-form-Layout-manager>

@@ -1,10 +1,10 @@
-<o-form attr="TraspasosLIN" mode="tab" title="{{ 'TRASPASOSLIN' | oTranslate }}" class="fill-form">
+<o-form-Layout-manager attr="TraspasosLIN" mode="tab" title="TRASPASOSLIN">
     <div fxFill fxLayout="column" fxLayoutAlign="start">
         <o-table 
             attr="TraspasosLINTable" 
             service="TraspasosLIN" 
             entity="TraspasosLIN" 
-            title="{{ 'TRASPASOSLIN' | oTranslate }}"
+            title="TRASPASOSLIN"
             keys="Nmero"
             columns="Origen;Destino;Nmero;Producto;FechaTraspaso;PedidoProveedor;Referencia;Cantidad" 
             header-actions="R;D"
@@ -42,4 +42,4 @@
             <o-table-paginator page-size-options="24;48;96"></o-table-paginator>
         </o-table>
     </div>
-</o-form>
+</o-form-Layout-manager>

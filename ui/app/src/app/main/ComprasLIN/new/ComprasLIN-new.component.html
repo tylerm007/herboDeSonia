@@ -1,6 +1,5 @@
-<o-breadcrumb [form]="ComprasLINForm" label-columns="" separator=" "></o-breadcrumb>
 <o-form #ComprasLINForm attr="ComprasLIN_form_insert" service="ComprasLIN" entity="ComprasLIN" 
-keys="id" fxLayout="column" show-header="yes" header-actions="I"
+keys="Id" fxLayout="column" show-header="yes" header-actions="I"
 horizontal-scroll="yes"
 after-insert-mode="new" class="standalone-form-container" (onInsertMode)="onInsertMode()">
 
@@ -63,7 +62,7 @@ after-insert-mode="new" class="standalone-form-container" (onInsertMode)="onInse
       
         <o-integer-input #Cantidad attr="Cantidad" label="Cantidad" type="integer" editable="no" required="no" ></o-integer-input>
       
-        <o-integer-input #id attr="id" label="id" type="integer" editable="no" required="no" ></o-integer-input>
+        <o-integer-input #Id attr="Id" label="Id" type="integer" editable="no" required="no" ></o-integer-input>
       
 </div>
 </o-row>

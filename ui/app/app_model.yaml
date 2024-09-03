@@ -112,6 +112,12 @@ entities:
     new_template: new_template.html
     primary_key:
     - NCuenta
+    tab_groups:
+    - direction: tomany
+      fks:
+      - NCuentaCliente
+      name: Ventas_LIN
+      resource: VentasLIN
     type: Cliente
   ComprasCAB:
     columns:
@@ -837,6 +843,7 @@ settings:
     decimal_separator: .
     edit_on_mode: dblclick
     include_translation: false
+    locale: 'es'
     keycloak_client_id: alsclient
     keycloak_realm: kcals
     keycloak_url: http://localhost:8080

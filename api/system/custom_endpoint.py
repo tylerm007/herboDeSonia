@@ -884,7 +884,7 @@ class CustomEndpoint():
             result = newRes
         result = self.move_checksum(json_result)
         result if isinstance(result,list) else [result]
-        if style == "IMATIA":
+        if style == "OntimizeEE":
             recordsNumber = self.totalQueryRecordsNumber #if len(result) == 0 else self.startRecordIndex
             startRecord = self.startRecordIndex
             result = {"code":0,"totalQueryRecordsNumber": recordsNumber, "startRecordIndex": startRecord, "message":"ApiLogicServer","data": result ,"sqlTypes":{}}

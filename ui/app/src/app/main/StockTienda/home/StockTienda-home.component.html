@@ -1,10 +1,10 @@
-<o-form attr="StockTienda" mode="tab" title="{{ 'STOCKTIENDA' | oTranslate }}" class="fill-form">
+<o-form-Layout-manager attr="StockTienda" mode="tab" title="STOCKTIENDA">
     <div fxFill fxLayout="column" fxLayoutAlign="start">
         <o-table 
             attr="StockTiendaTable" 
             service="StockTienda" 
             entity="StockTienda" 
-            title="{{ 'STOCKTIENDA' | oTranslate }}"
+            title="STOCKTIENDA"
             keys="Referencia;idTienda"
             columns="ID;Tienda;Referencia;Marca;Producto;ltimaVenta;ltimaCompra;Unidades;PrecioCoste;PrecioCosteConIVA;PrecioCosteConIVA_Recargo;PCM;PCMconIVA;PCMconIVA_Recargo;PVP;PVPsinIVA;idTienda;StockInicial;Entradas;Salidas;Stock;FechaInventario" 
             header-actions="R;D"
@@ -70,4 +70,4 @@
             <o-table-paginator page-size-options="24;48;96"></o-table-paginator>
         </o-table>
     </div>
-</o-form>
+</o-form-Layout-manager>

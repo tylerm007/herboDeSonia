@@ -1,12 +1,12 @@
 <div class="container">
-<o-form-container breadcrumb="yes" breadcrumb-label-columns="id" breadcrumb-separator=", " class="fill-form">
+<o-form-container breadcrumb="yes" breadcrumb-label-columns="Id" breadcrumb-separator=", " class="fill-form">
       <o-form #form attr="VentasLIN_form_edit" 
         service="VentasLIN" 
         entity="VentasLIN" 
         fxLayout="column" 
         show-header="yes" 
         header-actions="R;I;U;D"
-        #oDetailForm keys="id" 
+        #oDetailForm keys="Id" 
         keys-sql-types="INTEGER" 
         show-header-navigation="yes"
         (onDataLoaded)="onDataLoaded($event)">
@@ -14,7 +14,7 @@
   <o-row attr="row1" layout-align="start stretch">
     <div fxLayout="row wrap" fxLayoutAlign="start start" fxFlex fxLayoutGap="14px">
       
-      <o-integer-input #id attr="id" label=" id*" type="integer" editable="no" required="no" ></o-integer-input>
+      <o-integer-input #Id attr="Id" label=" Id*" type="integer" editable="no" required="no" ></o-integer-input>
       
       <o-text-input #Usuario attr="Usuario" label="Usuario" enabled="yes" required="no" fxFlex="20%" class="form-field"></o-text-input>
       

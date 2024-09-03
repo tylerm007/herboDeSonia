@@ -1,14 +1,14 @@
-<o-form attr="ComprasLIN" mode="tab" title="{{ 'COMPRASLIN' | oTranslate }}" class="fill-form">
+<o-form-Layout-manager attr="ComprasLIN" mode="tab" title="COMPRASLIN">
     <div fxFill fxLayout="column" fxLayoutAlign="start">
         <o-table 
             attr="ComprasLINTable" 
             service="ComprasLIN" 
             entity="ComprasLIN" 
-            title="{{ 'COMPRASLIN' | oTranslate }}"
-            keys="id"
-            columns="Tienda;NmeroAlbarn;AlbarnCompra;NombreProveedor;FechaAlbarn;ImporteAlbarn;ReferenciaProducto;OLDReferenciaProducto;DescripciondelProducto;CdigodeBarras;PVPProducto;PrecioLnea;tpcIVA;tpcDescuento1;tpcDescuento2;tpcDescuento3;tpcDescuento4;tpcDtoGlobal;tpcDtoProntoPago;Importe;NCuentaProveedor;CantidadConCoste;CantidadGratis;PrecioCoste;Lote;idTienda;FechaInventario;Cantidad;id" 
+            title="COMPRASLIN"
+            keys="Id"
+            columns="Tienda;NmeroAlbarn;AlbarnCompra;NombreProveedor;FechaAlbarn;ImporteAlbarn;ReferenciaProducto;OLDReferenciaProducto;DescripciondelProducto;CdigodeBarras;PVPProducto;PrecioLnea;tpcIVA;tpcDescuento1;tpcDescuento2;tpcDescuento3;tpcDescuento4;tpcDtoGlobal;tpcDtoProntoPago;Importe;NCuentaProveedor;CantidadConCoste;CantidadGratis;PrecioCoste;Lote;idTienda;FechaInventario;Cantidad;Id" 
             header-actions="R;D"
-            visible-columns="Tienda;NmeroAlbarn;AlbarnCompra;NombreProveedor;FechaAlbarn;ImporteAlbarn;ReferenciaProducto;OLDReferenciaProducto;DescripciondelProducto;CdigodeBarras;PVPProducto;PrecioLnea;tpcIVA;tpcDescuento1;tpcDescuento2;tpcDescuento3;tpcDescuento4;tpcDtoGlobal;tpcDtoProntoPago;Importe;NCuentaProveedor;CantidadConCoste;CantidadGratis;PrecioCoste;Lote;idTienda;FechaInventario;Cantidad;id"  
+            visible-columns="Tienda;NmeroAlbarn;AlbarnCompra;NombreProveedor;FechaAlbarn;ImporteAlbarn;ReferenciaProducto;OLDReferenciaProducto;DescripciondelProducto;CdigodeBarras;PVPProducto;PrecioLnea;tpcIVA;tpcDescuento1;tpcDescuento2;tpcDescuento3;tpcDescuento4;tpcDtoGlobal;tpcDtoProntoPago;Importe;NCuentaProveedor;CantidadConCoste;CantidadGratis;PrecioCoste;Lote;idTienda;FechaInventario;Cantidad;Id"  
             sort-columns="Tienda" 
             query-rows="20" 
             quick-filter="yes"
@@ -78,10 +78,10 @@
             
             <o-table-column #Cantidad attr="Cantidad" title="Cantidad" type="integer" editable="no" required="no" content-align="center"></o-table-column>
             
-            <o-table-column #id attr="id" title="id" type="integer" editable="no" required="no" content-align="center"></o-table-column>
+            <o-table-column #Id attr="Id" title="Id" type="integer" editable="no" required="no" content-align="center"></o-table-column>
             
             <o-table-context-menu></o-table-context-menu>
             <o-table-paginator page-size-options="24;48;96"></o-table-paginator>
         </o-table>
     </div>
-</o-form>
+</o-form-Layout-manager>

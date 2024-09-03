@@ -7,7 +7,7 @@ import { VentasLINDetailComponent } from './detail/VentasLIN-detail.component';
 const routes: Routes = [
   {path: '', component: VentasLINHomeComponent},
   { path: 'new', component: VentasLINNewComponent },
-  { path: ':id', component: VentasLINDetailComponent,
+  { path: ':Id', component: VentasLINDetailComponent,
     data: {
       oPermission: {
         permissionId: 'VentasLIN-detail-permissions'

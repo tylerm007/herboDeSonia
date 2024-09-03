@@ -7,7 +7,7 @@ import { ComprasLINDetailComponent } from './detail/ComprasLIN-detail.component'
 const routes: Routes = [
   {path: '', component: ComprasLINHomeComponent},
   { path: 'new', component: ComprasLINNewComponent },
-  { path: ':id', component: ComprasLINDetailComponent,
+  { path: ':Id', component: ComprasLINDetailComponent,
     data: {
       oPermission: {
         permissionId: 'ComprasLIN-detail-permissions'

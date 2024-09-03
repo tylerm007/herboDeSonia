@@ -2,7 +2,6 @@
 from sqlalchemy import BigInteger, CHAR, Column, DECIMAL, Date, DateTime, Float, Index, Integer, SmallInteger, String, Text
 from sqlalchemy.dialects.mysql import BIT
 from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy import ForeignKey, ForeignKeyConstraint
 
 ########################################################################################################################
 # Classes describing database for SqlAlchemy ORM, initially created by schema introspection.
@@ -10,7 +9,7 @@ from sqlalchemy import ForeignKey, ForeignKeyConstraint
 # Alter this file per your database maintenance policy
 #    See https://apilogicserver.github.io/Docs/Project-Rebuild/#rebuilding
 #
-# Created:  August 14, 2024 16:44:28
+# Created:  September 03, 2024 09:29:48
 # Database: mysql+pymysql://root:p@localhost:3306/herboDeSonia?charset=utf8mb4
 # Dialect:  mysql
 #
@@ -25,7 +24,6 @@ from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy.orm import relationship
 from sqlalchemy.orm import Mapped
 from sqlalchemy.sql.sqltypes import NullType
-from sqlalchemy import ForeignKeyConstraint
 from typing import List
 
 db = SQLAlchemy() 
@@ -80,8 +78,7 @@ class Cliente(SAFRSBaseX, Base):
     # parent relationships (access parent)
 
     # child relationships (access children)
-    # Cliente = relationship('Cliente', backref='Ventas_LIN')
-    #VentasLIN_LIST: Mapped[List["Cliente"]] = relationship(backref='Cliente')
+
     @jsonapi_attr
     def _check_sum_(self):  # type: ignore [no-redef]
         return None if isinstance(self, flask_sqlalchemy.model.DefaultMeta) \
@@ -100,9 +97,9 @@ class ComprasCAB(SAFRSBaseX, Base):
     _s_collection_name = 'ComprasCAB'  # type: ignore
     __bind_key__ = 'None'
 
-    SerieNmero = Column('SerieNúmero', String(11, 'utf8mb4_general_ci'), unique=True, quote = True)
+    SerieNmero = Column('SerieNmero', String(11, 'utf8mb4_general_ci'), unique=True, quote = True)
     Fecha = Column('Fecha', DateTime, index=True, quote = True)
-    RaznSocial = Column('RazónSocial', Text(collation='utf8mb4_general_ci'), quote = True)
+    RaznSocial = Column('RaznSocial', Text(collation='utf8mb4_general_ci'), quote = True)
     BaseImponible = Column('BaseImponible', DECIMAL(11, 2), quote = True)
     ImporteIVA = Column('ImporteIVA', DECIMAL(11, 2), quote = True)
     ImporteRecargoEq = Column('ImporteRecargoEq', DECIMAL(11, 2), quote = True)
@@ -121,13 +118,13 @@ class ComprasCAB(SAFRSBaseX, Base):
     tpcDtoProntoPago = Column('tpcDtoProntoPago', DECIMAL(5, 2), quote = True)
     tpcDtoGlobal = Column('tpcDtoGlobal', DECIMAL(5, 2), quote = True)
     Tienda = Column('Tienda', Text(collation='utf8mb4_general_ci'), quote = True)
-    NCuentaProveedor = Column('NºCuentaProveedor', Integer, quote = True)
+    NCuentaProveedor = Column('NCuentaProveedor', Integer, quote = True)
     idTienda = Column('idTienda', SmallInteger, quote = True)
 
     # parent relationships (access parent)
 
     # child relationships (access children)
-    #ComprasLIN_List  : Mapped[List["ComprasLIN"]] = relationship(back_populates="ComprasCAB")
+
     @jsonapi_attr
     def _check_sum_(self):  # type: ignore [no-redef]
         return None if isinstance(self, flask_sqlalchemy.model.DefaultMeta) \
@@ -147,22 +144,21 @@ class ComprasLIN(SAFRSBaseX, Base):
     __bind_key__ = 'None'
     __table_args__ = (
         Index('Fk_Producto', 'idTienda', 'ReferenciaProducto'),
-        ForeignKeyConstraint(['AlbaránCompra'], ['Compras_CAB.SerieNúmero']),
     )
 
     Tienda = Column('Tienda', Text(collation='utf8mb4_general_ci'), quote = True)
-    NmeroAlbarn = Column('NúmeroAlbarán', Integer, quote = True)
-    AlbarnCompra = Column('AlbaránCompra', String(11, 'utf8mb4_general_ci'), ForeignKey('Compras_CAB.SerieNúmero'), index=True, quote = True)
+    NmeroAlbarn = Column('NmeroAlbarn', Integer, quote = True)
+    AlbarnCompra = Column('AlbarnCompra', String(11, 'utf8mb4_general_ci'), index=True, quote = True)
     NombreProveedor = Column('NombreProveedor', Text(collation='utf8mb4_general_ci'), quote = True)
-    FechaAlbarn = Column('FechaAlbarán', DateTime, quote = True)
-    ImporteAlbarn = Column('ImporteAlbarán', DECIMAL(11, 2), quote = True)
+    FechaAlbarn = Column('FechaAlbarn', DateTime, quote = True)
+    ImporteAlbarn = Column('ImporteAlbarn', DECIMAL(11, 2), quote = True)
     ReferenciaProducto = Column('ReferenciaProducto', Integer, quote = True)
     OLDReferenciaProducto = Column('OLDReferenciaProducto', Text(collation='utf8mb4_general_ci'), quote = True)
     DescripciondelProducto = Column('DescripciondelProducto', Text(collation='utf8mb4_general_ci'), quote = True)
-    CdigodeBarras = Column('CódigodeBarras', BigInteger, quote = True)
+    CdigodeBarras = Column('CdigodeBarras', BigInteger, quote = True)
     Cantidad = Column('Cantidad', Integer, quote = True)
     PVPProducto = Column('PVPProducto', DECIMAL(11, 2), quote = True)
-    PrecioLnea = Column('PrecioLínea', DECIMAL(11, 2), quote = True)
+    PrecioLnea = Column('PrecioLnea', DECIMAL(11, 2), quote = True)
     tpcIVA = Column('tpcIVA', DECIMAL(11, 2), quote = True)
     tpcDescuento1 = Column('tpcDescuento1', DECIMAL(5, 2), quote = True)
     tpcDescuento2 = Column('tpcDescuento2', DECIMAL(5, 2), quote = True)
@@ -170,9 +166,9 @@ class ComprasLIN(SAFRSBaseX, Base):
     tpcDescuento4 = Column('tpcDescuento4', DECIMAL(5, 2), quote = True)
     tpcDtoGlobal = Column('tpcDtoGlobal', DECIMAL(5, 2), quote = True)
     tpcDtoProntoPago = Column('tpcDtoProntoPago', DECIMAL(5, 2), quote = True)
-    id = Column('id', Integer, primary_key=True, quote = True)
+    Id = Column('id', Integer, primary_key=True, quote = True)
     Importe = Column('Importe', DECIMAL(11, 2), quote = True)
-    NCuentaProveedor = Column('NºCuentaProveedor', Integer, quote = True)
+    NCuentaProveedor = Column('NCuentaProveedor', Integer, quote = True)
     CantidadConCoste = Column('CantidadConCoste', Integer, quote = True)
     CantidadGratis = Column('CantidadGratis', Integer, quote = True)
     PrecioCoste = Column('PrecioCoste', DECIMAL(11, 2), quote = True)
@@ -181,9 +177,9 @@ class ComprasLIN(SAFRSBaseX, Base):
     FechaInventario = Column('FechaInventario', DateTime, quote = True)
 
     # parent relationships (access parent)
-    #ComprasCAB_Parent: Mapped["Compras_CAB"]  = relationship(back_populates="ComprasLIN_List")
+
     # child relationships (access children)
-    
+
     @jsonapi_attr
     def _check_sum_(self):  # type: ignore [no-redef]
         return None if isinstance(self, flask_sqlalchemy.model.DefaultMeta) \
@@ -367,7 +363,7 @@ class TraspasosLIN(SAFRSBaseX, Base):
 
     Origen = Column('Origen', Text(collation='utf8mb4_general_ci'), quote = True)
     Destino = Column('Destino', Text(collation='utf8mb4_general_ci'), quote = True)
-    Nmero = Column('Número', Integer, primary_key=True, unique=True, quote = True)
+    Nmero = Column('Nmero', Integer, primary_key=True, unique=True, quote = True)
     Producto = Column('Producto', Text(collation='utf8mb4_general_ci'), quote = True)
     Cantidad = Column('Cantidad', Integer, quote = True)
     FechaTraspaso = Column('FechaTraspaso', DateTime, quote = True)
@@ -451,7 +447,7 @@ class VentasLIN(SAFRSBaseX, Base):
     _s_collection_name = 'VentasLIN'  # type: ignore
     __bind_key__ = 'None'
 
-    id = Column('id', Integer, primary_key=True, quote = True)
+    Id = Column('id', Integer, primary_key=True, quote = True)
     Usuario = Column('Usuario', Text(collation='utf8mb4_general_ci'), quote = True)
     Tienda = Column('Tienda', Text(collation='utf8mb4_general_ci'), quote = True)
     Serie = Column('Serie', Text(collation='utf8mb4_general_ci'), quote = True)
@@ -481,13 +477,13 @@ class VentasLIN(SAFRSBaseX, Base):
     FechaFactura = Column('FechaFactura', Text(collation='utf8mb4_general_ci'), quote = True)
     NombreRaznSocialCliente = Column('NombreRazónSocialCliente', Text(collation='utf8mb4_general_ci'), quote = True)
     NombreComercialCliente = Column('NombreComercialCliente', Text(collation='utf8mb4_general_ci'), quote = True)
-    NCuentaCliente = Column('NCuentaCliente',  ForeignKey('Cliente.NCuenta'), index=True, quote = True)
+    NCuentaCliente = Column('NCuentaCliente', Integer, index=True, quote = True)
     TipoCliente = Column('TipoCliente', Text(collation='utf8mb4_general_ci'), quote = True)
     NIFCliente = Column('NIFCliente', Text(collation='utf8mb4_general_ci'), quote = True)
     Telfono = Column('Teléfono', Text(collation='utf8mb4_general_ci'), quote = True)
 
     # parent relationships (access parent)
-    Cliente: Mapped["Cliente"]  = relationship('Cliente', backref='VentasLIST')
+
     # child relationships (access children)
 
     @jsonapi_attr

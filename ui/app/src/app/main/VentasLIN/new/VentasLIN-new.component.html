@@ -1,13 +1,12 @@
-<o-breadcrumb [form]="VentasLINForm" label-columns="" separator=" "></o-breadcrumb>
 <o-form #VentasLINForm attr="VentasLIN_form_insert" service="VentasLIN" entity="VentasLIN" 
-keys="id" fxLayout="column" show-header="yes" header-actions="I"
+keys="Id" fxLayout="column" show-header="yes" header-actions="I"
 horizontal-scroll="yes"
 after-insert-mode="new" class="standalone-form-container" (onInsertMode)="onInsertMode()">
 
 <o-row attr="row1" layout-align="start stretch">
   <div fxLayout="row wrap" fxLayoutAlign="start start" fxFlex fxLayoutGap="14px">
     
-        <o-integer-input #id attr="id" label=" id*" type="integer" editable="no" required="no" ></o-integer-input>
+        <o-integer-input #Id attr="Id" label=" Id*" type="integer" editable="no" required="no" ></o-integer-input>
       
         <o-text-input #Usuario attr="Usuario" label="Usuario" enabled="yes" required="no" fxFlex="20%" class="form-field"></o-text-input>
       

@@ -1,10 +1,10 @@
-<o-form attr="Producto" mode="tab" title="{{ 'PRODUCTO' | oTranslate }}" class="fill-form">
+<o-form-Layout-manager attr="Producto" mode="tab" title="PRODUCTO">
     <div fxFill fxLayout="column" fxLayoutAlign="start">
         <o-table 
             attr="ProductoTable" 
             service="Producto" 
             entity="Producto" 
-            title="{{ 'PRODUCTO' | oTranslate }}"
+            title="PRODUCTO"
             keys="Referencia"
             columns="Referencia;Descripcion;DescripcionBreve;CodBarras;CodGenerico;FechaCreacion;PVP;PrecioCoste;Familia;SubFam;Stock;Ubicacion;IVA;Marca;Proveedor;Descatalogado;PublicarWeb;OfertaWeb;NovedadWeb;tipoIVA;FechaUltPVP" 
             header-actions="R;D"
@@ -68,4 +68,4 @@
             <o-table-paginator page-size-options="24;48;96"></o-table-paginator>
         </o-table>
     </div>
-</o-form>
+</o-form-Layout-manager>

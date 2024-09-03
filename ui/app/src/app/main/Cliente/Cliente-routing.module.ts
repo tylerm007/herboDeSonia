@@ -13,7 +13,14 @@ const routes: Routes = [
         permissionId: 'Cliente-detail-permissions'
       }
     }
-  }
+  },{
+    path: ':NCuentaCliente/VentasLIN', loadChildren: () => import('../VentasLIN/VentasLIN.module').then(m => m.VentasLINModule),
+    data: {
+        oPermission: {
+            permissionId: 'VentasLIN-detail-permissions'
+        }
+    }
+}
 ];
 
 export const CLIENTE_MODULE_DECLARATIONS = [

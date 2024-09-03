@@ -1,15 +1,15 @@
-<o-form attr="VentasLIN" mode="tab" title="{{ 'VENTASLIN' | oTranslate }}" class="fill-form">
+<o-form-Layout-manager attr="VentasLIN" mode="tab" title="VENTASLIN">
     <div fxFill fxLayout="column" fxLayoutAlign="start">
         <o-table 
             attr="VentasLINTable" 
             service="VentasLIN" 
             entity="VentasLIN" 
-            title="{{ 'VENTASLIN' | oTranslate }}"
-            keys="id"
-            columns="id;Usuario;Tienda;Serie;Nmero;VentaMostrador;FechaVenta;Producto;CdigoBarras;RefProducto;OLDRefProducto;FamiliaComercial;SubFamiliaComercial;Marca;CantidadVendida;LoteVendido;ImporteTotal;PrecioLnea;tpcIVA;NombreOferta;tpcDtoLnea;tpcDtoGlobal;tpcDtoPP;ImporteBruto;FacturaSN;FechaFactura;NombreRaznSocialCliente;NombreComercialCliente;NCuentaCliente;TipoCliente;NIFCliente;Telfono;StockCantidad;FechaCaducidad" 
+            title="VENTASLIN"
+            keys="Id"
+            columns="Id;Usuario;Tienda;Serie;Nmero;VentaMostrador;FechaVenta;Producto;CdigoBarras;RefProducto;OLDRefProducto;FamiliaComercial;SubFamiliaComercial;Marca;CantidadVendida;LoteVendido;ImporteTotal;PrecioLnea;tpcIVA;NombreOferta;tpcDtoLnea;tpcDtoGlobal;tpcDtoPP;ImporteBruto;FacturaSN;FechaFactura;NombreRaznSocialCliente;NombreComercialCliente;NCuentaCliente;TipoCliente;NIFCliente;Telfono;StockCantidad;FechaCaducidad" 
             header-actions="R;D"
-            visible-columns="id;Usuario;Tienda;Serie;Nmero;VentaMostrador;FechaVenta;Producto;CdigoBarras;RefProducto;OLDRefProducto;FamiliaComercial;SubFamiliaComercial;Marca;CantidadVendida;LoteVendido;ImporteTotal;PrecioLnea;tpcIVA;NombreOferta;tpcDtoLnea;tpcDtoGlobal;tpcDtoPP;ImporteBruto;FacturaSN;FechaFactura;NombreRaznSocialCliente;NombreComercialCliente;NCuentaCliente;TipoCliente;NIFCliente;Telfono;StockCantidad;FechaCaducidad"  
-            sort-columns="id" 
+            visible-columns="Id;Usuario;Tienda;Serie;Nmero;VentaMostrador;FechaVenta;Producto;CdigoBarras;RefProducto;OLDRefProducto;FamiliaComercial;SubFamiliaComercial;Marca;CantidadVendida;LoteVendido;ImporteTotal;PrecioLnea;tpcIVA;NombreOferta;tpcDtoLnea;tpcDtoGlobal;tpcDtoPP;ImporteBruto;FacturaSN;FechaFactura;NombreRaznSocialCliente;NombreComercialCliente;NCuentaCliente;TipoCliente;NIFCliente;Telfono;StockCantidad;FechaCaducidad"  
+            sort-columns="Id" 
             query-rows="20" 
             quick-filter="yes"
             row-height="medium" 
@@ -22,7 +22,7 @@
             show-title="yes"
             export-button="yes">
             
-            <o-table-column #id attr="id" title=" id*" type="integer" editable="no" required="no" content-align="center"></o-table-column>
+            <o-table-column #Id attr="Id" title=" Id*" type="integer" editable="no" required="no" content-align="center"></o-table-column>
             
             <o-table-column #Usuario attr="Usuario" title="Usuario" editable="no" required="no" content-align="left"></o-table-column>
             
@@ -94,4 +94,4 @@
             <o-table-paginator page-size-options="24;48;96"></o-table-paginator>
         </o-table>
     </div>
-</o-form>
+</o-form-Layout-manager>

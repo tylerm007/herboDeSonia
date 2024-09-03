@@ -1,10 +1,10 @@
 about:
   date: August 14, 2024 16:44:28
   merged:
-    at: August 21, 2024 09:32:14
+    at: September 03, 2024 09:29:48
     new_attributes: ''
     new_resources: ''
-    new_tab_groups: 'Cliente.VentasLIST '
+    new_tab_groups: ''
   recent_changes: works with modified safrs-react-admin
   version: 0.0.0
 api_root: '{http_type}://{swagger_host}:{port}/{api}'
@@ -57,11 +57,6 @@ resources:
       fks:
       - NCuentaCliente
       name: Ventas_LIN
-      resource: VentasLIN
-    - direction: tomany
-      fks:
-      - NCuentaCliente
-      name: VentasLIST
       resource: VentasLIN
     type: Cliente
     user_key: Tipo
