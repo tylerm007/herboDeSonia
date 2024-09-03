@@ -3,7 +3,7 @@
 #=============================================================================================
 
 #
-#als login http://localhost:5656 -u admin -p p
+als login --user admin --password p
 
 # als calling endpoint: Cliente?page[limit]=1
 als curl   "http://localhost:5656/api/Cliente?page%5Blimit%5D=1" 

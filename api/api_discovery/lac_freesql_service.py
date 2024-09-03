@@ -60,7 +60,7 @@ def add_service(app, api, project_dir, swagger_host: str, PORT: str, method_deco
         sql = get_Count_Traspasos_LIN__Rivas_Vaciamadrid_SF(request)
         return FreeSQL(sqlExpression=sql).execute(request)
 
-    def get_count_traspasos_lin__rivas_vaciamadrid_sf(request):
+    def get_Count_Traspasos_LIN__Rivas_Vaciamadrid_SF(request):
         args = request.args
         argValue = args.get("filter", "1=1")
         return "SELECT count(*) FROM `Traspasos_LIN` WHERE :WHERE AND (`Origen` = 'RIVAS VACIAMADRID' OR `Destino` = 'RIVAS VACIAMADRID')  ".replace(":WHERE", argValue )
@@ -206,7 +206,7 @@ def add_service(app, api, project_dir, swagger_host: str, PORT: str, method_deco
     def get_Count_Ventas_LIN__Santa_Eugenia_SF(request):
         args = request.args
         argValue = args.get("filter", "1=1")
-        return "SELECT count(*) FROM `Ventas_LIN` WHERE :WHERE AND `Tienda` ='Santa Eugenia ".replace(":WHERE", argValue )
+        return "SELECT count(*) FROM `Ventas_LIN` WHERE :WHERE AND `Tienda` ='Santa Eugenia' ".replace(":WHERE", argValue )
 
     #FreeSQL resource: Count_Cliente ResourceType: FreeSQL isActive: True
     @app.route('/rest/default/herboDeSonia/v1/count_cliente', methods=['GET','OPTIONS'])
